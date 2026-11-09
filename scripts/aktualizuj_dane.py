@@ -4,7 +4,7 @@
 Uruchamiane raz dziennie po zamknięciu sesji w USA (GitHub Actions albo cron na hostingu).
 
 Źródła:
-  - kursy zamknięcia akcji i S&P 500: Yahoo Finance, a gdy nie odpowie, Stooq,
+  - kursy zamknięcia akcji i S&P 500: Yahoo Finance, a gdy nie odpowie, Nasdaq, potem Stooq,
   - kurs USD/PLN: NBP, tabela A (średni kurs).
 
 Użycie:
@@ -66,16 +66,34 @@ def wczytaj_transakcje(sciezka=None):
 
 # ---------- pobieranie danych ----------
 
-def _pobierz(url, proby=3):
+try:  # curl_cffi łączy się jak przeglądarka Chrome; serwisy giełdowe rzadziej go blokują
+    from curl_cffi import requests as _cffi
+except ImportError:
+    _cffi = None
+
+
+def _pobierz_raz(url, naglowki):
+    if _cffi is not None:
+        r = _cffi.get(url, headers=naglowki, impersonate="chrome", timeout=30)
+        if r.status_code >= 400:
+            raise RuntimeError(f"HTTP Error {r.status_code}")
+        return r.text
+    req = urllib.request.Request(url, headers=dict({"User-Agent": USER_AGENT}, **naglowki))
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read().decode("utf-8", errors="replace")
+
+
+def _pobierz(url, proby=3, naglowki=None):
     ostatni = None
     for i in range(proby):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(req, timeout=30) as r:
-                return r.read().decode("utf-8", errors="replace")
+            return _pobierz_raz(url, naglowki or {})
         except Exception as e:  # sieć bywa kapryśna, próbujemy jeszcze raz
             ostatni = e
-            time.sleep(2 * (i + 1))
+            if "404" in str(e):
+                break
+            # przy 429 (za dużo zapytań) czekamy dłużej
+            time.sleep((10 if "429" in str(e) else 2) * (i + 1))
     raise RuntimeError(f"Nie udało się pobrać {url}: {ostatni}")
 
 
@@ -83,9 +101,46 @@ def kursy_yahoo(symbol, od, do):
     """Zwraca {data: kurs zamknięcia} z Yahoo Finance (kurs skorygowany o splity, bez dywidend)."""
     p1 = int(dt.datetime(od.year, od.month, od.day, tzinfo=dt.timezone.utc).timestamp())
     p2 = int(dt.datetime(do.year, do.month, do.day, 23, 59, tzinfo=dt.timezone.utc).timestamp())
-    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}"
-           f"?period1={p1}&period2={p2}&interval=1d&events=history")
-    return parsuj_yahoo(_pobierz(url), symbol)
+    blad = None
+    for host in ("query2", "query1"):
+        url = (f"https://{host}.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}"
+               f"?period1={p1}&period2={p2}&interval=1d&events=history")
+        try:
+            return parsuj_yahoo(_pobierz(url, proby=2), symbol)
+        except RuntimeError as e:
+            blad = e
+    raise blad
+
+
+NASDAQ_NAGLOWKI = {"Accept": "application/json, text/plain, */*", "Origin": "https://www.nasdaq.com",
+                   "Referer": "https://www.nasdaq.com/"}
+# Symbol benchmarku w Nasdaq dla symbolu ze Stooq: (symbol, klasa aktywów)
+NASDAQ_BENCHMARK = {"^spx": ("SPX", "index")}
+
+
+def kursy_nasdaq(symbol, od, do, klasa="stocks"):
+    """Zwraca {data: kurs zamknięcia} z API strony nasdaq.com."""
+    url = (f"https://api.nasdaq.com/api/quote/{urllib.parse.quote(symbol)}/historical?"
+           + urllib.parse.urlencode({"assetclass": klasa, "fromdate": od.isoformat(),
+                                     "todate": do.isoformat(), "limit": 9999}))
+    return parsuj_nasdaq(_pobierz(url, naglowki=NASDAQ_NAGLOWKI), symbol)
+
+
+def parsuj_nasdaq(tekst, symbol):
+    try:
+        wiersze = json.loads(tekst)["data"]["tradesTable"]["rows"]
+    except (ValueError, KeyError, TypeError):
+        raise RuntimeError(f"Nasdaq nie zwrócił danych dla {symbol}: {tekst[:120]!r}")
+    dane = {}
+    for w in wiersze or []:
+        try:
+            dzien = dt.datetime.strptime(w["date"], "%m/%d/%Y").date()
+            dane[dzien] = round(float(str(w["close"]).replace("$", "").replace(",", "")), 4)
+        except (KeyError, ValueError):
+            continue
+    if not dane:
+        raise RuntimeError(f"Nasdaq zwrócił pustą serię dla {symbol}")
+    return dane
 
 
 def parsuj_yahoo(tekst, symbol):
@@ -106,12 +161,16 @@ def parsuj_yahoo(tekst, symbol):
     return dane
 
 
-def kursy_akcji(symbol_yahoo, symbol_stooq, od, do):
-    """Najpierw Yahoo, a gdy nie odpowie, Stooq. Błąd tylko wtedy, gdy oba źródła zawiodą."""
+def kursy_akcji(symbol_yahoo, symbol_stooq, od, do, symbol_nasdaq=None, klasa="stocks"):
+    """Kolejno Yahoo, Nasdaq i Stooq. Błąd tylko wtedy, gdy wszystkie źródła zawiodą."""
     bledy = []
-    for nazwa, funkcja, sym in (("Yahoo", kursy_yahoo, symbol_yahoo), ("Stooq", kursy_stooq, symbol_stooq)):
+    zrodla = [("Yahoo", lambda: kursy_yahoo(symbol_yahoo, od, do), symbol_yahoo)]
+    if symbol_nasdaq:
+        zrodla.append(("Nasdaq", lambda: kursy_nasdaq(symbol_nasdaq, od, do, klasa), symbol_nasdaq))
+    zrodla.append(("Stooq", lambda: kursy_stooq(symbol_stooq, od, do), symbol_stooq))
+    for nazwa, funkcja, sym in zrodla:
         try:
-            return funkcja(sym, od, do)
+            return funkcja()
         except RuntimeError as e:
             bledy.append(f"{nazwa}: {e}")
             print(f"Uwaga: {nazwa} nie odpowiedział dla {sym}, próbuję dalej.", file=sys.stderr)
@@ -353,9 +412,15 @@ def main(argv=None):
     else:
         od = min([t["data"] for t in transakcje] + [dt.date.fromisoformat(ustawienia["data_startu"])]) - dt.timedelta(days=10)
         tickery = {t["ticker"] for t in transakcje}
-        kursy = {s["stooq"]: kursy_akcji(s.get("yahoo") or s["ticker"], s["stooq"], od, dzis)
-                 for s in spolki if s["ticker"] in tickery}
-        kursy[bsym] = kursy_akcji(ustawienia["benchmark"].get("yahoo") or YAHOO_BENCHMARK.get(bsym, bsym), bsym, od, dzis)
+        kursy = {}
+        for s in spolki:
+            if s["ticker"] in tickery:
+                kursy[s["stooq"]] = kursy_akcji(s.get("yahoo") or s["ticker"], s["stooq"], od, dzis,
+                                                s.get("nasdaq") or s["ticker"].replace("-", "."))
+                time.sleep(1)  # odstęp między spółkami, żeby nie wywołać limitu zapytań
+        bn, bk = NASDAQ_BENCHMARK.get(bsym, (None, "index"))
+        kursy[bsym] = kursy_akcji(ustawienia["benchmark"].get("yahoo") or YAHOO_BENCHMARK.get(bsym, bsym),
+                                  bsym, od, dzis, bn, bk)
         fx = kursy_nbp_usd(od, dzis)
 
     wynik = policz(ustawienia, spolki, transakcje, kursy, fx, bsym)
