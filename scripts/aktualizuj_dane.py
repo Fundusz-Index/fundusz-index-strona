@@ -4,7 +4,7 @@
 Uruchamiane raz dziennie po zamknięciu sesji w USA (GitHub Actions albo cron na hostingu).
 
 Źródła:
-  - kursy zamknięcia akcji i S&P 500: Stooq (pliki CSV),
+  - kursy zamknięcia akcji i S&P 500: Yahoo Finance, a gdy nie odpowie, Stooq,
   - kurs USD/PLN: NBP, tabela A (średni kurs).
 
 Użycie:
@@ -26,7 +26,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-USER_AGENT = "FunduszIndex-aktualizacja/1.0"
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+# Symbol benchmarku w Yahoo dla symbolu ze Stooq
+YAHOO_BENCHMARK = {"^spx": "^GSPC"}
 
 
 # ---------- odczyt plików ----------
@@ -75,6 +77,45 @@ def _pobierz(url, proby=3):
             ostatni = e
             time.sleep(2 * (i + 1))
     raise RuntimeError(f"Nie udało się pobrać {url}: {ostatni}")
+
+
+def kursy_yahoo(symbol, od, do):
+    """Zwraca {data: kurs zamknięcia} z Yahoo Finance (kurs skorygowany o splity, bez dywidend)."""
+    p1 = int(dt.datetime(od.year, od.month, od.day, tzinfo=dt.timezone.utc).timestamp())
+    p2 = int(dt.datetime(do.year, do.month, do.day, 23, 59, tzinfo=dt.timezone.utc).timestamp())
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}"
+           f"?period1={p1}&period2={p2}&interval=1d&events=history")
+    return parsuj_yahoo(_pobierz(url), symbol)
+
+
+def parsuj_yahoo(tekst, symbol):
+    try:
+        wynik = json.loads(tekst)["chart"]["result"][0]
+        czasy = wynik["timestamp"]
+        zamkniecia = wynik["indicators"]["quote"][0]["close"]
+        przesuniecie = wynik.get("meta", {}).get("gmtoffset", 0)
+    except (ValueError, KeyError, IndexError, TypeError):
+        raise RuntimeError(f"Yahoo nie zwrócił danych dla {symbol}: {tekst[:120]!r}")
+    dane = {}
+    for t, c in zip(czasy, zamkniecia):
+        if c is not None:
+            dzien = dt.datetime.fromtimestamp(t + przesuniecie, tz=dt.timezone.utc).date()
+            dane[dzien] = round(float(c), 4)
+    if not dane:
+        raise RuntimeError(f"Yahoo zwrócił pustą serię dla {symbol}")
+    return dane
+
+
+def kursy_akcji(symbol_yahoo, symbol_stooq, od, do):
+    """Najpierw Yahoo, a gdy nie odpowie, Stooq. Błąd tylko wtedy, gdy oba źródła zawiodą."""
+    bledy = []
+    for nazwa, funkcja, sym in (("Yahoo", kursy_yahoo, symbol_yahoo), ("Stooq", kursy_stooq, symbol_stooq)):
+        try:
+            return funkcja(sym, od, do)
+        except RuntimeError as e:
+            bledy.append(f"{nazwa}: {e}")
+            print(f"Uwaga: {nazwa} nie odpowiedział dla {sym}, próbuję dalej.", file=sys.stderr)
+    raise RuntimeError("Nie udało się pobrać kursów. " + " | ".join(bledy))
 
 
 def kursy_stooq(symbol, od, do):
@@ -312,8 +353,9 @@ def main(argv=None):
     else:
         od = min([t["data"] for t in transakcje] + [dt.date.fromisoformat(ustawienia["data_startu"])]) - dt.timedelta(days=10)
         tickery = {t["ticker"] for t in transakcje}
-        kursy = {s["stooq"]: kursy_stooq(s["stooq"], od, dzis) for s in spolki if s["ticker"] in tickery}
-        kursy[bsym] = kursy_stooq(bsym, od, dzis)
+        kursy = {s["stooq"]: kursy_akcji(s.get("yahoo") or s["ticker"], s["stooq"], od, dzis)
+                 for s in spolki if s["ticker"] in tickery}
+        kursy[bsym] = kursy_akcji(ustawienia["benchmark"].get("yahoo") or YAHOO_BENCHMARK.get(bsym, bsym), bsym, od, dzis)
         fx = kursy_nbp_usd(od, dzis)
 
     wynik = policz(ustawienia, spolki, transakcje, kursy, fx, bsym)
