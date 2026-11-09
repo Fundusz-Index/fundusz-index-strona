@@ -332,7 +332,7 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         wart = a * c * k
         lista.append({
             "ticker": tk, "nazwa": s["nazwa"], "sektor": s["sektor"], "opis": s.get("opis", ""),
-            "analiza": s.get("analiza"), "autorzy": s.get("autorzy"),
+            "analiza": s.get("analiza"), "raport": s.get("raport"), "autorzy": s.get("autorzy"),
             "liczba_akcji": round(a, 4), "kurs_usd": zaokr(c),
             "wartosc_pln": zaokr(wart), "koszt_pln": zaokr(koszt[tk]),
             "waga": zaokr(wart / razem * 100, 2),

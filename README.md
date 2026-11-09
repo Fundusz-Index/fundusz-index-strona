@@ -22,8 +22,8 @@ Strona funduszu pod adresem **fundusz.knrkindex.pl**. Statyczne pliki HTML, CSS 
 Wszystko, co zmienia się regularnie, siedzi w folderze `data/`:
 
 - **`transakcje.csv`**: każde kupno i sprzedaż. Kolumny: `data` (RRRR-MM-DD), `typ` (`kupno` albo `sprzedaz`), `ticker`, `kwota_pln` albo `liczba_akcji`, `uzasadnienie`. Jeśli podasz tylko kwotę, skrypt sam policzy liczbę akcji po kursie zamknięcia z dnia transakcji (albo z najbliższej sesji po nim).
-- **`spolki.json`**: opis każdej spółki: nazwa, symbol w Stooq (np. `googl.us`), sektor, link do analizy i autorzy. Nowa spółka w transakcjach musi mieć tu wpis.
-- **`analizy.json`**: karty na stronie Analizy. Nowa analiza to nowy wpis i nowa strona w `analizy/` (najprościej skopiować `analizy/wmb.html`). Pliki PDF i Excel wrzucajcie do folderu `pliki/analizy/`.
+- **`spolki.json`**: opis każdej spółki: nazwa, symbol w Stooq (np. `googl.us`), sektor, link do analizy (`analiza`), raport PDF do pobrania (`raport`) i autorzy. Nowa spółka w transakcjach musi mieć tu wpis.
+- **`analizy.json`**: karty na stronie Analizy. Pole `link` prowadzi do strony analizy w `analizy/` (najprościej skopiować `analizy/wmb.html`) albo wprost do PDF-a, a pole `raport` daje przycisk „Pobierz raport (PDF)”. Pliki PDF wrzucajcie do folderu `pliki/analizy/`, nazwa: `fundusz-index-<ticker>-RRRR-MM.pdf`.
 - **`artykuly.json`**: lista artykułów. Przykład wpisu:
   ```json
   { "dzial": "Profit Journal", "data": "2026-11-20", "tytul": "Tytuł", "wstep": "Dwa zdania wstępu.", "autor": "Imię Nazwisko", "link": "https://..." }

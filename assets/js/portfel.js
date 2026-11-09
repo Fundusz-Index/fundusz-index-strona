@@ -117,9 +117,9 @@
     var maxW = Math.max.apply(null, lista.map(function (p) { return p.waga; }));
     $('spolki').innerHTML = lista.map(function (p) {
       var open = stan.otwarta === p.ticker, t = teza(p.ticker);
-      var link = p.analiza
-        ? '<a href="' + esc(FI.base + p.analiza) + '"><b>Czytaj analizę ' + esc(p.ticker) + '</b></a>'
-        : '<span class="muted">Analiza w przygotowaniu</span>';
+      var link = (p.analiza ? '<a href="' + esc(FI.base + p.analiza) + '"><b>Czytaj analizę ' + esc(p.ticker) + '</b></a>' : '') +
+        (p.raport ? '<a href="' + esc(FI.base + p.raport) + '" download><b>Pobierz raport ' + esc(p.ticker) + ' (PDF)</b></a>' : '');
+      if (!link) link = '<span class="muted">Analiza w przygotowaniu</span>';
       return '<li><button type="button" class="holding-btn" aria-expanded="' + open + '" data-ticker="' + esc(p.ticker) + '">' +
         '<span class="initials" aria-hidden="true">' + esc(p.ticker) + '</span>' +
         '<span class="holding-name"><strong>' + esc(p.nazwa) + '</strong><span class="tiny muted">' + esc(p.sektor) + ' · ' + esc(p.opis) + '</span></span>' +
