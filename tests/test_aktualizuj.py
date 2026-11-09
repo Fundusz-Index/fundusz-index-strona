@@ -65,6 +65,23 @@ class TestPortfel(unittest.TestCase):
         with self.assertRaises(ValueError):
             A.policz(USTAWIENIA, SPOLKI, t, kursy, fx, "^spx")
 
+    def test_parsowanie_yahoo(self):
+        import json
+        t = json.dumps({"chart": {"result": [{"meta": {"gmtoffset": -18000},
+             "timestamp": [1792157400, 1792416600, 1792503000],
+             "indicators": {"quote": [{"close": [71.28, None, 72.5]}]}}]}})
+        d = A.parsuj_yahoo(t, "WMB")
+        self.assertEqual(list(d.values()), [71.28, 72.5])
+        self.assertEqual(min(d).weekday(), 4)  # piątek 16.10.2026
+
+    def test_zrodla_zapasowe(self):
+        A.kursy_yahoo, stare = (lambda *a: (_ for _ in ()).throw(RuntimeError("blokada"))), A.kursy_yahoo
+        A.kursy_stooq, stare2 = (lambda *a: {D(2026, 10, 26): 1.0}), A.kursy_stooq
+        try:
+            self.assertEqual(A.kursy_akcji("X", "x.us", D(2026, 10, 1), D(2026, 10, 30)), {D(2026, 10, 26): 1.0})
+        finally:
+            A.kursy_yahoo, A.kursy_stooq = stare, stare2
+
     def test_plik_transakcji(self):
         t = A.wczytaj_transakcje()
         self.assertEqual(len(t), 5)
