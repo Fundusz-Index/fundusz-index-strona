@@ -110,6 +110,8 @@ def sprawdz_spolki(r):
             r.blad(gdzie, f"symbol Stooq '{x['stooq']}' wygląda na błędny (np. googl.us, małymi literami)")
         if x.get("analiza") and not (ROOT / x["analiza"]).exists():
             r.blad(gdzie, f"link do analizy '{x['analiza']}' prowadzi do pliku, którego nie ma")
+        if x.get("raport") and not (ROOT / x["raport"]).exists():
+            r.blad(gdzie, f"raport '{x['raport']}' prowadzi do pliku, którego nie ma (pliki wrzucaj do pliki/analizy/)")
         if t:
             wynik[t] = x
     return wynik
@@ -190,6 +192,8 @@ def sprawdz_analizy(r):
             r.blad(gdzie, f"data '{x['data']}' musi mieć format RRRR-MM")
         if x.get("link") and not (ROOT / x["link"]).exists():
             r.blad(gdzie, f"strona analizy '{x['link']}' nie istnieje")
+        if x.get("raport") and not (ROOT / x["raport"]).exists():
+            r.blad(gdzie, f"raport '{x['raport']}' nie istnieje (pliki wrzucaj do pliki/analizy/)")
 
 
 def sprawdz_artykuly(r):

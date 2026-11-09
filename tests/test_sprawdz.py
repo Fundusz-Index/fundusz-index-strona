@@ -14,7 +14,7 @@ import sprawdz_dane as S  # noqa: E402
 class TestSprawdzanie(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
-        for nazwa in ("data", "analizy", "assets"):
+        for nazwa in ("data", "analizy", "assets", "pliki"):
             shutil.copytree(ROOT / nazwa, self.tmp / nazwa)
         for plik in ROOT.glob("*.html"):
             shutil.copy(plik, self.tmp / plik.name)
@@ -32,6 +32,11 @@ class TestSprawdzanie(unittest.TestCase):
         r = S.sprawdz()
         self.assertEqual(r.bledy, [])
         self.assertTrue(r.ostrzezenia)  # są jeszcze pola [do uzupełnienia]
+
+    def test_brakujacy_raport_pdf(self):
+        (self.tmp / "pliki" / "analizy" / "fundusz-index-cvx-2026-10.pdf").unlink()
+        r = S.sprawdz()
+        self.assertTrue(any("fundusz-index-cvx-2026-10.pdf" in b for b in r.bledy))
 
     def test_tryb_publikacji_zamienia_ostrzezenia_w_bledy(self):
         r = S.sprawdz(publikacja=True)

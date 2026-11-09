@@ -22,8 +22,8 @@ Strona funduszu pod adresem **fundusz.knrkindex.pl**. Statyczne pliki HTML, CSS 
 Wszystko, co zmienia się regularnie, siedzi w folderze `data/`:
 
 - **`transakcje.csv`**: każde kupno i sprzedaż. Kolumny: `data` (RRRR-MM-DD), `typ` (`kupno` albo `sprzedaz`), `ticker`, `kwota_pln` albo `liczba_akcji`, `uzasadnienie`. Jeśli podasz tylko kwotę, skrypt sam policzy liczbę akcji po kursie zamknięcia z dnia transakcji (albo z najbliższej sesji po nim).
-- **`spolki.json`**: opis każdej spółki: nazwa, symbol w Stooq (np. `googl.us`), sektor, link do analizy i autorzy. Nowa spółka w transakcjach musi mieć tu wpis.
-- **`analizy.json`**: karty na stronie Analizy. Nowa analiza to nowy wpis i nowa strona w `analizy/` (najprościej skopiować `analizy/wmb.html`). Pliki PDF i Excel wrzucajcie do folderu `pliki/analizy/`.
+- **`spolki.json`**: opis każdej spółki: nazwa, symbol w Stooq (np. `googl.us`), sektor, link do analizy (`analiza`), raport PDF do pobrania (`raport`) i autorzy. Nowa spółka w transakcjach musi mieć tu wpis.
+- **`analizy.json`**: karty na stronie Analizy. Pole `link` prowadzi do strony analizy w `analizy/` (najprościej skopiować `analizy/wmb.html`) albo wprost do PDF-a, a pole `raport` daje przycisk „Pobierz raport (PDF)”. Pliki PDF wrzucajcie do folderu `pliki/analizy/`, nazwa: `fundusz-index-<ticker>-RRRR-MM.pdf`.
 - **`artykuly.json`**: lista artykułów. Przykład wpisu:
   ```json
   { "dzial": "Profit Journal", "data": "2026-11-20", "tytul": "Tytuł", "wstep": "Dwa zdania wstępu.", "autor": "Imię Nazwisko", "link": "https://..." }
@@ -98,7 +98,9 @@ i otwórz http://localhost:8000.
 ## Przed publikacją
 
 - Uzupełnij pola w nawiasach kwadratowych.
-- Adres e-mail funduszu (do dodania w `o-funduszu.html`, sekcja Kontakt). Adres zarządu koła zostaje na stronie koła.
 - Zgody na zdjęcia i nazwiska członków.
-- Treść zastrzeżenia prawnego i ujawnień przy analizach do potwierdzenia przy ustaleniach o statucie.
-- Oceny i ceny docelowe są celowo wyłączone do czasu tych ustaleń.
+- Dokumenty prawne: `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html`. Administratorem danych jest Fundacja Index (KRS 0001137760), kontakt funduszindex@knrkindex.pl. Przed publikacją: zgoda zarządu fundacji, okres przechowywania logów u hostingu (pole `[30]` w polityce), data uruchomienia newslettera w regulaminie.
+- Newsletter: pole zgody w `artykuly.html` musi zostać obowiązkowe i domyślnie puste. W arkuszu zapisuj adres, datę i godzinę zapisu oraz wersję zgody.
+- Zmiana hostingu na dostawcę z USA (Cloudflare, GitHub Pages) wymaga zmiany punktów 3 i 4 polityki prywatności.
+- Dodanie analityki, osadzonych filmów lub zewnętrznych czcionek wymaga zmiany polityki i banera cookies.
+- Oceny i ceny docelowe są celowo wyłączone do czasu ustaleń prawnych.

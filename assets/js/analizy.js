@@ -33,7 +33,10 @@
         '<p class="small" style="color:var(--ink-2)">' + esc(a.teza) + '</p>' +
         '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:auto">' +
         '<span class="tiny" style="color:var(--ink-2)">Autorzy: ' + esc(a.autorzy) + '</span>' +
-        '<a href="' + esc(FI.base + a.link) + '" style="font-weight:700;padding:10px 0">Czytaj analizę</a></div></article>';
+        '<span style="display:flex;flex-wrap:wrap;gap:4px 16px">' +
+        (/\.pdf$/i.test(a.link) ? '' : '<a href="' + esc(FI.base + a.link) + '" style="font-weight:700;padding:10px 0">Czytaj analizę</a>') +
+        (a.raport ? '<a href="' + esc(FI.base + a.raport) + '" download style="font-weight:700;padding:10px 0">Pobierz raport (PDF)</a>' : '') +
+        '</span></div></article>';
     }).join('');
   }
 
