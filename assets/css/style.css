@@ -110,7 +110,7 @@ main.wrap { padding-block: 32px 64px; display: flex; flex-direction: column; gap
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 .stat { border-top: 3px solid var(--ink); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; }
 .stat strong { font-size: 32px; line-height: 1.1; }
-dl.kv { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; font-size: 14px; }
+dl.kv { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); font-size: 14px; }
 dl.kv dt, dl.kv dd { margin: 0; padding: 10px 0; border-top: 1px solid var(--line); }
 dl.kv dd { text-align: right; font-weight: 700; }
 dl.kv dt { white-space: nowrap; padding-right: 16px; }

@@ -34,9 +34,9 @@ class TestSprawdzanie(unittest.TestCase):
         self.assertTrue(r.ostrzezenia)  # są jeszcze pola [do uzupełnienia]
 
     def test_brakujacy_raport_pdf(self):
-        (self.tmp / "pliki" / "analizy" / "fundusz-index-amd-2026-10.pdf").unlink()
+        (self.tmp / "pliki" / "analizy" / "fundusz-index-cvx-2026-10.pdf").unlink()
         r = S.sprawdz()
-        self.assertTrue(any("fundusz-index-amd-2026-10.pdf" in b for b in r.bledy))
+        self.assertTrue(any("fundusz-index-cvx-2026-10.pdf" in b for b in r.bledy))
 
     def test_tryb_publikacji_zamienia_ostrzezenia_w_bledy(self):
         r = S.sprawdz(publikacja=True)

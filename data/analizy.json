@@ -22,7 +22,7 @@
     "pliki": "PDF",
     "teza": "Reklama w wyszukiwarce i YouTube jako źródło gotówki, inwestycje w sztuczną inteligencję i Google Cloud, opcja na Waymo. Model DCF na lata 2026-2034.",
     "autorzy": "Filip Timofjeczuk, Paweł Osiński, Jakub Kochański",
-    "link": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
+    "link": "analizy/googl.html",
     "raport": "pliki/analizy/fundusz-index-googl-2026-10.pdf"
   },
   {
@@ -35,20 +35,7 @@
     "pliki": "PDF",
     "teza": "Integracja Hess i złoża w Gujanie, przewaga w basenie permskim, dyscyplina kapitałowa i wypłaty dla akcjonariuszy. Model DCF przy WACC 8,33%.",
     "autorzy": "Zespół analityczny Funduszu Index",
-    "link": "pliki/analizy/fundusz-index-cvx-2026-10.pdf",
+    "link": "analizy/cvx.html",
     "raport": "pliki/analizy/fundusz-index-cvx-2026-10.pdf"
-  },
-  {
-    "ticker": "AMD",
-    "nazwa": "AMD",
-    "sektor": "Technologia",
-    "data": "2026-10",
-    "data_tekst": "październik 2026",
-    "metoda": "DCF i porównawcza",
-    "pliki": "PDF",
-    "teza": "Data Center jako główny motor wzrostu: procesory EPYC i akceleratory AI Instinct. Model DCF przy WACC 11,45% i wzroście terminalnym 3,0%.",
-    "autorzy": "Zespół analityczny Funduszu Index",
-    "link": "pliki/analizy/fundusz-index-amd-2026-10.pdf",
-    "raport": "pliki/analizy/fundusz-index-amd-2026-10.pdf"
   }
 ]
