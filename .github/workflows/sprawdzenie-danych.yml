@@ -1,0 +1,21 @@
+name: Sprawdzenie danych
+
+# Uruchamia się po każdej zmianie w repozytorium. Jeśli coś jest źle wpisane,
+# GitHub pokaże czerwony krzyżyk przy zmianie i wyśle e-mail do osoby, która ją wprowadziła.
+on:
+  push:
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  sprawdzenie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Testy
+        run: python3 -m unittest discover tests
+      - name: Sprawdzenie plików z danymi i linków
+        run: python3 scripts/sprawdz_dane.py
