@@ -98,7 +98,9 @@ i otwórz http://localhost:8000.
 ## Przed publikacją
 
 - Uzupełnij pola w nawiasach kwadratowych.
-- Adres e-mail funduszu (do dodania w `o-funduszu.html`, sekcja Kontakt). Adres zarządu koła zostaje na stronie koła.
 - Zgody na zdjęcia i nazwiska członków.
-- Treść zastrzeżenia prawnego i ujawnień przy analizach do potwierdzenia przy ustaleniach o statucie.
-- Oceny i ceny docelowe są celowo wyłączone do czasu tych ustaleń.
+- Dokumenty prawne: `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html`. Administratorem danych jest Fundacja Index (KRS 0001137760), kontakt funduszindex@knrkindex.pl. Przed publikacją: zgoda zarządu fundacji, okres przechowywania logów u hostingu (pole `[30]` w polityce), data uruchomienia newslettera w regulaminie.
+- Newsletter: pole zgody w `artykuly.html` musi zostać obowiązkowe i domyślnie puste. W arkuszu zapisuj adres, datę i godzinę zapisu oraz wersję zgody.
+- Zmiana hostingu na dostawcę z USA (Cloudflare, GitHub Pages) wymaga zmiany punktów 4 i 5 polityki prywatności.
+- Dodanie analityki, osadzonych filmów lub zewnętrznych czcionek wymaga zmiany polityki i banera cookies.
+- Oceny i ceny docelowe są celowo wyłączone do czasu ustaleń prawnych.

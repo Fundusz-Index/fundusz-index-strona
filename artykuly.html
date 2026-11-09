@@ -45,8 +45,11 @@
 <label for="nl-email" style="font-size:17px;font-weight:700">Newsletter</label>
 <p class="small" style="color:var(--ink-2)">Jeden mail w miesiącu: nowe analizy i przeglądy rynku.</p>
 <input id="nl-email" type="email" required placeholder="twoj@email.pl" style="min-height:44px;padding:0 12px;border:1px solid var(--muted);border-radius:6px;font:inherit;background:var(--bg);color:var(--ink)">
+<label class="small" style="display:flex;gap:10px;align-items:flex-start;color:var(--ink-2);line-height:1.5"><input id="nl-zgoda" type="checkbox" required style="width:20px;height:20px;margin:1px 0 0;flex:none">
+<span>Chcę otrzymywać newsletter Funduszu Index na podany adres e-mail. Akceptuję <a href="regulamin-newslettera.html">Regulamin newslettera</a>. Wiem, że mogę się wypisać w każdej chwili.</span></label>
 <button type="submit" class="btn btn-primary">Zapisz się</button>
-<p class="tiny muted">[Formularz do podpięcia, np. MailerLite lub Google Forms.]</p>
+<p class="tiny muted">Administratorem Twojego adresu e-mail jest Fundacja Index (KRS 0001137760). Adres wykorzystamy tylko do wysyłki newslettera, na podstawie Twojej zgody. Przechowujemy go w usłudze Google, aż się wypiszesz. Masz prawo do dostępu do danych, ich usunięcia i innych praw opisanych w <a href="polityka-prywatnosci.html">Polityce prywatności</a>.</p>
+<p class="tiny muted">[Formularz do podpięcia: arkusz Google funduszu.]</p>
 </form>
 </aside>
 </div>
@@ -55,8 +58,8 @@
 <footer class="site-footer">
 <div class="wrap">
 <strong>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, Uniwersytet Ekonomiczny w Krakowie</strong>
-<p>Fundusz Index jest edukacyjnym projektem studentów. Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych i nie świadczy usług inwestycyjnych. Materiały na stronie nie stanowią rekomendacji inwestycyjnej.</p>
-<p><a href="o-funduszu.html#kontakt">Kontakt</a> · <a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
+<p>Fundusz Index to edukacyjny projekt studentów prowadzony przez Fundację Index (KRS 0001137760). Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych, nie zbiera pieniędzy na inwestycje i nie prowadzi działalności maklerskiej. Portfel jest wirtualny. Analizy wyrażają poglądy autorów i nie są poradą inwestycyjną.</p>
+<p class="legal-links"><a href="o-funduszu.html#kontakt">Kontakt</a><a href="nota-prawna.html">Nota prawna</a><a href="polityka-prywatnosci.html">Polityka prywatności</a><a href="regulamin-newslettera.html">Regulamin newslettera</a><a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
 </div>
 </footer>
 <script>document.getElementById('newsletter').addEventListener('submit', function (e) { e.preventDefault(); });</script>

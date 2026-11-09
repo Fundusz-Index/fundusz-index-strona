@@ -236,3 +236,29 @@ tbody tr { border-top: 1px solid var(--line); }
   .timeline > li { grid-template-columns: 84px 18px minmax(0, 1fr); gap: 0 10px; }
   .meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* dokumenty prawne: polityka prywatności, nota prawna, regulamin */
+.doc { max-width: 780px; display: flex; flex-direction: column; gap: 14px; }
+.doc .page-title { margin-bottom: 4px; }
+.doc h2 { font-size: 22px; margin-top: 28px; }
+.doc h3 { font-size: 17px; margin-top: 12px; }
+.doc p, .doc li { line-height: 1.65; }
+.doc ul, .doc ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.doc .table-box td { vertical-align: top; }
+.doc .table-box th { white-space: nowrap; }
+.doc-meta { font-size: 14px; color: var(--muted); }
+.site-footer .legal-links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+dl.kv-disclosure { grid-template-columns: minmax(0, 200px) minmax(0, 1fr); column-gap: 16px; }
+dl.kv-disclosure dd { text-align: left; font-weight: 400; }
+@media (max-width: 640px) {
+  dl.kv-disclosure { grid-template-columns: minmax(0, 1fr); }
+  dl.kv-disclosure dt { padding-bottom: 0; font-weight: 700; color: var(--ink); }
+  dl.kv-disclosure dd { border-top: 0; padding-top: 4px; }
+  .table-stack { border: 0; overflow: visible; }
+  .table-stack table, .table-stack tbody, .table-stack tr, .table-stack td { display: block; }
+  .table-stack thead { display: none; }
+  .table-stack tr { border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 0; margin-bottom: 12px; }
+  .table-stack td { padding: 6px 16px; }
+  .table-stack td::before { content: attr(data-label); display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 2px; }
+  .table-stack td:first-child { font-weight: 700; font-size: 16px; }
+}
