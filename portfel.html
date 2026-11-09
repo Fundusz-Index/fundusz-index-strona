@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfel · Fundusz Index</title>
+<meta name="description" content="Portfel Funduszu Index na tle S&amp;P 500 w PLN: skład, spółki z tezami i dziennik decyzji.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/wspolne.js" defer></script>
+<script src="assets/js/portfel.js" defer></script>
+</head>
+<body data-base="">
+
+<header class="site-header">
+<div class="wrap">
+<a class="logo" href="index.html" aria-label="Fundusz Index, strona główna"><svg viewBox="0 0 1113.91 256" aria-hidden="true"><use href="assets/img/ikony.svg#logo"></use></svg></a>
+<nav class="nav" aria-label="Menu główne">
+<a href="index.html">Start</a>
+<a href="portfel.html" aria-current="page">Portfel</a>
+<a href="analizy.html">Analizy</a>
+<a href="artykuly.html">Artykuły</a>
+<a href="o-funduszu.html">O funduszu</a>
+</nav>
+<div class="header-tools"><a class="btn btn-primary" href="o-funduszu.html#kontakt">Kontakt</a></div>
+</div>
+</header>
+
+<main class="wrap">
+
+<p class="note" data-demo-note hidden>Dane przykładowe. Skład i decyzje startowe są prawdziwe, ale kursy i wyniki zostały wygenerowane do podglądu. Prawdziwe liczby pojawią się po podłączeniu codziennej aktualizacji.</p>
+<p class="note" id="blad" hidden>Nie udało się wczytać danych portfela. Odśwież stronę za chwilę.</p>
+
+<section class="section" aria-label="Podsumowanie" style="gap:20px">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:860px">
+<h1 class="page-title">Portfel</h1>
+<p style="font-size:24px;line-height:1.35">Od startu portfel zmienił się o <strong id="teza-zwrot">–</strong>. S&amp;P 500 przeliczony na złote w tym czasie: <span id="teza-bench">–</span>.</p>
+<p class="small muted">Start <span id="meta-start">–</span> z <span id="meta-kapital">–</span> PLN · stan na <span id="meta-stan">–</span> · aktualizacja po sesji w USA · kurs USD/PLN z NBP</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="section-head"><h2 style="font-size:18px">Skład</h2>
+<div role="group" aria-label="Pokaż skład według" style="display:flex;gap:6px"><button type="button" class="pill" data-sklad="spolki" aria-pressed="true">Spółki</button><button type="button" class="pill" data-sklad="sektory" aria-pressed="false">Sektory</button></div></div>
+<div class="alloc-bar" id="sklad-pasek" role="img" aria-label="Skład portfela"></div>
+<ul class="legend" id="sklad-legenda"></ul>
+</div>
+</section>
+
+<section class="split" aria-label="Wyniki">
+<div class="main" style="display:flex;flex-direction:column;gap:14px">
+<div class="chart-head">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h2 style="font-size:20px">Na tle S&amp;P 500</h2>
+<div class="chart-legend" aria-live="polite"><b id="leg-data">–</b><span><span class="swatch-line" aria-hidden="true"></span>Fundusz <b id="leg-fundusz">–</b></span><span><span class="swatch-line bench" aria-hidden="true"></span>S&amp;P 500 (PLN) <b id="leg-bench">–</b></span></div>
+</div>
+<div role="group" aria-label="Zakres wykresu" style="display:flex;flex-wrap:wrap;gap:6px">
+<button type="button" class="seg" data-zakres="1M">1M</button>
+<button type="button" class="seg" data-zakres="3M">3M</button>
+<button type="button" class="seg" data-zakres="6M">6M</button>
+<button type="button" class="seg" data-zakres="YTD">YTD</button>
+<button type="button" class="seg" data-zakres="1R">1R</button>
+<button type="button" class="seg" data-zakres="Od startu">Od startu</button>
+</div>
+</div>
+<svg id="wykres" class="chart" viewBox="0 0 1000 340" role="img" aria-label="Wykres zwrotu funduszu i S&amp;P 500 w PLN"></svg>
+<p class="tiny muted">Najedź na wykres (na telefonie dotknij i przesuń), żeby zobaczyć wynik z dowolnego dnia. Oba wyniki liczone od początku wybranego zakresu, bez dywidend.</p>
+</div>
+<aside class="side panel" aria-label="Portfel w liczbach">
+<span class="label" style="color:var(--inv-muted)">W liczbach</span>
+<div style="display:flex;flex-direction:column;gap:4px"><span class="small muted">Wartość portfela</span><strong style="font-size:32px;line-height:1.1" id="k-wartosc">–</strong></div>
+<dl class="kv">
+<dt>Zwrot od startu</dt><dd id="k-zwrot">–</dd>
+<dt>S&amp;P 500 (PLN)</dt><dd id="k-bench">–</dd>
+<dt>Różnica</dt><dd id="k-roznica">–</dd>
+<dt>Gotówka</dt><dd id="k-gotowka">–</dd>
+<dt>Spółki</dt><dd id="k-pozycje">–</dd>
+</dl>
+<div style="display:flex;flex-direction:column;gap:6px"><span class="tiny muted">Zwroty za okresy · fundusz / S&amp;P 500</span><dl class="kv" id="okresy"></dl></div>
+<p class="tiny muted">Wskaźniki ryzyka (obsunięcie, zmienność, beta) dodamy po ok. 3 miesiącach działania.</p>
+</aside>
+</section>
+
+<section class="section" aria-label="Spółki w portfelu">
+<div class="section-head" style="align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:6px"><h2>Dlaczego mamy te spółki</h2><p class="small" style="color:var(--ink-2)">Kliknij spółkę, żeby zobaczyć tezę, autorów analizy i pliki.</p></div>
+<div role="group" aria-label="Sortuj spółki" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px"><span class="tiny muted">Sortuj:</span>
+<button type="button" class="pill" data-sort="waga" aria-pressed="true">Waga</button>
+<button type="button" class="pill" data-sort="zwrot" aria-pressed="false">Zwrot</button>
+<button type="button" class="pill" data-sort="nazwa" aria-pressed="false">A–Z</button></div>
+</div>
+<ul class="holdings" id="spolki"></ul>
+</section>
+
+<section class="section" id="dziennik-decyzji" aria-label="Dziennik decyzji" style="gap:20px">
+<div style="display:flex;flex-direction:column;gap:6px"><h2 style="font-size:26px">Dziennik decyzji</h2><p class="small" style="color:var(--ink-2)">Każde kupno i każda sprzedaż z datą. Najnowsze na górze.</p></div>
+<ol class="timeline" id="dziennik"></ol>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<strong>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, Uniwersytet Ekonomiczny w Krakowie</strong>
+<p>Fundusz Index jest edukacyjnym projektem studentów. Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych i nie świadczy usług inwestycyjnych. Materiały na stronie nie stanowią rekomendacji inwestycyjnej. Kursy: Stooq, kurs USD/PLN: NBP.</p>
+<p><a href="o-funduszu.html#kontakt">Kontakt</a> · <a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
+</div>
+</footer>
+
+</body>
+</html>

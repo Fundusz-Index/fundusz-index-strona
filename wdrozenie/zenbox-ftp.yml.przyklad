@@ -1,0 +1,40 @@
+# Opcjonalne: automatyczne wgrywanie strony na Zenbox przez FTP po każdej zmianie.
+# Użyj tylko, jeśli strona ma stać na hostingu Zenbox (a nie na Cloudflare Pages).
+#
+# Jak włączyć:
+# 1. Skopiuj ten plik do .github/workflows/wdrozenie-zenbox.yml
+# 2. W repozytorium na GitHubie: Settings → Secrets and variables → Actions → New repository secret
+#    dodaj FTP_SERWER, FTP_LOGIN, FTP_HASLO (dane konta FTP z panelu Zenbox).
+#    Hasła nie wpisuj nigdzie w plikach ani w czacie.
+# 3. Ustaw server-dir na folder subdomeny fundusz.knrkindex.pl w panelu Zenbox.
+
+name: Wdrożenie na Zenbox
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  wdrozenie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sprawdzenie plików przed wgraniem
+        run: python3 scripts/sprawdz_dane.py
+      - name: Wgranie plików przez FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERWER }}
+          username: ${{ secrets.FTP_LOGIN }}
+          password: ${{ secrets.FTP_HASLO }}
+          protocol: ftps
+          server-dir: ./fundusz.knrkindex.pl/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            tests/**
+            wdrozenie/**
+            scripts/**
+            README.md

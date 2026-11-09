@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analizy · Fundusz Index</title>
+<meta name="description" content="Analizy spółek przygotowane przez członków Funduszu Index: raporty PDF i modele z nazwiskami autorów.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/wspolne.js" defer></script>
+<script src="assets/js/analizy.js" defer></script>
+</head>
+<body data-base="">
+
+<header class="site-header">
+<div class="wrap">
+<a class="logo" href="index.html" aria-label="Fundusz Index, strona główna"><svg viewBox="0 0 1113.91 256" aria-hidden="true"><use href="assets/img/ikony.svg#logo"></use></svg></a>
+<nav class="nav" aria-label="Menu główne">
+<a href="index.html">Start</a>
+<a href="portfel.html">Portfel</a>
+<a href="analizy.html" aria-current="page">Analizy</a>
+<a href="artykuly.html">Artykuły</a>
+<a href="o-funduszu.html">O funduszu</a>
+</nav>
+<div class="header-tools"><a class="btn btn-primary" href="o-funduszu.html#kontakt">Kontakt</a></div>
+</div>
+</header>
+
+<main class="wrap" style="gap:28px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<h1 class="page-title">Analizy spółek</h1>
+<p class="lead">Każda analiza to raport w PDF i model do pobrania, z nazwiskami autorów. Pokazujemy też analizy spółek, których ostatecznie nie kupiliśmy.</p>
+</div>
+
+<section class="filters" aria-label="Filtry">
+<div class="filter-row"><span>Sektor</span><div id="f-sektor" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+<div class="filter-row"><span>Status</span><div id="f-status" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+<p class="small" id="liczba" aria-live="polite"></p>
+</section>
+
+<section id="karty" class="grid-auto" aria-label="Lista analiz" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))"></section>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<strong>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, Uniwersytet Ekonomiczny w Krakowie</strong>
+<p>Fundusz Index jest edukacyjnym projektem studentów. Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych i nie świadczy usług inwestycyjnych. Analizy nie stanowią rekomendacji inwestycyjnej.</p>
+<p><a href="o-funduszu.html#kontakt">Kontakt</a> · <a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
+</div>
+</footer>
+
+</body>
+</html>

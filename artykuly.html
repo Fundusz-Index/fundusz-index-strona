@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Artykuły · Fundusz Index</title>
+<meta name="description" content="Przeglądy rynku, teksty edukacyjne i artykuły Funduszu Index, także we współpracy z Profit Journal.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/wspolne.js" defer></script>
+<script src="assets/js/artykuly.js" defer></script>
+</head>
+<body data-base="">
+
+<header class="site-header">
+<div class="wrap">
+<a class="logo" href="index.html" aria-label="Fundusz Index, strona główna"><svg viewBox="0 0 1113.91 256" aria-hidden="true"><use href="assets/img/ikony.svg#logo"></use></svg></a>
+<nav class="nav" aria-label="Menu główne">
+<a href="index.html">Start</a>
+<a href="portfel.html">Portfel</a>
+<a href="analizy.html">Analizy</a>
+<a href="artykuly.html" aria-current="page">Artykuły</a>
+<a href="o-funduszu.html">O funduszu</a>
+</nav>
+<div class="header-tools"><a class="btn btn-primary" href="o-funduszu.html#kontakt">Kontakt</a></div>
+</div>
+</header>
+
+<main class="wrap" style="gap:28px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<h1 class="page-title">Artykuły</h1>
+<p class="lead">Przeglądy rynku, teksty edukacyjne i artykuły przygotowane razem z Profit Journal. Każdy tekst ma autora i datę.</p>
+</div>
+
+<div class="tabs" id="dzialy" role="tablist" aria-label="Działy"></div>
+
+<div class="split" style="align-items:flex-start">
+<div class="main" style="display:flex;flex-direction:column;gap:24px">
+<article class="panel" id="wyrozniony" hidden style="padding:32px"></article>
+<ol class="article-list" id="lista"></ol>
+</div>
+<aside class="side" style="display:flex;flex-direction:column;gap:16px" aria-label="Współpraca i newsletter">
+<div class="card"><h2 style="font-size:17px">Współpraca z Profit Journal</h2><p class="small" style="color:var(--ink-2)">[Dwa zdania o współpracy: co publikujemy razem i jak często.]</p></div>
+<form class="card" id="newsletter" style="background:var(--surface);border:0">
+<label for="nl-email" style="font-size:17px;font-weight:700">Newsletter</label>
+<p class="small" style="color:var(--ink-2)">Jeden mail w miesiącu: nowe analizy i przeglądy rynku.</p>
+<input id="nl-email" type="email" required placeholder="twoj@email.pl" style="min-height:44px;padding:0 12px;border:1px solid var(--muted);border-radius:6px;font:inherit;background:var(--bg);color:var(--ink)">
+<button type="submit" class="btn btn-primary">Zapisz się</button>
+<p class="tiny muted">[Formularz do podpięcia, np. MailerLite lub Google Forms.]</p>
+</form>
+</aside>
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<strong>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, Uniwersytet Ekonomiczny w Krakowie</strong>
+<p>Fundusz Index jest edukacyjnym projektem studentów. Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych i nie świadczy usług inwestycyjnych. Materiały na stronie nie stanowią rekomendacji inwestycyjnej.</p>
+<p><a href="o-funduszu.html#kontakt">Kontakt</a> · <a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
+</div>
+</footer>
+<script>document.getElementById('newsletter').addEventListener('submit', function (e) { e.preventDefault(); });</script>
+</body>
+</html>

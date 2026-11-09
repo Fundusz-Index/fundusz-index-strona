@@ -1,0 +1,14 @@
+[
+  {
+    "ticker": "WMB",
+    "nazwa": "Williams Companies",
+    "sektor": "Energia",
+    "data": "2026-10",
+    "data_tekst": "październik 2026",
+    "metoda": "DCF i porównawcza",
+    "pliki": "PDF · Excel",
+    "teza": "Stabilne przepływy z przesyłu i przetwarzania gazu. Model DCF i wycena porównawcza do spółek KMI, OKE, TRGP, DTM.",
+    "autorzy": "Szymon Jakubowski, [osoba 2], [osoba 3]",
+    "link": "analizy/wmb.html"
+  }
+]

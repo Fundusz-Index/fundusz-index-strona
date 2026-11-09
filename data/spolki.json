@@ -1,0 +1,7 @@
+[
+  { "ticker": "GOOGL", "nazwa": "Alphabet", "stooq": "googl.us", "sektor": "Komunikacja", "opis": "wyszukiwarka, reklama, chmura", "analiza": null, "autorzy": null },
+  { "ticker": "CVX", "nazwa": "Chevron", "stooq": "cvx.us", "sektor": "Energia", "opis": "ropa i gaz", "analiza": null, "autorzy": null },
+  { "ticker": "WMB", "nazwa": "Williams Companies", "stooq": "wmb.us", "sektor": "Energia", "opis": "gazociągi i przesył gazu", "analiza": "analizy/wmb.html", "autorzy": "Szymon Jakubowski, [osoba 2], [osoba 3]" },
+  { "ticker": "EME", "nazwa": "EMCOR", "stooq": "eme.us", "sektor": "Przemysł", "opis": "instalacje, centra danych", "analiza": null, "autorzy": null },
+  { "ticker": "AMD", "nazwa": "AMD", "stooq": "amd.us", "sektor": "Technologia", "opis": "półprzewodniki", "analiza": null, "autorzy": null }
+]

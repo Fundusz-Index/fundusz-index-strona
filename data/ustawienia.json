@@ -1,0 +1,6 @@
+{
+  "kapital_startowy_pln": 100000,
+  "data_startu": "2026-10-25",
+  "benchmark": { "nazwa": "S&P 500", "stooq": "^spx" },
+  "waluta_spolek": "USD"
+}

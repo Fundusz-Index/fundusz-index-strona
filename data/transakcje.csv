@@ -1,0 +1,6 @@
+data,typ,ticker,kwota_pln,liczba_akcji,uzasadnienie
+2026-10-25,kupno,GOOGL,30000,,"Największa pozycja: lider wyszukiwania, reklamy i chmury, silny bilans."
+2026-10-25,kupno,CVX,20000,,"Niska zmienność i regularna dywidenda, element defensywny portfela."
+2026-10-25,kupno,WMB,20000,,"Stabilne przepływy pieniężne z przesyłu i przetwarzania gazu ziemnego oraz regularna dywidenda."
+2026-10-25,kupno,EME,18000,,"Instalacje elektryczne i mechaniczne, m.in. dla centrów danych. Spółka cykliczna."
+2026-10-25,kupno,AMD,12000,,"Najbardziej ryzykowna pozycja, wycena zależna od rynku AI, dlatego najmniejszy udział."
