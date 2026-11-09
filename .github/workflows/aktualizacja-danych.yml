@@ -1,0 +1,36 @@
+name: Aktualizacja danych portfela
+
+on:
+  schedule:
+    # 22:30 UTC w dni robocze, po zamknięciu sesji w USA
+    - cron: "30 22 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  aktualizacja:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Testy obliczeń
+        run: python3 -m unittest discover tests
+      - name: Sprawdzenie plików z danymi
+        run: python3 scripts/sprawdz_dane.py
+      - name: Pobranie kursów i przeliczenie portfela
+        run: python3 scripts/aktualizuj_dane.py
+      - name: Zapis zmian
+        run: |
+          if git diff --quiet data/portfolio.json; then
+            echo "Brak zmian w danych."
+            exit 0
+          fi
+          git config user.name "Fundusz Index (automat)"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/portfolio.json
+          git commit -m "Dane portfela: $(date -u +%Y-%m-%d)"
+          git push
