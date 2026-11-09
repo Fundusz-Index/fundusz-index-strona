@@ -60,7 +60,7 @@ python3 scripts/sprawdz_dane.py --publikacja  # przed startem strony
 Skrypt `scripts/aktualizuj_dane.py`:
 
 1. czyta `transakcje.csv` i `spolki.json`,
-2. pobiera kursy zamknięcia akcji i S&P 500 ze Stooq,
+2. pobiera kursy zamknięcia akcji i S&P 500: najpierw z Yahoo Finance, a gdy nie odpowie, z Nasdaq, potem ze Stooq,
 3. pobiera średni kurs USD/PLN z NBP (tabela A),
 4. liczy wartość portfela i S&P 500 w PLN dzień po dniu,
 5. zapisuje `data/portfolio.json`, z którego korzysta strona.
@@ -73,7 +73,7 @@ python3 scripts/aktualizuj_dane.py --demo   # dane przykładowe
 python3 -m unittest discover tests          # testy obliczeń
 ```
 
-Ograniczenia: wyniki nie uwzględniają dywidend ani prowizji, zarówno w portfelu, jak i w S&P 500. Stooq czasem limituje pobieranie; skrypt ponawia próbę trzy razy, a przy błędzie zostawia poprzedni plik bez zmian.
+Ograniczenia: wyniki nie uwzględniają dywidend ani prowizji, zarówno w portfelu, jak i w S&P 500. Serwisy z kursami czasem blokują pobieranie z serwerów GitHuba. Skrypt łączy się jak przeglądarka (biblioteka `curl_cffi`), ponawia próby i przechodzi do kolejnego źródła. Gdy zawiodą wszystkie, zostawia poprzedni plik bez zmian. Ręczne uruchomienie w trakcie sesji w USA pokaże kurs bieżący, a nie zamknięcia; automat działa po zamknięciu.
 
 ## Podgląd na komputerze
 
@@ -98,6 +98,7 @@ i otwórz http://localhost:8000.
 ## Przed publikacją
 
 - Uzupełnij pola w nawiasach kwadratowych.
+- Adres e-mail funduszu (do dodania w `o-funduszu.html`, sekcja Kontakt). Adres zarządu koła zostaje na stronie koła.
 - Zgody na zdjęcia i nazwiska członków.
 - Treść zastrzeżenia prawnego i ujawnień przy analizach do potwierdzenia przy ustaleniach o statucie.
 - Oceny i ceny docelowe są celowo wyłączone do czasu tych ustaleń.
