@@ -1,17 +1,17 @@
 {
- "zaktualizowano": "2026-11-12T23:10+00:00",
- "stan_na": "2026-11-12",
+ "zaktualizowano": "2026-11-13T23:08+00:00",
+ "stan_na": "2026-11-13",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-10-25",
  "benchmark": "S&P 500",
- "kurs_usdpln": 3.9676,
+ "kurs_usdpln": 3.9852,
  "podsumowanie": {
-  "wartosc_pln": 98376.52,
+  "wartosc_pln": 97474.75,
   "gotowka_pln": 0.0,
-  "zwrot_od_startu": -1.62,
-  "benchmark_od_startu": -0.14,
-  "zmiana_dzienna": 3.1,
-  "benchmark_zmiana_dzienna": -0.35,
+  "zwrot_od_startu": -2.53,
+  "benchmark_od_startu": -0.1,
+  "zmiana_dzienna": -0.92,
+  "benchmark_zmiana_dzienna": -0.4,
   "liczba_pozycji": 5
  },
  "okresy": {
@@ -19,13 +19,13 @@
   "3M": null,
   "6M": null,
   "YTD": {
-   "f": -1.62,
-   "b": -0.14
+   "f": -2.53,
+   "b": -0.1
   },
   "1R": null,
   "start": {
-   "f": -1.62,
-   "b": -0.14
+   "f": -2.53,
+   "b": -0.1
   }
  },
  "pozycje": [
@@ -38,12 +38,12 @@
    "raport": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
    "autorzy": "Filip Timofjeczuk, Paweł Osiński, Jakub Kochański",
    "liczba_akcji": 24.1002,
-   "kurs_usd": 298.7,
-   "wartosc_pln": 28561.7,
+   "kurs_usd": 295.77,
+   "wartosc_pln": 28406.98,
    "koszt_pln": 30000.0,
-   "waga": 29.03,
-   "zwrot": -4.79,
-   "zmiana_dzienna": 1.79
+   "waga": 29.14,
+   "zwrot": -5.31,
+   "zmiana_dzienna": -0.98
   },
   {
    "ticker": "WMB",
@@ -54,12 +54,12 @@
    "raport": "pliki/analizy/fundusz-index-wmb-2026-10.pdf",
    "autorzy": "Szymon Jakubowski, Wojciech Łopatecki, Mikołaj Małek",
    "liczba_akcji": 70.9403,
-   "kurs_usd": 69.44,
-   "wartosc_pln": 19544.77,
+   "kurs_usd": 69.09,
+   "wartosc_pln": 19532.52,
    "koszt_pln": 20000.0,
-   "waga": 19.87,
-   "zwrot": -2.28,
-   "zmiana_dzienna": 0.75
+   "waga": 20.04,
+   "zwrot": -2.34,
+   "zmiana_dzienna": -0.5
   },
   {
    "ticker": "CVX",
@@ -70,12 +70,12 @@
    "raport": "pliki/analizy/fundusz-index-cvx-2026-10.pdf",
    "autorzy": "Zespół analityczny Funduszu Index",
    "liczba_akcji": 21.9386,
-   "kurs_usd": 216.35,
-   "wartosc_pln": 18831.85,
+   "kurs_usd": 219.89,
+   "wartosc_pln": 19224.88,
    "koszt_pln": 20000.0,
-   "waga": 19.14,
-   "zwrot": -5.84,
-   "zmiana_dzienna": 1.44
+   "waga": 19.72,
+   "zwrot": -3.88,
+   "zmiana_dzienna": 1.64
   },
   {
    "ticker": "EME",
@@ -86,12 +86,12 @@
    "raport": null,
    "autorzy": null,
    "liczba_akcji": 6.8791,
-   "kurs_usd": 662.77,
-   "wartosc_pln": 18089.2,
+   "kurs_usd": 659.36,
+   "wartosc_pln": 18075.96,
    "koszt_pln": 18000.0,
-   "waga": 18.39,
-   "zwrot": 0.5,
-   "zmiana_dzienna": -0.6
+   "waga": 18.54,
+   "zwrot": 0.42,
+   "zmiana_dzienna": -0.51
   },
   {
    "ticker": "AMD",
@@ -102,12 +102,12 @@
    "raport": null,
    "autorzy": null,
    "liczba_akcji": 5.7483,
-   "kurs_usd": 585.3,
-   "wartosc_pln": 13349.01,
+   "kurs_usd": 534.06,
+   "wartosc_pln": 12234.4,
    "koszt_pln": 12000.0,
-   "waga": 13.57,
-   "zwrot": 11.24,
-   "zmiana_dzienna": 5.86
+   "waga": 12.55,
+   "zwrot": 1.95,
+   "zmiana_dzienna": -8.75
   }
  ],
  "transakcje": [
@@ -232,6 +232,11 @@
    "d": "2026-11-12",
    "f": 98376.52,
    "b": 99864.98
+  },
+  {
+   "d": "2026-11-13",
+   "f": 97474.75,
+   "b": 99901.99
   }
  ],
  "demo": false
