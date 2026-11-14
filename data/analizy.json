@@ -34,8 +34,34 @@
     "metoda": "DCF i porównawcza",
     "pliki": "PDF",
     "teza": "Integracja Hess i złoża w Gujanie, przewaga w basenie permskim, dyscyplina kapitałowa i wypłaty dla akcjonariuszy. Model DCF przy WACC 8,33%.",
-    "autorzy": "Zespół analityczny Funduszu Index",
+    "autorzy": "Mikołaj Bujacz, Hubert Kamiński, Kacper Ziętek",
     "link": "analizy/cvx.html",
     "raport": "pliki/analizy/fundusz-index-cvx-2026-10.pdf"
+  },
+  {
+    "ticker": "EME",
+    "nazwa": "EMCOR",
+    "sektor": "Przemysł",
+    "data": "2026-10",
+    "data_tekst": "październik 2026",
+    "metoda": "DCF i porównawcza",
+    "pliki": "PDF",
+    "teza": "Instalacje elektryczne i chłodzenie dla centrów danych, gotówka netto i zwrot kapitału. Model DCF z trzema scenariuszami i wycena mnożnikowa do Comfort Systems, MasTec, Quanta i IES.",
+    "autorzy": "Michał Bożek, Krzysztof Paś",
+    "link": "analizy/eme.html",
+    "raport": "pliki/analizy/fundusz-index-eme-2026-10.pdf"
+  },
+  {
+    "ticker": "AMD",
+    "nazwa": "Advanced Micro Devices",
+    "sektor": "Technologia",
+    "data": "2026-10",
+    "data_tekst": "październik 2026",
+    "metoda": "DCF i porównawcza",
+    "pliki": "PDF",
+    "teza": "Data Center i akceleratory AI jako główny motor wzrostu, poprawa marż i rosnące przepływy. Model DCF na lata 2026-2031 i porównanie z ośmioma spółkami półprzewodnikowymi.",
+    "autorzy": "Radosław Bobeł, Mikołaj Madejczyk",
+    "link": "analizy/amd.html",
+    "raport": "pliki/analizy/fundusz-index-amd-2026-10.pdf"
   }
 ]

@@ -26,7 +26,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | `index.html` | Start: pasek kursów spółek, ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz, dla partnerów |
 | `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji |
 | `analizy.html` + `assets/js/analizy.js` | Biblioteka analiz z filtrami (sektor, w portfelu / poza) z `data/analizy.json` |
-| `analizy/wmb.html`, `googl.html`, `cvx.html` | Strony analiz; raporty PDF w `pliki/analizy/` |
+| `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf` |
 | `artykuly.html` + `assets/js/artykuly.js` | Działy: Przegląd tygodnia, Profit Journal, Edukacja, Z życia funduszu; newsletter |
 | `o-funduszu.html` | Opis, filary „Dlaczego powstał fundusz”, proces decyzji, zarząd, analitycy, kontakt |
 | `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html` + `assets/js/dokumenty.js` | Dokumenty prawne (spis treści z podświetleniem) |
@@ -56,7 +56,9 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 ## Otwarte sprawy
 
 - **Hosting**: Zenbox przez FTP (`wdrozenie/zenbox-ftp.yml.przyklad`, sekrety FTP_SERWER, FTP_LOGIN, FTP_HASLO) albo Cloudflare Pages (budowanie: `python3 scripts/sprawdz_dane.py`, katalog `/`, CNAME `fundusz` w DNS Zenbox). Decyzja czeka na wgląd w panel Zenbox. Hasła wpisuje Szymon w sekretach GitHuba, nigdy w czacie ani w plikach.
-- **Do uzupełnienia** (lista: `python3 scripts/sprawdz_dane.py --publikacja`): daty publikacji analiz, opis współpracy z Profit Journal, newsletter (formularz do arkusza Google), kalendarz na stronie głównej, opiekun naukowy, partnerzy, zasada głosowania, nazwisko Filipa, lista analityków z sektorami, termin w polityce prywatności, data uruchomienia newslettera.
+- **Do uzupełnienia** (lista: `python3 scripts/sprawdz_dane.py --publikacja`): daty publikacji analiz i daty wcześniejszych analiz, opis współpracy z Profit Journal, newsletter (formularz do arkusza Google), kalendarz na stronie głównej, opiekun naukowy, partnerzy, zasada głosowania, termin w polityce prywatności, data uruchomienia newslettera. Na bieżąco prowadzimy je w dokumencie Google „Strona Funduszu Index: pola do uzupełnienia” na Dysku Szymona.
 - Zgody na zdjęcia członków.
+- Raporty PDF są publikowane w wersji od autorów i zawierają oceny lub ceny docelowe (WMB: „TRZYMAJ” i cena docelowa, EME: ceny docelowe i rekomendacje domów maklerskich, AMD: upside/downside). Strony HTML ich nie pokazują. Decyzja zarządu: zostawić PDF-y czy publikować wersje bez ocen.
+- Analizy z 16.10.2026 to gruntowne aktualizacje wcześniejszych analiz z okresu przyjęcia spółek do portfela. W ujawnieniach brakuje dat publikacji i dat wcześniejszych analiz.
 - Pomysły odłożone: panel do edycji treści (Pages CMS), dywidendy w wynikach, strona jako aplikacja na telefon (PWA).
 - Kontekst prawny: dokument „Strona_funduszu_kontekst_prawny.md” w projekcie Fundusz INDEX.
