@@ -6,7 +6,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 - Strona Funduszu Index, edukacyjnego projektu Koła Naukowego Rynku Kapitałowego INDEX (KNRK INDEX) na UEK, prowadzonego przez Fundację Index (KRS 0001137760).
 - Adres docelowy: **fundusz.knrkindex.pl**. Strona koła (knrkindex.pl, WordPress z Elementorem) to osobna sprawa, tu jej nie ruszamy.
-- Portfel jest **wirtualny**: 100 000 zł umownego kapitału od 25.10.2026, porównanie z S&P 500 w złotych.
+- Portfel jest **wirtualny** (zawsze piszemy „portfel wirtualny”, nigdy „modelowy”; decyzja Szymona z 16.11.2026): 100 000 zł umownego kapitału od 25.10.2026, porównanie z S&P 500 w złotych.
 - Opiekun techniczny po stronie zarządu: Szymon Jakubowski. Strona w zarządzie: Mikołaj Bujacz i Paweł Osiński.
 
 ## Źródła zasad
