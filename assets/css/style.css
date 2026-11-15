@@ -18,6 +18,7 @@
   --s4: #A9BCDB;
   --s5: #D5DEEC;
   --bench: #6F8CBB;
+  --bench-text: #3463A6;
   --area: rgba(20, 33, 61, 0.07);
   --accent: #FFD60A;
   --black: #0D0D0D;
@@ -366,4 +367,25 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
     .card-link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(13, 13, 13, 0.08); }
     .nav a:hover:not([aria-current="page"]) { background-size: 100% 3px; color: var(--ink); }
   }
+}
+
+/* ---------- wykres portfela: podpisy na końcach linii, znaczniki decyzji, dymek ---------- */
+:root[data-theme="dark"] { --bench-text: #B0B6C2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bench-text: #B0B6C2; } }
+.chart text.chart-end { font-size: 13px; }
+.chart text.chart-end-val { font-size: 15px; font-weight: 700; }
+.chart-wrap { position: relative; }
+.chart-tip { position: absolute; top: 8px; z-index: 2; pointer-events: none; min-width: 190px; max-width: 240px; display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: 0 8px 20px rgba(13, 13, 13, 0.10); font-size: 13px; line-height: 1.35; color: var(--ink-2); }
+.chart-tip > b { color: var(--ink); font-size: 14px; }
+.chart-tip span { display: flex; align-items: center; gap: 8px; }
+.chart-tip span b { margin-left: auto; color: var(--ink); font-variant-numeric: tabular-nums; }
+.chart-tip i { flex: none; width: 14px; height: 0; border-top: 3px solid var(--s1); }
+.chart-tip i.k-b { border-top: 2px solid var(--bench); }
+.chart-tip i.k-d { width: 9px; height: 9px; border: 1.5px solid var(--black); background: var(--accent); transform: rotate(45deg); margin: 0 3px; box-sizing: border-box; }
+.chart-tip .roz { border-top: 1px solid var(--line); padding-top: 5px; margin-top: 2px; }
+.chart-tip .dec { color: var(--ink); font-weight: 700; align-items: flex-start; }
+.chart-tip .dec i { margin-top: 5px; }
+.chart-tip .dec em { font-style: normal; }
+@media (max-width: 640px) {
+  .chart-tip { position: static; max-width: none; min-height: 112px; margin-top: 8px; box-shadow: none; border-color: var(--line); }
 }

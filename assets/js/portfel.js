@@ -10,7 +10,7 @@
 
   /* ---------- wykres ---------- */
   var WASKI = window.matchMedia('(max-width: 640px)').matches;
-  var W = WASKI ? 440 : 1000, H = WASKI ? 300 : 340, L = WASKI ? 44 : 56, R = W - 16, T = 20, B = H - 40;
+  var W = WASKI ? 440 : 1000, H = WASKI ? 300 : 340, L = WASKI ? 44 : 56, R = W - (WASKI ? 104 : 136), T = 20, B = H - 40;
 
   function poczatekZakresu(seria, zakres) {
     var ost = new Date(seria[seria.length - 1].d + 'T00:00:00Z');
@@ -58,22 +58,64 @@
       var idx = Math.round(q * (n - 1));
       svg += '<text x="' + X(idx).toFixed(1) + '" y="' + (H - 14) + '" text-anchor="' + (k === 0 ? 'start' : q === 1 ? 'end' : 'middle') + '">' + FI.data(pkt[idx].d) + '</text>';
     });
-    svg += '<polygon points="' + fp.concat(bp.slice().reverse()).join(' ') + '" fill="var(--area)" stroke="none"/>';
-    svg += '<polyline points="' + bp.join(' ') + '" fill="none" stroke="var(--bench)" stroke-width="2" stroke-dasharray="6 4" stroke-linejoin="round"/>';
-    svg += '<polyline points="' + fp.join(' ') + '" fill="none" stroke="var(--s1)" stroke-width="2.75" stroke-linejoin="round"/>';
+    svg += '<line x1="' + L + '" x2="' + R + '" y1="' + B + '" y2="' + B + '" stroke="var(--line-strong)" stroke-width="1.5"/>';
+    svg += '<polyline points="' + bp.join(' ') + '" fill="none" stroke="var(--bench)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<circle cx="' + X(n - 1) + '" cy="' + Y(b[n - 1]).toFixed(1) + '" r="4" fill="var(--bench)"/>';
+    svg += '<polyline points="' + fp.join(' ') + '" fill="none" stroke="var(--s1)" stroke-width="3.25" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<circle cx="' + X(n - 1) + '" cy="' + Y(f[n - 1]).toFixed(1) + '" r="5.5" fill="var(--s1)"/>';
+    /* podpisy na końcach linii zamiast legendy */
+    var yf = Y(f[n - 1]), yb = Y(b[n - 1]);
+    if (Math.abs(yf - yb) < 34) { var sr = (yf + yb) / 2, zn = yf <= yb ? -1 : 1; yf = sr + zn * 17; yb = sr - zn * 17; }
+    var podpis = function (y, nazwa, wart, kolor) {
+      return '<text class="chart-end" x="' + (R + 14) + '" y="' + (y - 2).toFixed(1) + '" style="fill:' + kolor + '">' + nazwa + '</text>' +
+        '<text class="chart-end chart-end-val" x="' + (R + 14) + '" y="' + (y + 14).toFixed(1) + '" style="fill:' + kolor + '">' + FI.pct(wart) + '</text>';
+    };
+    svg += podpis(yb, 'S&amp;P 500 (PLN)', b[n - 1], 'var(--bench-text)') + podpis(yf, 'Fundusz', f[n - 1], 'var(--s1)');
+    /* znaczniki decyzji: żółty romb na linii funduszu w dniu transakcji (ten sam znak co kurs na wykresie wyceny) */
+    var decyzje = {};
+    (P.transakcje || []).forEach(function (t) {
+      var k = -1;
+      for (var q = 0; q < n; q++) { if (pkt[q].d >= t.data) { k = q; break; } }
+      if (k < 0 || (k === 0 && s0 > 0 && t.data < pkt[0].d)) return;
+      (decyzje[k] = decyzje[k] || []).push(t);
+    });
     var h = stan.hover !== null && stan.hover < n ? stan.hover : null;
     var li = h === null ? n - 1 : h;
     if (h !== null) {
       svg += '<line x1="' + X(li) + '" x2="' + X(li) + '" y1="' + T + '" y2="' + B + '" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3"/>';
-      svg += '<circle cx="' + X(li) + '" cy="' + Y(b[li]) + '" r="5" fill="var(--bg)" stroke="var(--bench)" stroke-width="2"/>';
-      svg += '<circle cx="' + X(li) + '" cy="' + Y(f[li]) + '" r="7" fill="var(--accent)" stroke="var(--black)" stroke-width="2"/>';
+      svg += '<circle cx="' + X(li) + '" cy="' + Y(b[li]) + '" r="5" fill="var(--bench)" stroke="var(--bg)" stroke-width="2"/>';
+      if (!decyzje[li]) svg += '<circle cx="' + X(li) + '" cy="' + Y(f[li]) + '" r="6.5" fill="var(--s1)" stroke="var(--bg)" stroke-width="2"/>';
     }
+    Object.keys(decyzje).forEach(function (k) {
+      var x = +X(+k).toFixed(1), y = +Y(f[+k]).toFixed(1);
+      svg += '<rect x="' + (x - 6) + '" y="' + (y - 6) + '" width="12" height="12" transform="rotate(45 ' + x + ' ' + y + ')" fill="var(--accent)" stroke="var(--black)" stroke-width="2"/>';
+    });
     var el = $('wykres');
     el.innerHTML = svg;
     el.dataset.n = n;
     $('leg-data').textContent = FI.data(pkt[li].d);
     $('leg-fundusz').textContent = FI.pct(f[li]);
     $('leg-bench').textContent = FI.pct(b[li]);
+    var dymek = $('wykres-dymek');
+    if (h === null && !WASKI) { dymek.hidden = true; return; }
+    var roz = f[li] - b[li];
+    var html = '<b>' + FI.data(pkt[li].d) + '</b>' +
+      '<span><i class="k-f"></i>Fundusz<b>' + FI.pct(f[li]) + '</b></span>' +
+      '<span><i class="k-b"></i>S&amp;P 500 (PLN)<b>' + FI.pct(b[li]) + '</b></span>' +
+      '<span class="roz">Różnica<b>' + (roz > 0 ? '+' : roz < 0 ? '−' : '') + FI.num(Math.abs(roz), 1) + ' pp</b></span>';
+    if (decyzje[li]) {
+      var wg = {};
+      decyzje[li].forEach(function (t) { (wg[t.typ] = wg[t.typ] || []).push(t.ticker); });
+      html += Object.keys(wg).map(function (typ) {
+        return '<span class="dec"><i class="k-d"></i><em>' + esc(typ.charAt(0).toUpperCase() + typ.slice(1)) + ': ' + esc(wg[typ].join(', ')) + '</em></span>';
+      }).join('');
+    }
+    dymek.innerHTML = html;
+    dymek.hidden = false;
+    if (WASKI) return;
+    var lewo = X(li) / W * 100, prawa = lewo > 55;
+    dymek.style.left = prawa ? 'auto' : 'calc(' + lewo.toFixed(2) + '% + 14px)';
+    dymek.style.right = prawa ? 'calc(' + (100 - lewo).toFixed(2) + '% + 14px)' : 'auto';
   }
 
   function hover(e) {

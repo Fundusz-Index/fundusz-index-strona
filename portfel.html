@@ -51,7 +51,7 @@
 <div class="chart-head">
 <div style="display:flex;flex-direction:column;gap:8px">
 <h2 style="font-size:20px">Na tle S&amp;P 500</h2>
-<div class="chart-legend" aria-live="polite"><b id="leg-data">–</b><span><span class="swatch-line" aria-hidden="true"></span>Fundusz <b id="leg-fundusz">–</b></span><span><span class="swatch-line bench" aria-hidden="true"></span>S&amp;P 500 (PLN) <b id="leg-bench">–</b></span></div>
+<p class="sr-only" aria-live="polite">Stan na <span id="leg-data">–</span>: fundusz <span id="leg-fundusz">–</span>, S&amp;P 500 w złotych <span id="leg-bench">–</span>.</p>
 </div>
 <div role="group" aria-label="Zakres wykresu" style="display:flex;flex-wrap:wrap;gap:6px">
 <button type="button" class="seg" data-zakres="1M">1M</button>
@@ -62,8 +62,8 @@
 <button type="button" class="seg" data-zakres="Od startu">Od startu</button>
 </div>
 </div>
-<svg id="wykres" class="chart" viewBox="0 0 1000 340" role="img" aria-label="Wykres zwrotu funduszu i S&amp;P 500 w PLN"></svg>
-<p class="tiny muted">Najedź na wykres (na telefonie dotknij i przesuń), żeby zobaczyć wynik z dowolnego dnia. Oba wyniki liczone od początku wybranego zakresu, bez dywidend.</p>
+<div class="chart-wrap"><svg id="wykres" class="chart" viewBox="0 0 1000 340" role="img" aria-label="Wykres zwrotu funduszu i S&amp;P 500 w PLN"></svg><div id="wykres-dymek" class="chart-tip" hidden></div></div>
+<p class="tiny muted">Najedź na wykres (na telefonie dotknij i przesuń), żeby zobaczyć wynik z dowolnego dnia. Żółty romb oznacza dzień decyzji o portfelu. Oba wyniki liczone od początku wybranego zakresu, bez dywidend. Źródło: kursy zamknięcia z giełd w USA, kurs USD/PLN z NBP. Portfel wirtualny.</p>
 </div>
 <aside class="side panel" aria-label="Portfel w liczbach">
 <span class="label" style="color:var(--inv-muted)">W liczbach</span>

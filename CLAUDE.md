@@ -27,7 +27,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | Plik | Co jest w środku |
 | --- | --- |
 | `index.html` | Start: pasek kursów spółek (nie zatrzymuje się po najechaniu kursorem), ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz (`data/kalendarz.json`, cztery najbliższe, minione znikają same), dla partnerów |
-| `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji |
+| `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji. Wykres w stylu księgi znaku (wzór: `04_Wykresy/Wykres_raport_kurs_52_tygodnie`): gruba granatowa linia funduszu z kropką i podpisem na końcu, ciągła jaśniejsza linia S&P 500, bez legendy i bez wypełnienia. Żółty romb na linii funduszu = dzień transakcji z `transakcje.csv` (jedyny żółty element wykresu). Dymek `#wykres-dymek`: data, oba wyniki, różnica w pp, decyzja; na telefonie stała ramka pod wykresem |
 | `analizy.html` + `assets/js/analizy.js` | Biblioteka analiz z filtrami (sektor, w portfelu / poza) z `data/analizy.json` |
 | `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf`. Blok `.quote[data-kurs]` pokazuje aktualny kurs z `portfolio.json` (kod w `wspolne.js`). Wykres wyceny pokazuje tylko kurs z dnia raportu |
 | `data/kalendarz.json` | Wydarzenia na stronie głównej: data, do, typ, tytul, opis, szacunek (termin niepotwierdzony przez spółkę), link. Sprawdza go `sprawdz_dane.py` |
