@@ -14,6 +14,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - `PRODUCT.md`: dla kogo i po co jest strona, ograniczenia, zobowiązania marki (format Impeccable, nagłówki po angielsku, nie zmieniaj ich nazw).
 - `DESIGN.md`: kolory, typografia, układ, komponenty, wykresy, ruch. Przy zmianie wyglądu najpierw sprawdź ten plik, a po zmianie go zaktualizuj.
 - W sporze narzędzi wygrywa Impeccable i `DESIGN.md`. Taste to tylko druga opinia.
+- Humanizer stosujemy do artykułów przed publikacją, nie do tekstów strony. Jego uwagi to sugestie, ostatnie słowo ma autor. Nie rusza liczb, nazw spółek, wycen, cytatów ani dokumentów prawnych.
 
 ## Technika
 
