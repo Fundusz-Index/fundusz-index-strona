@@ -9,6 +9,12 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - Portfel jest **wirtualny**: 100 000 zł umownego kapitału od 25.10.2026, porównanie z S&P 500 w złotych.
 - Opiekun techniczny po stronie zarządu: Szymon Jakubowski. Strona w zarządzie: Mikołaj Bujacz i Paweł Osiński.
 
+## Źródła zasad
+
+- `PRODUCT.md`: dla kogo i po co jest strona, ograniczenia, zobowiązania marki (format Impeccable, nagłówki po angielsku, nie zmieniaj ich nazw).
+- `DESIGN.md`: kolory, typografia, układ, komponenty, wykresy, ruch. Przy zmianie wyglądu najpierw sprawdź ten plik, a po zmianie go zaktualizuj.
+- W sporze narzędzi wygrywa Impeccable i `DESIGN.md`. Taste to tylko druga opinia.
+
 ## Technika
 
 - Statyczne HTML, CSS i JavaScript, bez bibliotek, bez frameworków, bez bazy danych. Nie dodawaj zależności bez wyraźnej prośby.
