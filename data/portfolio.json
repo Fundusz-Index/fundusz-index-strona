@@ -1,5 +1,5 @@
 {
- "zaktualizowano": "2026-11-14T16:38+00:00",
+ "zaktualizowano": "2026-11-15T22:40+00:00",
  "stan_na": "2026-11-13",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-10-25",
@@ -119,7 +119,7 @@
    "nazwa": "AMD",
    "kwota_pln": 12000.0,
    "liczba_akcji": 5.7483,
-   "uzasadnienie": "Najbardziej ryzykowna pozycja, wycena zależna od rynku AI, dlatego najmniejszy udział."
+   "uzasadnienie": "Data Center to główny motor wzrostu: przychody segmentu wzrosły z 6,0 mld USD w 2022 r. do 16,6 mld USD w 2025 r. Kurs jest wyraźnie powyżej wyceny DCF, bo rynek zakłada szybszy wzrost niż model, dlatego to najmniejsza pozycja."
   },
   {
    "data": "2026-10-25",
@@ -129,7 +129,7 @@
    "nazwa": "EMCOR",
    "kwota_pln": 18000.0,
    "liczba_akcji": 6.8791,
-   "uzasadnienie": "Instalacje elektryczne i mechaniczne, m.in. dla centrów danych. Spółka cykliczna."
+   "uzasadnienie": "Instalacje elektryczne i chłodzenie to ok. 77% budżetu centrum danych, czyli dwa główne segmenty EMCOR. Brak wykonawców sprzyja dużym firmom, a spółka ma 924 mln USD gotówki przy prawie zerowym długu."
   },
   {
    "data": "2026-10-25",
@@ -139,7 +139,7 @@
    "nazwa": "Williams Companies",
    "kwota_pln": 20000.0,
    "liczba_akcji": 70.9403,
-   "uzasadnienie": "Stabilne przepływy pieniężne z przesyłu i przetwarzania gazu ziemnego oraz regularna dywidenda."
+   "uzasadnienie": "Transco to największy gazociąg przesyłowy w USA, a infrastruktura Williams obsługuje ok. 1/3 gazu ziemnego w kraju. Przepływy chronią kontrakty take-or-pay i stawki regulowane, a popyt rośnie dzięki eksportowi LNG i centrom danych."
   },
   {
    "data": "2026-10-25",
@@ -149,7 +149,7 @@
    "nazwa": "Chevron",
    "kwota_pln": 20000.0,
    "liczba_akcji": 21.9386,
-   "uzasadnienie": "Niska zmienność i regularna dywidenda, element defensywny portfela."
+   "uzasadnienie": "Przejęcie Hess ze złożami w Gujanie i silna pozycja w basenie permskim (ok. 1 mln baryłek ekwiwalentu ropy dziennie). Do tego dyscyplina kapitałowa: 3 mld USD oszczędności, malejący dług i dywidenda 1,78 USD kwartalnie."
   },
   {
    "data": "2026-10-25",
@@ -159,7 +159,7 @@
    "nazwa": "Alphabet",
    "kwota_pln": 30000.0,
    "liczba_akcji": 24.1002,
-   "uzasadnienie": "Największa pozycja: lider wyszukiwania, reklamy i chmury, silny bilans."
+   "uzasadnienie": "Lider wyszukiwania z ok. 90% udziału w rynku i jednym ekosystemem: Search, YouTube, Android, Chrome i Google Cloud. Mocne finanse (marża netto 32,8%, ROIC 24,9%, minimalny dług), a chmura i sztuczna inteligencja napędzają wzrost."
   }
  ],
  "seria": [
