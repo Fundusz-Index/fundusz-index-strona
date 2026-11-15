@@ -45,6 +45,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - Nie dodawaj sekcji rekrutacji („Dołącz”): rekrutacja zamknięta. Bez rolki z przeglądem tygodnia.
 - Ze starego opisu funduszu bierzemy tylko liczby: 25+ lat, 300+ prezentacji, 60+ opracowań. Sponsor Willway i dawny koordynator są nieaktualni, nie wspominaj o nich.
 - Zdjęcia i nazwiska członków tylko za zgodą. Pola w `[nawiasach]` to miejsca do uzupełnienia; nie wolno ich zostawić na stronie publicznej.
+- Linki do plików oznaczamy samym „(PDF)”, bez rozmiaru pliku.
 - Kontakt funduszu: funduszindex@knrkindex.pl. LinkedIn: linkedin.com/company/index-fund.
 
 ## Jak pracować
