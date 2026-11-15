@@ -42,6 +42,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | `o-funduszu.html` | Opis, filary „Dlaczego powstał fundusz”, proces decyzji, zarząd, analitycy, kontakt |
 | `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html` + `assets/js/dokumenty.js` | Dokumenty prawne (spis treści z podświetleniem) |
 | `pliki/fundusz-index-oferta-wspolpracy.pdf` + `zrodla/oferta/` | Oferta dla partnerów (4 strony A4). Treść w `zrodla/oferta/oferta.html`, PDF buduje `python3 zrodla/oferta/zbuduj.py` (Playwright). Liczby: 26 członków funduszu, 13 analityków, ok. 185 członków koła. Nie wymieniamy Wall Street Prep ani partnerów koła bez zgody |
+| `assets/img/og/*.png` + `zrodla/og/` | Obrazki podglądu linków (1200×630): `fundusz-index.png` dla stron ogólnych, `analiza-<ticker>.png` dla analiz. Buduje `python3 zrodla/og/zbuduj.py` (Playwright) z `data/analizy.json`; uruchom po dodaniu analizy. Każda strona ma w `<head>` blok `og:*` z adresami bezwzględnymi `https://fundusz.knrkindex.pl/…`. Nowa strona musi go dostać. Hasło na obrazku to slogan z LinkedIna |
 | `data/transakcje.csv` | Każde kupno i sprzedaż: `data,typ,ticker,kwota_pln,liczba_akcji,uzasadnienie` |
 | `data/spolki.json` | Opis spółek; nowa spółka w transakcjach musi mieć tu wpis |
 

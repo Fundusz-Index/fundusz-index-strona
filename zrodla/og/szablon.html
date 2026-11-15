@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<style>
+  /* Obrazek podglądu linku 1200×630. Kolory z identyfikacji v1. */
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; background: #0D0D0D; color: #FFFFFF; font-family: Arial, "Liberation Sans", Helvetica, sans-serif; display: flex; flex-direction: column; justify-content: space-between; padding: 64px 72px 60px; position: relative; overflow: hidden; }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .top img { height: 46px; }
+  .top span { font-size: 22px; color: #BDBDBD; letter-spacing: 0.02em; }
+  .mid { display: flex; flex-direction: column; gap: 22px; max-width: 800px; }
+  .label { font-size: 22px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #A9BCDB; display: flex; align-items: center; gap: 14px; }
+  .label::before { content: ""; width: 18px; height: 18px; background: #FFD60A; flex: none; }
+  h1 { font-size: 62px; line-height: 1.06; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+  body.analiza h1 { font-size: 84px; }
+  .ticker { display: inline-block; font-size: 30px; font-weight: 700; background: #14213D; border: 2px solid #3463A6; border-radius: 8px; padding: 8px 18px; letter-spacing: 0.04em; align-self: flex-start; }
+  [hidden] { display: none !important; }
+  .bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; font-size: 24px; color: #E6E6E6; line-height: 1.35; }
+  .bottom b { color: #FFFFFF; }
+  .bottom .url { color: #BDBDBD; white-space: nowrap; }
+  .x { position: absolute; right: 40px; bottom: 150px; width: 250px; }
+</style>
+</head>
+<body>
+<div class="top"><img src="../oferta/logo_d.svg" alt=""><span id="gora"></span></div>
+<div class="mid"><div class="label" id="etykieta"></div><h1 id="tytul"></h1><div class="ticker" id="ticker" hidden></div></div>
+<div class="bottom"><div id="dol"></div><div class="url">fundusz.knrkindex.pl</div></div>
+<img class="x" src="../oferta/x_d.svg" alt="">
+<script>
+  var q = new URLSearchParams(location.search), g = function (k) { return q.get(k) || ''; };
+  document.getElementById('gora').textContent = g('gora');
+  document.getElementById('etykieta').textContent = g('etykieta');
+  document.getElementById('tytul').textContent = g('tytul');
+  document.getElementById('dol').innerHTML = g('dol');
+  if (g('ticker')) { var t = document.getElementById('ticker'); t.textContent = g('ticker'); t.hidden = false; document.body.className = 'analiza'; }
+</script>
+</body>
+</html>
