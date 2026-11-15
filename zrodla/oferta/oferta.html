@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Fundusz Index: oferta współpracy</title>
+<style>
+@page { size: A4; margin: 0; }
+:root { --black:#0D0D0D; --ink2:#3A3A3A; --muted:#767676; --line:#E6E6E6; --surface:#F3F3F3; --yellow:#FFD60A; --navy:#14213D; --blue:#3463A6; --ondark:#BDBDBD; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: Arial, "Liberation Sans", Helvetica, sans-serif; color: var(--black); font-size: 10.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-variant-numeric: tabular-nums; }
+.page { width: 210mm; height: 297mm; padding: 16mm 20mm 13mm; position: relative; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; }
+.page:last-child { page-break-after: auto; }
+h1, h2, h3, p { margin: 0; }
+h2 { font-size: 22pt; line-height: 1.15; letter-spacing: -0.01em; }
+h3 { font-size: 12pt; line-height: 1.3; }
+.lead { font-size: 11.5pt; line-height: 1.45; color: var(--ink2); max-width: 150mm; }
+.small { font-size: 9pt; color: var(--ink2); }
+.tiny { font-size: 8pt; color: var(--muted); line-height: 1.45; }
+.head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5mm; border-bottom: 1px solid var(--line); margin-bottom: 8mm; }
+.head img { height: 7mm; }
+.head span { font-size: 8.5pt; color: var(--muted); }
+.foot { margin-top: auto; padding-top: 5mm; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted); }
+.stack { display: flex; flex-direction: column; }
+.g4 { gap: 3mm; } .g6 { gap: 6mm; } .g8 { gap: 6.5mm; } .g10 { gap: 11mm; }
+
+/* okładka */
+.cover { background: var(--black); color: #fff; padding: 22mm 20mm 18mm !important; }
+.cover .logo { height: 11mm; align-self: flex-start; }
+.cover h1 { font-size: 44pt; line-height: 1.04; letter-spacing: -0.02em; margin-top: 62mm; max-width: 150mm; }
+.cover .lead { color: var(--ondark); margin-top: 8mm; max-width: 128mm; font-size: 13pt; }
+.cover .x { position: absolute; right: 16mm; top: 60mm; width: 58mm; }
+.cover .facts { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; }
+.cover .facts div { border-top: 1px solid #3A3A3A; padding-top: 4mm; }
+.cover .facts b { display: block; font-size: 20pt; line-height: 1.1; }
+.cover .facts span { font-size: 9pt; color: var(--ondark); }
+.cover .meta { margin-top: 10mm; display: flex; justify-content: space-between; font-size: 8.5pt; color: var(--ondark); }
+
+/* liczby */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; }
+.stats div { border-top: 3px solid var(--black); padding-top: 3mm; }
+.stats b { display: block; font-size: 19pt; line-height: 1.1; }
+.stats span { font-size: 9pt; color: var(--ink2); }
+
+/* kroki */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: s; border: 1px solid var(--line); border-radius: 2mm; }
+.steps.three { grid-template-columns: repeat(3, 1fr); }
+.steps div { padding: 4mm; border-right: 1px solid var(--line); counter-increment: s; }
+.steps div:last-child { border-right: 0; }
+.steps div::before { content: counter(s); display: flex; width: 7mm; height: 7mm; align-items: center; justify-content: center; background: var(--navy); color: #fff; font-weight: 700; font-size: 9.5pt; border-radius: 50%; margin-bottom: 3mm; }
+.steps b { display: block; font-size: 11pt; margin-bottom: 1mm; }
+.steps span { font-size: 9pt; color: var(--ink2); }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+.box { background: var(--surface); border-radius: 2mm; padding: 5mm; }
+.box.dark { background: var(--black); color: #fff; }
+.box.dark .small { color: var(--ondark); }
+ul.list { margin: 3mm 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2.2mm; }
+ul.list li { padding-left: 5mm; position: relative; font-size: 9.5pt; line-height: 1.45; }
+ul.list li::before { content: ""; position: absolute; left: 0; top: 2mm; width: 2mm; height: 2mm; background: var(--navy); }
+.dark ul.list li::before { background: #fff; }
+ul.list b { font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+th { background: var(--black); color: #fff; text-align: left; padding: 2.6mm 3.5mm; font-size: 9pt; }
+td { padding: 2.3mm 3.5mm; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.4; }
+td:first-child { font-weight: 700; width: 46mm; }
+.note { border-left: 3px solid var(--navy); padding: 1mm 0 1mm 5mm; }
+.contact { display: grid; grid-template-columns: 1.15fr 1fr; gap: 8mm; align-items: end; }
+.contact .mail { font-size: 15pt; font-weight: 700; }
+.mark { display: inline-block; width: 12mm; height: 1.2mm; background: var(--yellow); margin-bottom: 4mm; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="page cover">
+<img class="logo" src="logo_d.svg" alt="Fundusz Index">
+<img class="x" src="x_d.svg" alt="">
+<h1>Współpraca z&nbsp;Funduszem Index</h1>
+<p class="lead">Jesteśmy studentami Uniwersytetu Ekonomicznego w Krakowie. Wyceniamy spółki, prowadzimy portfel modelowy i publikujemy każdą decyzję. Szukamy partnerów, którzy chcą uczyć nas praktyki rynku.</p>
+<div class="facts">
+<div><b>5</b><span>spółek w portfelu, każda z raportem i wyceną DCF</span></div>
+<div><b>26</b><span>członków funduszu, w tym 13 analityków podpisanych pod raportami</span></div>
+<div><b>ok. 185</b><span>członków Koła Naukowego Rynku Kapitałowego INDEX</span></div>
+</div>
+<div class="meta"><span>Oferta dla partnerów · listopad 2026</span><span>fundusz.knrkindex.pl</span></div>
+</section>
+
+<!-- 2 -->
+<section class="page">
+<div class="head"><img src="logo_l.svg" alt="Fundusz Index"><span>Oferta dla partnerów</span></div>
+<div class="stack g10">
+<div class="stack g4">
+<h2>Kim jesteśmy</h2>
+<p class="lead">Fundusz Index to najstarszy projekt Koła Naukowego Rynku Kapitałowego INDEX na UEK. Jesienią 2026 r. ruszył w nowej formule: z portfelem modelowym, własną stroną i raportami pisanymi według jednego standardu.</p>
+<p>Pracujemy jak zespół analityczny. Analitycy dzielą się na sektory, budują modele i bronią swoich wycen przed resztą funduszu. Portfel jest wirtualny, ale proces jest prawdziwy: od analizy, przez głosowanie, po publiczny dziennik decyzji. Prowadzi nas Fundacja Index (KRS 0001137760).</p>
+</div>
+
+<div class="stats">
+<div><b>100 000 zł</b><span>umownego kapitału w portfelu modelowym od 25.10.2026</span></div>
+<div><b>5</b><span>spółek z USA: Alphabet, Chevron, Williams, EMCOR, AMD</span></div>
+<div><b>ok. 24</b><span>strony ma średnio raport: model DCF, mnożniki, ryzyka</span></div>
+<div><b>S&amp;P 500</b><span>w złotych to benchmark, z którym porównujemy wynik</span></div>
+</div>
+
+<div class="stack g4">
+<h3>Jak podejmujemy decyzje</h3>
+<div class="steps">
+<div><b>Analiza</b><span>Zespół wycenia spółkę metodą DCF i porównawczą.</span></div>
+<div><b>Pitch</b><span>Autorzy prezentują tezę i odpowiadają na pytania.</span></div>
+<div><b>Głosowanie</b><span>Spółka trafia do portfela, gdy poprze ją większość członków.</span></div>
+<div><b>Publikacja</b><span>Transakcja i raport pojawiają się na stronie.</span></div>
+</div>
+</div>
+
+<div class="cols">
+<div class="note"><h3>Wszystko pokazujemy</h3><p class="small" style="margin-top:1.5mm">Skład portfela, wynik na tle indeksu, każdą transakcję z uzasadnieniem i pełne raporty. Bez wybierania tylko udanych decyzji.</p></div>
+<div class="note"><h3>Podpisujemy się nazwiskiem</h3><p class="small" style="margin-top:1.5mm">Każda analiza ma autorów, datę, metodę i sekcję ujawnień. Uczymy się standardów, które obowiązują w zawodzie.</p></div>
+</div>
+</div>
+<div class="foot"><span>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, UEK</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="page">
+<div class="head"><img src="logo_l.svg" alt="Fundusz Index"><span>Oferta dla partnerów</span></div>
+<div class="stack g8">
+<div class="stack g4">
+<h2>Co możemy zrobić razem</h2>
+<p class="lead">Nie mamy sztywnych pakietów ani cennika. Zakres ustalamy w rozmowie, tak żeby pasował do Waszych celów i naszych możliwości.</p>
+</div>
+
+<div class="cols">
+<div class="box">
+<h3>Co zyskuje partner</h3>
+<ul class="list">
+<li><b>Kontakt z talentami.</b> Studenci, którzy na co dzień budują modele i piszą raporty. Naturalni kandydaci na staże i stanowiska juniorskie.</li>
+<li><b>Scena przed kołem INDEX.</b> Prelekcja lub warsztat na cotygodniowym spotkaniu koła, przed studentami finansów z całego UEK.</li>
+<li><b>Widoczność.</b> Logo i opis na stronie funduszu oraz post o współpracy na naszym LinkedInie.</li>
+<li><b>Wspólne treści.</b> Artykuł ekspercki na stronie funduszu lub w czasopiśmie Profit Journal.</li>
+</ul>
+</div>
+<div class="box dark">
+<h3>Czego szukamy</h3>
+<ul class="list">
+<li><b>Warsztatów i prelekcji</b> prowadzonych przez praktyków: wycena, research, zarządzanie portfelem.</li>
+<li><b>Informacji zwrotnej</b> do naszych modeli i raportów od osób, które robią to zawodowo.</li>
+<li><b>Dostępu do danych i narzędzi</b>, z których korzystają analitycy.</li>
+<li><b>Wizyt studyjnych, staży</b> i wejściówek na branżowe konferencje.</li>
+</ul>
+</div>
+</div>
+
+<div class="stack g4">
+<h3>Przykłady współpracy</h3>
+<table>
+<thead><tr><th>Partner</th><th>Co możemy zrobić razem</th></tr></thead>
+<tbody>
+<tr><td>TFI i domy maklerskie</td><td>Spotkanie z zarządzającym lub analitykiem, przegląd naszej wyceny przez zespół researchu, wizyta w biurze.</td></tr>
+<tr><td>Banki, doradztwo i audyt</td><td>Warsztat z wyceny lub M&amp;A, studium przypadku dla członków, spotkanie rekrutacyjne.</td></tr>
+<tr><td>Dane, narzędzia i szkolenia</td><td>Dostęp dla zespołu, szkolenie z platformy, oznaczenie źródła danych w naszych raportach.</td></tr>
+<tr><td>Organizacje i media branżowe</td><td>Patronat, prelegenci, udział w konferencjach, publikacja naszych komentarzy.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<h3>A wsparcie finansowe?</h3>
+<p class="small" style="margin-top:1.5mm">Dziś prosimy o wsparcie merytoryczne. Docelowo chcemy, żeby fundusz zarządzał prawdziwym kapitałem. Pracujemy nad stroną prawną tego rozwiązania i nie chcemy niczego obiecywać, zanim ją domkniemy. Jeśli zechcecie wesprzeć nas finansowo, właściwą formą będzie darowizna na rzecz Fundacji Index. Na tym etapie nie oferujemy wyłączności w branży.</p>
+</div>
+</div>
+<div class="foot"><span>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, UEK</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="page">
+<div class="head"><img src="logo_l.svg" alt="Fundusz Index"><span>Oferta dla partnerów</span></div>
+<div class="stack g8">
+<div class="stack g4">
+<div style="display:flex;align-items:center;gap:4mm"><img src="logo_kolo.png" alt="Logo KNRK INDEX" style="width:12mm;height:12mm"><h2>Za nami stoi koło INDEX</h2></div>
+<p class="lead">Fundusz to 26 wybranych członków KNRK INDEX, jednej z najbardziej aktywnych organizacji studenckich na UEK. Partner funduszu dociera do całej tej społeczności.</p>
+</div>
+
+<div class="stats">
+<div><b>ok. 185</b><span>członków koła w roku 2026/2027</span></div>
+<div><b>25+</b><span>lat działalności funduszu w strukturach koła</span></div>
+<div><b>11</b><span>projektów: konferencje, konkursy, czasopismo, warsztaty</span></div>
+<div><b>ok. 3 000</b><span>uczestników gry giełdowej INDEX Investment Challenge</span></div>
+</div>
+
+<div class="cols">
+<div class="stack g4">
+<h3>Projekty koła</h3>
+<p class="small"><b>Capital Market Days</b>: jedna z największych studenckich konferencji o rynku kapitałowym w Polsce. <b>Consulting Academy</b>: całodniowe warsztaty z ekspertami; ostatnia kampania zebrała 1,28 mln wyświetleń i 212 zgłoszeń. <b>Profit Journal</b>: czasopismo finansowe docierające do ponad 1 000 studentów. <b>Startup Stage</b>: ponad 200 uczestników na każdej edycji.</p>
+</div>
+<div class="stack g4">
+<h3>Absolwenci i obecność</h3>
+<p class="small">Absolwenci koła pracują m.in. w bankach inwestycyjnych w Londynie, funduszach private equity i venture capital, firmach Wielkiej Czwórki i doradztwie strategicznym. Jesteśmy obecni na Open Eyes Economy Summit 2026 w Krakowie. Rozmawiamy też o udziale w SMIF|UK, konferencji studenckich funduszy w Wielkiej Brytanii.</p>
+</div>
+</div>
+
+<div class="stack g4">
+<h3>Jak zacząć</h3>
+<div class="steps three">
+<div><b>Napisz do nas</b><span>Wystarczy krótka wiadomość. Odpowiadamy w ciągu kilku dni roboczych.</span></div>
+<div><b>Porozmawiajmy</b><span>30 minut online lub w Krakowie. Poznajemy Wasze cele i mówimy, co możemy dać.</span></div>
+<div><b>Ustalmy pierwszy krok</b><span>Zwykle to jedno spotkanie lub warsztat. Resztę planujemy po nim.</span></div>
+</div>
+</div>
+
+<div class="box dark contact">
+<div><span class="mark"></span><p class="small">Relacje z partnerami</p><p class="mail">funduszindex@knrkindex.pl</p><p class="small" style="margin-top:2mm">Szymon Jakubowski i Michał Bożek</p></div>
+<div><p class="small">Strona: fundusz.knrkindex.pl<br>LinkedIn: linkedin.com/company/index-fund<br>Fundacja Index, ul. Wizjonerów 7/112, 31-356 Kraków</p></div>
+</div>
+
+<p class="tiny">Fundusz Index to edukacyjny projekt studentów prowadzony przez Fundację Index (KRS 0001137760). Nie jest funduszem inwestycyjnym w rozumieniu ustawy z 27 maja 2004 r. o funduszach inwestycyjnych, nie zbiera pieniędzy na inwestycje i nie prowadzi działalności maklerskiej. Portfel jest wirtualny. Liczby dotyczące koła i jego projektów pochodzą z materiałów KNRK INDEX. Stan na listopad 2026 r.</p>
+</div>
+<div class="foot"><span>Fundusz Index · Koło Naukowe Rynku Kapitałowego INDEX, UEK</span><span>4</span></div>
+</section>
+</body>
+</html>
