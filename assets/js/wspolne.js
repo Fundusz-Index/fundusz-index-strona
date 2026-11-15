@@ -154,7 +154,7 @@
     }).catch(function () {});
   }
 
-  /* Strona analizy: kurs z ostatniej sesji, zmiana od dnia wyceny i znacznik na wykresie. */
+  /* Strona analizy: kurs z ostatniej sesji i zmiana od dnia wyceny. */
   function analysisQuote(p) {
     var box = document.querySelector('[data-kurs]');
     if (!box) return;
@@ -173,22 +173,6 @@
         FI.lossClass(od) + '">' + FI.pct(od, 1) + '</b></span>') +
       (p.demo ? '<span class="tiny muted">Dane przykładowe</span>' : '');
     box.hidden = false;
-
-    var ff = document.querySelector('.ff[data-min]');
-    if (!ff) return;
-    var min = parseFloat(ff.getAttribute('data-min')), max = parseFloat(ff.getAttribute('data-max'));
-    var pos = Math.max(0, Math.min(100, (x.kurs_usd - min) / (max - min) * 100));
-    var row = document.createElement('div');
-    row.className = 'ff-row';
-    var etykieta = FI.num(x.kurs_usd) + ' USD';
-    var opis = pos > 72
-      ? 'right:calc(' + (100 - pos).toFixed(1) + '% + 16px)'
-      : 'left:calc(' + pos.toFixed(1) + '% + 16px)';
-    row.innerHTML = '<b>Kurs ' + esc(data) + '</b><div class="ff-track"><span class="ff-now" style="left:calc(' + pos.toFixed(1) +
-      '% - 9px)"></span><span class="small" style="' + opis + ';top:4px;font-weight:700;white-space:nowrap">' + etykieta + '</span></div>';
-    var rows = ff.querySelectorAll('.ff-row');
-    ff.insertBefore(row, rows[rows.length - 1]);
-    ff.setAttribute('aria-label', ff.getAttribute('aria-label') + ', kurs z ' + data + ' ' + FI.num(x.kurs_usd));
   }
 
   FI.portfolio = FI.json('portfolio.json');

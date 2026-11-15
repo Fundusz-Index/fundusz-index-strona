@@ -322,7 +322,6 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
 .quote-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
 .quote-price { font-size: 30px; line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; }
 .quote .chg { font-weight: 700; }
-.ff-now { width: 18px; height: 18px; top: 5px; background: var(--bg); border: 2px solid var(--s1); transform: rotate(45deg); }
 
 /* atrybut hidden ma pierwszeństwo przed display z klas (.panel, .section, .quote) */
 [hidden] { display: none !important; }

@@ -26,7 +26,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | `index.html` | Start: pasek kursów spółek (nie zatrzymuje się po najechaniu kursorem), ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz (`data/kalendarz.json`, cztery najbliższe, minione znikają same), dla partnerów |
 | `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji |
 | `analizy.html` + `assets/js/analizy.js` | Biblioteka analiz z filtrami (sektor, w portfelu / poza) z `data/analizy.json` |
-| `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf`. Blok `.quote[data-kurs]` i wiersz na wykresie (`.ff[data-min][data-max]`) pokazują kurs z `portfolio.json` (kod w `wspolne.js`) |
+| `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf`. Blok `.quote[data-kurs]` pokazuje aktualny kurs z `portfolio.json` (kod w `wspolne.js`). Wykres wyceny pokazuje tylko kurs z dnia raportu |
 | `data/kalendarz.json` | Wydarzenia na stronie głównej: data, do, typ, tytul, opis, szacunek (termin niepotwierdzony przez spółkę), link. Sprawdza go `sprawdz_dane.py` |
 | `artykuly.html` + `assets/js/artykuly.js` | Działy: Przegląd tygodnia, Profit Journal, Edukacja, Z życia funduszu; newsletter |
 | `o-funduszu.html` | Opis, filary „Dlaczego powstał fundusz”, proces decyzji, zarząd, analitycy, kontakt |
