@@ -19,7 +19,7 @@ def obrazki():
     yield "fundusz-index", {
         "gora": "KNRK INDEX · UEK w Krakowie",
         "etykieta": "Studencki fundusz",
-        "tytul": "Analizujemy spółki, wyceniamy je i prowadzimy portfel modelowy.",
+        "tytul": "Analizujemy spółki, wyceniamy je i prowadzimy portfel wirtualny.",
         "dol": "Portfel na tle S&amp;P 500, analizy z nazwiskami autorów,<br>dziennik każdej decyzji.",
     }
     for a in json.loads((REPO / "data" / "analizy.json").read_text(encoding="utf-8")):
