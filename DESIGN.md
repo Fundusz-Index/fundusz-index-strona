@@ -197,6 +197,11 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 ### Navigation
 - Pięć pozycji tekstem 15 px. Aktywna jest pogrubiona z czarną kreską 3 px pod spodem. Po najechaniu kreska rysuje się od lewej w 150 ms. Fokus z klawiatury: obrys 3 px w kolorze series-2.
 
+### Pasek kursów
+- Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem, wyrównany do marginesu strony. Bez osobnego tła.
+- Spadki na czerni mają jaśniejszą czerwień (#FF8A80), wzrosty są białe.
+- Na telefonie etykieta bez daty.
+
 ### Wykres portfela
 - Wzór: wykres kursu z identyfikacji. Gruba granatowa linia funduszu (3,25 px) z kropką i pogrubioną wartością na końcu. Cieńsza, ciągła linia S&P 500 (2 px) z własnym podpisem. Bez legendy i bez wypełnienia.
 - Siatka pozioma jasna, linia zera i linia bazowa mocniejsze.
