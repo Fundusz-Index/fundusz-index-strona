@@ -17,7 +17,10 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - `scripts/sprawdz_dane.py`: walidacja danych i linków. `--publikacja` zamienia ostrzeżenia (pola w `[nawiasach]`) w błędy.
 - GitHub Actions: `aktualizacja-danych.yml` w dni robocze o 22:30 UTC (testy, walidacja, pobranie kursów, commit „Dane portfela: …” jako „Fundusz Index (automat)”); `sprawdzenie-danych.yml` przy każdym pushu.
 - Style: `assets/css/style.css`, tokeny kolorów w `:root`, tryb jasny i ciemny. Kolory i logo z identyfikacji v1 (czerń, biel, żółty akcent #FFD60A, granaty serii #14213D…#D5DEEC). Logo i symbol w `assets/img/ikony.svg`.
-- Każda strona ma `<body data-base="">` (w `analizy/*.html`: `data-base="../"`), wspólny nagłówek, menu (Start, Portfel, Analizy, Artykuły, O funduszu) i stopkę z linkami do dokumentów prawnych.
+- Ruch (blok na końcu `style.css`): wejście nagłówka strony głównej raz przy wczytaniu, podkreślenie w menu, przyciski i karty po najechaniu. Tylko `transform`/`opacity`, tylko w `prefers-reduced-motion: no-preference`, najechanie tylko w `(hover: hover) and (pointer: fine)`. Bez animacji sekcji przy przewijaniu.
+- Telefon (do 640 px): menu w jednym wierszu, symbol X w nagłówku ukryty, wykres portfela rysowany w proporcjach 440×300 (`WASKI` w `portfel.js`). Cele dotykowe min. 24 px, tekst min. 12 px.
+- Czerń marki na stałe (niezależnie od trybu): `var(--black)`, akcent: `var(--accent)`. Nie wpisuj tych kolorów ręcznie.
+- Każda strona ma `<body data-base="">` (w `analizy/*.html`: `data-base="../"`), link „Przejdź do treści” (`.skip-link` → `<main id="tresc">`), wspólny nagłówek, menu (Start, Portfel, Analizy, Artykuły, O funduszu) i stopkę z linkami do dokumentów prawnych.
 
 ## Mapa plików
 

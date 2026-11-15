@@ -3,13 +3,14 @@
   'use strict';
   var FI = window.FI, esc = FI.esc;
   var KOLORY = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)'];
-  var stan = { zakres: '1R', hover: null, sort: 'waga', otwarta: null, sklad: 'spolki' };
+  var stan = { zakres: 'Od startu', hover: null, sort: 'waga', otwarta: null, sklad: 'spolki' };
   var P = null;
 
   function $(id) { return document.getElementById(id); }
 
   /* ---------- wykres ---------- */
-  var W = 1000, H = 340, L = 56, R = 984, T = 20, B = 300;
+  var WASKI = window.matchMedia('(max-width: 640px)').matches;
+  var W = WASKI ? 440 : 1000, H = WASKI ? 300 : 340, L = WASKI ? 44 : 56, R = W - 16, T = 20, B = H - 40;
 
   function poczatekZakresu(seria, zakres) {
     var ost = new Date(seria[seria.length - 1].d + 'T00:00:00Z');
@@ -28,6 +29,7 @@
   }
 
   function rysujWykres() {
+    document.getElementById('wykres').setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     var seria = P.seria, s0 = poczatekZakresu(seria, stan.zakres);
     var pkt = seria.slice(s0);
     if (pkt.length < 2) pkt = seria.slice(Math.max(0, seria.length - 2));
@@ -52,9 +54,9 @@
       svg += '<text x="' + (L - 8) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end">' +
         (zero ? '0' : FI.pct(v, krok < 1 ? 1 : 0)) + '</text>';
     }
-    [0, 0.25, 0.5, 0.75, 1].forEach(function (q, k) {
+    (WASKI ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1]).forEach(function (q, k) {
       var idx = Math.round(q * (n - 1));
-      svg += '<text x="' + X(idx).toFixed(1) + '" y="' + (H - 14) + '" text-anchor="' + (k === 0 ? 'start' : k === 4 ? 'end' : 'middle') + '">' + FI.data(pkt[idx].d) + '</text>';
+      svg += '<text x="' + X(idx).toFixed(1) + '" y="' + (H - 14) + '" text-anchor="' + (k === 0 ? 'start' : q === 1 ? 'end' : 'middle') + '">' + FI.data(pkt[idx].d) + '</text>';
     });
     svg += '<polygon points="' + fp.concat(bp.slice().reverse()).join(' ') + '" fill="var(--area)" stroke="none"/>';
     svg += '<polyline points="' + bp.join(' ') + '" fill="none" stroke="var(--bench)" stroke-width="2" stroke-dasharray="6 4" stroke-linejoin="round"/>';
@@ -64,7 +66,7 @@
     if (h !== null) {
       svg += '<line x1="' + X(li) + '" x2="' + X(li) + '" y1="' + T + '" y2="' + B + '" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3"/>';
       svg += '<circle cx="' + X(li) + '" cy="' + Y(b[li]) + '" r="5" fill="var(--bg)" stroke="var(--bench)" stroke-width="2"/>';
-      svg += '<circle cx="' + X(li) + '" cy="' + Y(f[li]) + '" r="7" fill="#FFD60A" stroke="#0D0D0D" stroke-width="2"/>';
+      svg += '<circle cx="' + X(li) + '" cy="' + Y(f[li]) + '" r="7" fill="var(--accent)" stroke="var(--black)" stroke-width="2"/>';
     }
     var el = $('wykres');
     el.innerHTML = svg;
