@@ -1,5 +1,5 @@
 {
- "zaktualizowano": "2026-11-15T22:40+00:00",
+ "zaktualizowano": "2026-11-15T23:59+00:00",
  "stan_na": "2026-11-13",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-10-25",
@@ -36,7 +36,7 @@
    "opis": "wyszukiwarka, reklama, chmura",
    "analiza": "analizy/googl.html",
    "raport": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
-   "autorzy": "Filip Timofjeczuk, Paweł Osiński, Jakub Kochański",
+   "autorzy": "Filip Timofiejczuk, Paweł Osiński, Jakub Kochański",
    "liczba_akcji": 24.1002,
    "kurs_usd": 295.77,
    "wartosc_pln": 28406.98,
