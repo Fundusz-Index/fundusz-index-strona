@@ -11,6 +11,15 @@
       "link": "https://kongres.oees.pl/"
     },
     {
+      "data": "2026-11-20",
+      "do": "2026-11-21",
+      "typ": "Wydarzenie",
+      "tytul": "ForFin 2026",
+      "opis": "Forum Finansów i Inwestycji, PGE Narodowy w Warszawie",
+      "szacunek": false,
+      "link": "https://forfin.pl/"
+    },
+    {
       "data": "2026-12-10",
       "typ": "Koło INDEX",
       "tytul": "Wydarzenie Startup Stage",
