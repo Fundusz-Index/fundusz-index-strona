@@ -76,6 +76,8 @@ p { margin: 0; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 6px; font: inherit; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--ink); }
 .btn-primary { background: var(--ink); color: var(--bg); }
 .btn-primary:hover { color: var(--bg); opacity: 0.88; }
+.btn:disabled, .btn:disabled:hover { opacity: 0.4; cursor: not-allowed; }
+input:disabled { cursor: not-allowed; opacity: 0.6; }
 .btn-ghost { background: transparent; color: var(--ink); }
 .btn-light { background: #FFFFFF; color: #0D0D0D; border-color: #FFFFFF; }
 .btn-light:hover { color: #0D0D0D; opacity: 0.9; }
@@ -142,7 +144,7 @@ tbody tr { border-top: 1px solid var(--line); }
 .ticker-label span { font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: 0; opacity: 0.85; }
 .ticker-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; }
 .ticker-track { margin: 0; padding: 0; list-style: none; display: flex; width: max-content; animation: ticker 45s linear infinite; }
-.ticker:hover .ticker-track, .ticker:focus-within .ticker-track { animation-play-state: paused; }
+.ticker:focus-within .ticker-track { animation-play-state: paused; }
 .ticker-track li { padding: 14px 22px; white-space: nowrap; display: flex; align-items: baseline; gap: 10px; border-right: 1px solid var(--line); font-size: 15px; }
 .ticker-track a { text-decoration: none; font-weight: 700; }
 .ticker-track .chg { font-weight: 700; }
@@ -305,3 +307,22 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
   .table-stack td::before { content: attr(data-label); display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 2px; }
   .table-stack td:first-child { font-weight: 700; font-size: 16px; }
 }
+
+/* kalendarz na stronie głównej (dane: data/kalendarz.json) */
+.cal { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+.cal li { border-top: 3px solid var(--ink); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+.cal li.cal-est { border-top-style: dashed; }
+.cal-date { font-size: 22px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.cal-title { font-weight: 700; }
+.cal-title a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.cal-meta { font-size: 14px; color: var(--ink-2); }
+
+/* aktualny kurs na stronie analizy (dane: data/portfolio.json) */
+.quote { display: flex; flex-direction: column; gap: 4px; border-left: 3px solid var(--s1); padding: 2px 0 2px 14px; }
+.quote-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.quote-price { font-size: 30px; line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; }
+.quote .chg { font-weight: 700; }
+.ff-now { width: 18px; height: 18px; top: 5px; background: var(--bg); border: 2px solid var(--s1); transform: rotate(45deg); }
+
+/* atrybut hidden ma pierwszeństwo przed display z klas (.panel, .section, .quote) */
+[hidden] { display: none !important; }

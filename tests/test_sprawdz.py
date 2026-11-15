@@ -70,6 +70,12 @@ class TestSprawdzanie(unittest.TestCase):
         r = S.sprawdz()
         self.assertTrue(any("nie ma tytułu" in b for b in r.bledy))
 
+    def test_kalendarz_zla_data_i_typ(self):
+        self.zapisz("kalendarz.json", '{"wydarzenia": [{"data": "2026-13-01", "typ": "Impreza", "tytul": "X"}]}')
+        r = S.sprawdz()
+        self.assertTrue(any("zła data" in b for b in r.bledy))
+        self.assertTrue(any("nieznany typ" in b for b in r.bledy))
+
     def test_martwy_link(self):
         (self.tmp / "index.html").write_text('<a href="nie-ma.html">x</a>', encoding="utf-8")
         r = S.sprawdz()

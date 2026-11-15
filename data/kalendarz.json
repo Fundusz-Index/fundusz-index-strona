@@ -1,0 +1,56 @@
+{
+  "_instrukcja": "Wydarzenia na stronie głównej. Strona sama ukrywa te, które już minęły, i pokazuje cztery najbliższe. Pola: data (RRRR-MM-DD), do (opcjonalnie, ostatni dzień), typ (Wyniki kwartalne, Walne zgromadzenie, Wydarzenie, Koło INDEX, Fundusz), tytul, opis, szacunek (true, gdy spółka nie potwierdziła jeszcze terminu), link (opcjonalnie, https://).",
+  "wydarzenia": [
+    {
+      "data": "2026-11-17",
+      "do": "2026-11-18",
+      "typ": "Wydarzenie",
+      "tytul": "Open Eyes Economy Summit",
+      "opis": "Kongres ekonomii wartości, Centrum Kongresowe ICE Kraków",
+      "szacunek": false,
+      "link": "https://kongres.oees.pl/"
+    },
+    {
+      "data": "2026-12-10",
+      "typ": "Koło INDEX",
+      "tytul": "Wydarzenie Startup Stage",
+      "opis": "Organizuje Startup Stage, projekt koła INDEX",
+      "szacunek": false
+    },
+    {
+      "data": "2027-01-29",
+      "typ": "Wyniki kwartalne",
+      "tytul": "Chevron (CVX)",
+      "opis": "Wyniki za IV kwartał i cały 2026 rok",
+      "szacunek": true
+    },
+    {
+      "data": "2027-02-02",
+      "typ": "Wyniki kwartalne",
+      "tytul": "Advanced Micro Devices (AMD)",
+      "opis": "Wyniki za IV kwartał i cały 2026 rok",
+      "szacunek": true
+    },
+    {
+      "data": "2027-02-03",
+      "typ": "Wyniki kwartalne",
+      "tytul": "Alphabet (GOOGL)",
+      "opis": "Wyniki za IV kwartał i cały 2026 rok",
+      "szacunek": true
+    },
+    {
+      "data": "2027-02-09",
+      "typ": "Wyniki kwartalne",
+      "tytul": "Williams Companies (WMB)",
+      "opis": "Wyniki za IV kwartał i cały 2026 rok",
+      "szacunek": true
+    },
+    {
+      "data": "2027-02-25",
+      "typ": "Wyniki kwartalne",
+      "tytul": "EMCOR (EME)",
+      "opis": "Wyniki za IV kwartał i cały 2026 rok",
+      "szacunek": true
+    }
+  ]
+}

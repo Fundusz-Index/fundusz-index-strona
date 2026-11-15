@@ -23,10 +23,11 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 | Plik | Co jest w środku |
 | --- | --- |
-| `index.html` | Start: pasek kursów spółek, ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz, dla partnerów |
+| `index.html` | Start: pasek kursów spółek (nie zatrzymuje się po najechaniu kursorem), ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz (`data/kalendarz.json`, cztery najbliższe, minione znikają same), dla partnerów |
 | `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji |
 | `analizy.html` + `assets/js/analizy.js` | Biblioteka analiz z filtrami (sektor, w portfelu / poza) z `data/analizy.json` |
-| `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf` |
+| `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf`. Blok `.quote[data-kurs]` i wiersz na wykresie (`.ff[data-min][data-max]`) pokazują kurs z `portfolio.json` (kod w `wspolne.js`) |
+| `data/kalendarz.json` | Wydarzenia na stronie głównej: data, do, typ, tytul, opis, szacunek (termin niepotwierdzony przez spółkę), link. Sprawdza go `sprawdz_dane.py` |
 | `artykuly.html` + `assets/js/artykuly.js` | Działy: Przegląd tygodnia, Profit Journal, Edukacja, Z życia funduszu; newsletter |
 | `o-funduszu.html` | Opis, filary „Dlaczego powstał fundusz”, proces decyzji, zarząd, analitycy, kontakt |
 | `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html` + `assets/js/dokumenty.js` | Dokumenty prawne (spis treści z podświetleniem) |
@@ -36,7 +37,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 ## Zasady treści (ustalone, nie zmieniaj bez decyzji zarządu)
 
 - Język polski. Krótkie zdania, naturalny, ciepły, profesjonalny ton. **Bez długich myślników (—)**. Bez słów-wypełniaczy.
-- **Bez ocen typu „kupuj”, „trzymaj”, bez cen docelowych i upside.** Do czasu ustaleń prawnych. Pokazujemy przedziały wycen i metodę.
+- **Na stronach HTML bez ocen typu „kupuj”, „trzymaj”, bez cen docelowych i upside.** Pokazujemy przedziały wycen i metodę. Raporty PDF publikujemy w wersji autorów, z ocenami (decyzja Szymona z 15.11.2026). Warunek: pełne ujawnienia przy każdej analizie, zwłaszcza data i godzina pierwszej publikacji (MAR art. 20, rozp. 2016/958).
 - **Autorzy zawsze podani** przy analizach i artykułach. Każda analiza ma sekcję ujawnień (autorzy, data, czy fundusz i autorzy mają akcje).
 - Zastrzeżenie: projekt edukacyjny, nie fundusz inwestycyjny w rozumieniu ustawy z 27.05.2004, portfel wirtualny, analizy to nie porada inwestycyjna.
 - Układ nie może przypominać strony Hossa ProCapital.
@@ -56,9 +57,13 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 ## Otwarte sprawy
 
 - **Hosting**: Zenbox przez FTP (`wdrozenie/zenbox-ftp.yml.przyklad`, sekrety FTP_SERWER, FTP_LOGIN, FTP_HASLO) albo Cloudflare Pages (budowanie: `python3 scripts/sprawdz_dane.py`, katalog `/`, CNAME `fundusz` w DNS Zenbox). Decyzja czeka na wgląd w panel Zenbox. Hasła wpisuje Szymon w sekretach GitHuba, nigdy w czacie ani w plikach.
-- **Do uzupełnienia** (lista: `python3 scripts/sprawdz_dane.py --publikacja`): daty publikacji analiz i daty wcześniejszych analiz, opis współpracy z Profit Journal, newsletter (formularz do arkusza Google), kalendarz na stronie głównej, opiekun naukowy, partnerzy, zasada głosowania, termin w polityce prywatności, data uruchomienia newslettera. Na bieżąco prowadzimy je w dokumencie Google „Strona Funduszu Index: pola do uzupełnienia” na Dysku Szymona.
+- **Do uzupełnienia** (lista: `python3 scripts/sprawdz_dane.py --publikacja`): daty publikacji analiz i daty wcześniejszych analiz. Na bieżąco prowadzimy je w dokumencie Google „Strona Funduszu Index: pola do uzupełnienia” na Dysku Szymona.
 - Zgody na zdjęcia członków.
-- Raporty PDF są publikowane w wersji od autorów i zawierają oceny lub ceny docelowe (WMB: „TRZYMAJ” i cena docelowa, EME: ceny docelowe i rekomendacje domów maklerskich, AMD: upside/downside). Strony HTML ich nie pokazują. Decyzja zarządu: zostawić PDF-y czy publikować wersje bez ocen.
-- Analizy z 16.10.2026 to gruntowne aktualizacje wcześniejszych analiz z okresu przyjęcia spółek do portfela. W ujawnieniach brakuje dat publikacji i dat wcześniejszych analiz.
+- Analizy z 16.10.2026 to gruntowne aktualizacje wcześniejszych analiz z okresu przyjęcia spółek do portfela. Daty publikacji czekają na model ryzyka (Mikołaj), daty wcześniejszych analiz trzeba dopasować do historii portfela.
+- Do rozważenia przy ujawnieniach (dla „ekspertów” w rozumieniu rozp. 2016/958): horyzont inwestycyjny, znaczenie oceny (np. co oznacza „TRZYMAJ”), planowana częstotliwość aktualizacji.
+- Kalendarz: terminy wyników na początek 2027 r. są szacunkowe (`"szacunek": true`). Zmień na potwierdzone, gdy spółki je ogłoszą. Dodać walne zgromadzenia 2027, gdy spółki podadzą daty. Dodawać spotkania funduszu.
+- Newsletter: formularz wyłączony („Zapisy ruszą wkrótce”), czeka na Dysk Google funduszu (Michał). Po podpięciu: włączyć pola w `artykuly.html` i wpisać datę w `regulamin-newslettera.html` („Obowiązuje od”).
+- Polityka prywatności: czas przechowywania logów opisany kryterium (zasady hostingu). Po wyborze hostingu wpisać konkretny okres.
+- Opiekun naukowy: do ustalenia, może go nie być (blok usunięty z `o-funduszu.html`). Partnerów na razie brak.
 - Pomysły odłożone: panel do edycji treści (Pages CMS), dywidendy w wynikach, strona jako aplikacja na telefon (PWA).
 - Kontekst prawny: dokument „Strona_funduszu_kontekst_prawny.md” w projekcie Fundusz INDEX.

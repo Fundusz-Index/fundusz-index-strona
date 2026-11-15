@@ -36,7 +36,12 @@
       var p = String(iso).split('-');
       return p.length === 3 ? p[2] + '.' + p[1] + '.' + p[0] : iso;
     },
-    lossClass: function (v) { return v < 0 ? 'loss' : ''; }
+    lossClass: function (v) { return v < 0 ? 'loss' : ''; },
+    num: function (v, d) {
+      var s = Math.abs(v).toFixed(d === undefined ? 2 : d).split('.');
+      s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      return (v < 0 ? '−' : '') + s.join(',');
+    }
   };
 
   /* Notka o danych przykładowych: pokazuje się tylko, gdy portfolio.json ma "demo": true. */
@@ -106,11 +111,93 @@
     }).catch(function () {});
   }
 
+  /* Strona główna: najbliższe wydarzenia z data/kalendarz.json. Minione znikają same. */
+  var MIESIACE = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia',
+    'września', 'października', 'listopada', 'grudnia'];
+  function dzien(iso) {
+    var p = String(iso).split('-');
+    return { r: +p[0], m: +p[1], d: +p[2] };
+  }
+  function kiedy(e, rok) {
+    var a = dzien(e.data), b = e.do ? dzien(e.do) : null;
+    var koniec = (b || a).r !== rok ? ' ' + (b || a).r : '';
+    var s;
+    if (b && b.m === a.m && b.r === a.r) s = a.d + '–' + b.d + ' ' + MIESIACE[a.m - 1];
+    else if (b) s = a.d + ' ' + MIESIACE[a.m - 1] + ' – ' + b.d + ' ' + MIESIACE[b.m - 1];
+    else s = a.d + ' ' + MIESIACE[a.m - 1];
+    return (e.szacunek ? 'ok. ' : '') + s + koniec;
+  }
+  function calendar() {
+    var box = document.getElementById('kalendarz');
+    if (!box) return;
+    var list = box.querySelector('.cal');
+    var limit = +box.getAttribute('data-limit') || 4;
+    FI.json('kalendarz.json').then(function (k) {
+      var now = new Date();
+      var dzis = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+      var lista = (k.wydarzenia || []).filter(function (e) { return (e.do || e.data) >= dzis; })
+        .sort(function (a, b) { return a.data < b.data ? -1 : a.data > b.data ? 1 : 0; })
+        .slice(0, limit);
+      if (!lista.length) return;
+      list.innerHTML = lista.map(function (e) {
+        var tytul = esc(e.tytul);
+        if (e.link && /^https:\/\//.test(e.link)) tytul = '<a href="' + esc(e.link) + '" rel="noopener">' + tytul + '</a>';
+        return '<li' + (e.szacunek ? ' class="cal-est"' : '') + '>' +
+          '<span class="tiny muted">' + esc(e.typ) + '</span>' +
+          '<span class="cal-date">' + esc(kiedy(e, now.getFullYear())) + '</span>' +
+          '<span class="cal-title">' + tytul + '</span>' +
+          (e.opis ? '<span class="cal-meta">' + esc(e.opis) + '</span>' : '') +
+          (e.szacunek ? '<span class="tiny muted">Termin szacunkowy, spółka go jeszcze nie ogłosiła</span>' : '') +
+          '</li>';
+      }).join('');
+      box.hidden = false;
+    }).catch(function () {});
+  }
+
+  /* Strona analizy: kurs z ostatniej sesji, zmiana od dnia wyceny i znacznik na wykresie. */
+  function analysisQuote(p) {
+    var box = document.querySelector('[data-kurs]');
+    if (!box) return;
+    var t = box.getAttribute('data-kurs');
+    var x = p.pozycje.filter(function (y) { return y.ticker === t; })[0];
+    if (!x || !x.kurs_usd) return;
+    var w = parseFloat(box.getAttribute('data-wycena'));
+    var wData = box.getAttribute('data-wycena-data');
+    var od = w ? (x.kurs_usd / w - 1) * 100 : null;
+    var data = FI.data(p.stan_na);
+    box.innerHTML = '<span class="small muted">Kurs zamknięcia z ' + esc(data) + '</span>' +
+      '<div class="quote-row"><b class="quote-price">' + FI.num(x.kurs_usd) + ' USD</b>' +
+      '<span class="chg ' + FI.lossClass(x.zmiana_dzienna) + '">' + (x.zmiana_dzienna < 0 ? '▼ ' : '▲ ') + FI.pct(x.zmiana_dzienna, 2) + '</span>' +
+      '<span class="small muted">ostatnia sesja</span></div>' +
+      (od === null ? '' : '<span class="small" style="color:var(--ink-2)">Od dnia wyceny (' + esc(wData) + ', ' + FI.num(w) + ' USD): <b class="' +
+        FI.lossClass(od) + '">' + FI.pct(od, 1) + '</b></span>') +
+      (p.demo ? '<span class="tiny muted">Dane przykładowe</span>' : '');
+    box.hidden = false;
+
+    var ff = document.querySelector('.ff[data-min]');
+    if (!ff) return;
+    var min = parseFloat(ff.getAttribute('data-min')), max = parseFloat(ff.getAttribute('data-max'));
+    var pos = Math.max(0, Math.min(100, (x.kurs_usd - min) / (max - min) * 100));
+    var row = document.createElement('div');
+    row.className = 'ff-row';
+    var etykieta = FI.num(x.kurs_usd) + ' USD';
+    var opis = pos > 72
+      ? 'right:calc(' + (100 - pos).toFixed(1) + '% + 16px)'
+      : 'left:calc(' + pos.toFixed(1) + '% + 16px)';
+    row.innerHTML = '<b>Kurs ' + esc(data) + '</b><div class="ff-track"><span class="ff-now" style="left:calc(' + pos.toFixed(1) +
+      '% - 9px)"></span><span class="small" style="' + opis + ';top:4px;font-weight:700;white-space:nowrap">' + etykieta + '</span></div>';
+    var rows = ff.querySelectorAll('.ff-row');
+    ff.insertBefore(row, rows[rows.length - 1]);
+    ff.setAttribute('aria-label', ff.getAttribute('aria-label') + ', kurs z ' + data + ' ' + FI.num(x.kurs_usd));
+  }
+
   FI.portfolio = FI.json('portfolio.json');
   FI.portfolio.then(function (p) {
     demoNotes(p);
     ticker(p);
     homeSnapshot(p);
+    analysisQuote(p);
   }).catch(function (e) { console.error(e); });
   announcement();
+  calendar();
 })();

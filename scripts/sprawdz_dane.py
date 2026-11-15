@@ -265,6 +265,44 @@ def sprawdz_strony(r):
                     r.uwaga(f"data/{nazwa}, wiersz {nr}", f"do uzupełnienia: {m.group(0)}")
 
 
+TYPY_WYDARZEN = {"Wyniki kwartalne", "Walne zgromadzenie", "Wydarzenie", "Koło INDEX", "Fundusz"}
+
+
+def sprawdz_kalendarz(r):
+    k = wczytaj_json(r, "kalendarz.json")
+    if k is None:
+        return
+    g = "data/kalendarz.json"
+    lista = k.get("wydarzenia") if isinstance(k, dict) else None
+    if not isinstance(lista, list):
+        r.blad(g, "brak listy 'wydarzenia'")
+        return
+    for i, e in enumerate(lista, 1):
+        gdzie = f"{g}, wydarzenie {i}"
+        if not isinstance(e, dict):
+            r.blad(gdzie, "wpis musi być obiektem w nawiasach { }")
+            continue
+        start = data_ok(e.get("data"))
+        if not start:
+            r.blad(gdzie, f"zła data '{e.get('data')}', wpisz RRRR-MM-DD")
+        if e.get("do"):
+            koniec = data_ok(e["do"])
+            if not koniec:
+                r.blad(gdzie, f"zła data końca '{e['do']}', wpisz RRRR-MM-DD")
+            elif start and koniec < start:
+                r.blad(gdzie, "data końca jest wcześniejsza niż data początku")
+        if not str(e.get("tytul") or "").strip():
+            r.blad(gdzie, "brak tytułu")
+        if e.get("typ") not in TYPY_WYDARZEN:
+            r.blad(gdzie, f"nieznany typ '{e.get('typ')}', dozwolone: {', '.join(sorted(TYPY_WYDARZEN))}")
+        if "szacunek" in e and not isinstance(e["szacunek"], bool):
+            r.blad(gdzie, "pole 'szacunek' musi mieć wartość true albo false (bez cudzysłowu)")
+        if e.get("link") and not str(e["link"]).startswith("https://"):
+            r.blad(gdzie, "link musi zaczynać się od https://")
+        if NAWIAS.search(json.dumps(e, ensure_ascii=False)):
+            r.uwaga(gdzie, "pola do uzupełnienia w nawiasach [ ]")
+
+
 def sprawdz(publikacja=False):
     r = Raport()
     sprawdz_ustawienia(r)
@@ -273,6 +311,7 @@ def sprawdz(publikacja=False):
     sprawdz_analizy(r)
     sprawdz_artykuly(r)
     sprawdz_ogloszenie(r)
+    sprawdz_kalendarz(r)
     sprawdz_strony(r)
     if publikacja:
         r.bledy += r.ostrzezenia
