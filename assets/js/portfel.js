@@ -126,7 +126,7 @@
         '<span class="holding-weight"><span class="bar-bg"><span style="width:' + (p.waga / maxW * 100).toFixed(1) + '%"></span></span><b style="width:44px;text-align:right">' + Math.round(p.waga) + '%</b></span>' +
         '<span class="holding-ret"><strong class="' + FI.lossClass(p.zwrot) + '">' + FI.pct(p.zwrot) + '</strong><span class="tiny muted">' + FI.pln(p.wartosc_pln) + ' PLN</span></span>' +
         '<span class="chev" aria-hidden="true">' + (open ? '−' : '+') + '</span></button>' +
-        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">Teza przy zakupie' + (t.data ? ' (' + FI.data(t.data) + ')' : '') + '</span><p style="color:var(--ink-2)">' + esc(t.tekst || 'Brak opisu w transakcje.csv.') + '</p></div>' +
+        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">Teza z raportu, zakup' + (t.data ? ' (' + FI.data(t.data) + ')' : '') + '</span><p style="color:var(--ink-2)">' + esc(t.tekst || 'Brak opisu w transakcje.csv.') + '</p></div>' +
           '<div style="flex:1 1 220px"><span class="label">Analiza</span><span class="small" style="color:var(--ink-2)">' + esc(p.autorzy || '[autorzy analizy]') + '</span>' + link + '</div></div>' : '') +
         '</li>';
     }).join('');
