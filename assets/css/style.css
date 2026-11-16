@@ -140,8 +140,8 @@ tbody tr { border-top: 1px solid var(--line); }
 
 /* pasek kursów */
 .ticker { background: var(--black); color: #FFFFFF; border-top: 1px solid #2E2E2E; display: flex; overflow: hidden; }
-.ticker-label { flex: none; background: var(--black); color: #FFFFFF; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 8px 20px 8px calc(max(16px, (100vw - 1200px) / 2 + 16px) + 20px); border-right: 1px solid #2E2E2E; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
-.ticker-label::before { content: ""; position: absolute; left: max(16px, calc((100vw - 1200px) / 2 + 16px)); top: 50%; width: 10px; height: 10px; margin-top: -5px; background: var(--accent); }
+.ticker-label { flex: none; background: var(--black); color: #FFFFFF; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 8px 20px 8px 36px; border-right: 1px solid #2E2E2E; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.ticker-label::before { content: ""; position: absolute; left: 16px; top: 50%; width: 10px; height: 10px; margin-top: -5px; background: var(--accent); }
 .ticker-label span { font-size: 12px; font-weight: 400; text-transform: none; letter-spacing: 0; color: #BDBDBD; }
 @media (max-width: 640px) { .ticker-label span { display: none; } }
 .ticker-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; }
@@ -152,7 +152,7 @@ tbody tr { border-top: 1px solid var(--line); }
 .ticker-track .muted { color: #BDBDBD; }
 .ticker-track .loss { color: #FF8A80; }
 .ticker-track .chg { font-weight: 700; }
-@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-25%); } }
 @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } .ticker-viewport { overflow-x: auto; } }
 
 .announce { border-bottom: 1px solid var(--line); }

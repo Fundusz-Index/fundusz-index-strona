@@ -65,7 +65,8 @@
         '</span><span class="chg ' + FI.lossClass(i.chg) + '">' + arrow + ' ' + FI.pct(i.chg) + '</span></li>';
     }
     box.querySelector('.ticker-track').innerHTML = items.map(function (i) { return li(i, false); }).join('') +
-      items.map(function (i) { return li(i, true); }).join('');
+      /* trzy kopie, żeby pasek nie kończył się na bardzo szerokich ekranach (przesuw o 25% w CSS) */
+      [1, 2, 3].map(function () { return items.map(function (i) { return li(i, true); }).join(''); }).join('');
     var d = box.querySelector('[data-ticker-date]');
     if (d) d.textContent = 'zmiana dzienna · ' + FI.data(p.stan_na) + (p.demo ? ' · przykład' : '');
     box.hidden = false;

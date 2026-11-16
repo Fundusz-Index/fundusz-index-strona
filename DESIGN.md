@@ -198,7 +198,7 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 - Pięć pozycji tekstem 15 px. Aktywna jest pogrubiona z czarną kreską 3 px pod spodem. Po najechaniu kreska rysuje się od lewej w 150 ms. Fokus z klawiatury: obrys 3 px w kolorze series-2.
 
 ### Pasek kursów
-- Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem, wyrównany do marginesu strony. Bez osobnego tła.
+- Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
 - Spadki na czerni mają jaśniejszą czerwień (#FF8A80), wzrosty są białe.
 - Na telefonie etykieta bez daty.
 
