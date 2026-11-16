@@ -8,7 +8,7 @@ web
 
 ## Users
 
-Kolejność do potwierdzenia przez zarząd.
+Kolejność potwierdzona przez Szymona 16.11.2026.
 
 1. **Potencjalny partner lub sponsor.** Osoba z firmy doradczej, inwestycyjnej albo z działu employer brandingu. Sprawdza, czy projekt jest poważny i czy warto się z nim związać. Ma kilka minut. Chce zobaczyć ludzi, wyniki i jakość analiz, a potem umówić rozmowę.
 2. **Rekruter i absolwent koła.** Szuka nazwiska konkretnego analityka i jego pracy. Otwiera analizę, patrzy na autorów i metodę.
@@ -22,6 +22,8 @@ Strona pokazuje pracę Funduszu Index: wirtualny portfel liczony codziennie na t
 Sukces: partner po wizycie pisze na adres funduszu. Rekruter znajduje analizę i autora w dwóch kliknięciach. Student rozumie, dlaczego spółka jest w portfelu.
 
 ## Positioning
+
+Fundusz Index jest wzorowany na funduszach zarządzanych przez studentów na uczelniach w USA. W Europie Środkowo-Wschodniej takich projektów jest niewiele. To pierwsza rzecz, którą strona ma przekazać.
 
 Fundusz publikuje każdą decyzję razem z analizą, datą i nazwiskami autorów, także wtedy, gdy portfel traci do indeksu. Wynik liczy skrypt z publicznych kursów, nikt nie wpisuje go ręcznie. Większość studenckich projektów inwestycyjnych pokazuje tylko opis działalności.
 

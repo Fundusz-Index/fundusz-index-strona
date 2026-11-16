@@ -95,9 +95,9 @@ components:
 
 ## Overview
 
-**Creative North Star: „Raport, który można sprawdzić”**
+**Creative North Star: „Studencki fundusz na wzór uczelni amerykańskich”**
 
-Strona wygląda jak dobrze złożony raport analityczny, nie jak reklama produktu finansowego. Dużo bieli, czarny tekst, granatowe dane i jeden żółty znak tam, gdzie czytelnik ma spojrzeć najpierw. Źródłem jest identyfikacja v1 funduszu (logo, paleta, wykresy, księga znaku). Strona ją stosuje, nie interpretuje na nowo.
+Fundusz Index robi to, co fundusze zarządzane przez studentów na uczelniach w USA: prowadzi portfel, pisze analizy i pokazuje wyniki. W naszej części Europy takich projektów jest niewiele. Strona ma więc wyglądać jak strona poważnego funduszu studenckiego: rzeczowa jak raport analityczny, ale wyraźnie uczelniana i ludzka. Nie jak reklama produktu finansowego i nie jak strona koła naukowego z ogłoszeniami. Dużo bieli, czarny tekst, granatowe dane i jeden żółty znak tam, gdzie czytelnik ma spojrzeć najpierw. Źródłem jest identyfikacja v1 funduszu (logo, paleta, wykresy, księga znaku). Strona ją stosuje, nie interpretuje na nowo.
 
 Gęstość jest umiarkowana. Liczby stoją blisko opisów, sekcje oddziela światło, a nie ozdobniki. Czarne bloki (nagłówek strony głównej, panel „W liczbach”, stopka) dają rytm i niosą najważniejsze liczby.
 
