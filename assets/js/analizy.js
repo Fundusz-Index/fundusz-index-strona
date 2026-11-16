@@ -25,7 +25,7 @@
       return;
     }
     box.innerHTML = lista.map(function (a) {
-      return '<article class="card">' +
+      return '<article class="card card-hover">' +
         '<div style="display:flex;align-items:center;gap:12px"><span class="initials" aria-hidden="true">' + esc(a.ticker) + '</span>' +
         '<div style="flex:1 1 auto;min-width:0"><h2 style="font-size:18px">' + esc(a.nazwa) + '</h2><span class="tiny muted">' + esc(a.ticker) + ' · ' + esc(a.sektor) + '</span></div>' +
         (wPortfelu[a.ticker] ? '<span class="badge">W portfelu</span>' : '') + '</div>' +
@@ -34,8 +34,8 @@
         '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:auto">' +
         '<span class="tiny" style="color:var(--ink-2)">Autorzy: ' + esc(a.autorzy) + '</span>' +
         '<span style="display:flex;flex-wrap:wrap;gap:4px 16px">' +
-        (/\.pdf$/i.test(a.link) ? '' : '<a href="' + esc(FI.base + a.link) + '" style="font-weight:700;padding:10px 0">Czytaj analizę</a>') +
-        (a.raport ? '<a href="' + esc(FI.base + a.raport) + '" download style="font-weight:700;padding:10px 0">Pobierz raport (PDF)</a>' : '') +
+        (/\.pdf$/i.test(a.link) ? '' : '<a class="stretch" href="' + esc(FI.base + a.link) + '" style="font-weight:700;padding:10px 0">Czytaj analizę</a>') +
+        (a.raport ? '<a href="' + esc(FI.base + a.raport) + '" download style="font-weight:700;padding:10px 0;position:relative;z-index:1">Pobierz raport (PDF)</a>' : '') +
         '</span></div></article>';
     }).join('');
   }

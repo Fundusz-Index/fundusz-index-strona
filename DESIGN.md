@@ -191,7 +191,7 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 - **Przełączniki zakresu wykresu:** ten sam schemat, narożnik 6 px.
 
 ### Cards / Containers
-- **Karta:** białe tło, ramka 1 px, narożnik 8 px, wnętrze 20 px. Karta-link po najechaniu unosi się o 2 px i dostaje ciemniejszą ramkę.
+- **Karta:** białe tło, ramka 1 px, narożnik 8 px, wnętrze 20 px. Karta-link po najechaniu unosi się o 2 px i dostaje ciemniejszą ramkę. Tak samo zachowują się karty w bibliotece analiz: cała karta prowadzi do strony analizy, a link do PDF działa osobno.
 - **Panel:** czarny blok z białym tekstem, wnętrze 24 px. Niesie najważniejsze liczby.
 
 ### Navigation

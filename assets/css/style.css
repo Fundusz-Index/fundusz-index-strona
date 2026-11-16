@@ -104,6 +104,9 @@ main.wrap { padding-block: 32px 64px; display: flex; flex-direction: column; gap
 .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .card-link { text-decoration: none; color: var(--ink); }
 .card-link:hover { border-color: var(--line-strong); color: var(--ink); }
+/* karta z jednym głównym linkiem: cała karta jest klikalna, pozostałe linki leżą nad nią */
+.card-hover { position: relative; }
+.card-hover .stretch::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
 .panel { background: var(--inv-bg); color: var(--inv-ink); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
 .panel .muted, .panel dt { color: var(--inv-muted); }
 .panel a { color: var(--inv-ink); }
@@ -362,11 +365,11 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
   .hero-symbol { animation: fi-settle 900ms cubic-bezier(.22, 1, .36, 1) 200ms both; }
   .btn { transition: transform 150ms cubic-bezier(.2, .8, .2, 1), opacity 150ms; }
   .btn:active:not(:disabled) { transform: translateY(1px) scale(0.985); transition-duration: 90ms; }
-  .card-link { transition: transform 180ms cubic-bezier(.2, .8, .2, 1), border-color 180ms, box-shadow 180ms; }
+  .card-link, .card-hover { transition: transform 180ms cubic-bezier(.2, .8, .2, 1), border-color 180ms, box-shadow 180ms; }
   .nav a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 3px; transition: background-size 150ms cubic-bezier(.2, .8, .2, 1), color 150ms; }
   @media (hover: hover) and (pointer: fine) {
     .btn:hover:not(:disabled) { transform: translateY(-1px); }
-    .card-link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(13, 13, 13, 0.08); }
+    .card-link:hover, .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(13, 13, 13, 0.08); border-color: var(--line-strong); }
     .nav a:hover:not([aria-current="page"]) { background-size: 100% 3px; color: var(--ink); }
   }
 }
