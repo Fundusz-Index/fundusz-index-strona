@@ -27,6 +27,8 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - Ruch (blok na końcu `style.css`): wejście nagłówka strony głównej raz przy wczytaniu, podkreślenie w menu, przyciski i karty po najechaniu. Tylko `transform`/`opacity`, tylko w `prefers-reduced-motion: no-preference`, najechanie tylko w `(hover: hover) and (pointer: fine)`. Bez animacji sekcji przy przewijaniu.
 - Telefon (do 640 px): menu w jednym wierszu, symbol X w nagłówku ukryty, wykres portfela rysowany w proporcjach 440×300 (`WASKI` w `portfel.js`). Cele dotykowe min. 24 px, tekst min. 12 px.
 - Czerń marki na stałe (niezależnie od trybu): `var(--black)`, akcent: `var(--accent)`. Nie wpisuj tych kolorów ręcznie.
+- Wersja angielska: katalog `en/` (Start, Portfel, Analizy, Artykuły, O funduszu). **Nie edytuj plików w `en/` ani `assets/js/en.js` ręcznie**: buduje je `python3 scripts/zbuduj_en.py` z polskich stron i słownika `i18n/en.json` (polski tekst → angielski). Skrypty biorą tłumaczenia przez `FI.t('polski tekst')`; liczby i daty zmieniają format według `FI.lang`. Linki do stron: `FI.pages`, do danych, analiz i plików: `FI.base`. Strony analiz, dokumenty prawne i PDF-y są na razie tylko po polsku (w wersji angielskiej z dopiskiem „in Polish”). Bez zapamiętywania języka w przeglądarce (polityka prywatności mówi, że niczego nie zapisujemy).
+- Każda strona ma w nagłówku przełącznik `<a class="lang-switch">` (EN na polskich, PL na angielskich).
 - Każda strona ma `<body data-base="">` (w `analizy/*.html`: `data-base="../"`), link „Przejdź do treści” (`.skip-link` → `<main id="tresc">`), wspólny nagłówek, menu (Start, Portfel, Analizy, Artykuły, O funduszu) i stopkę z linkami do dokumentów prawnych.
 
 ## Mapa plików
@@ -43,6 +45,8 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | `polityka-prywatnosci.html`, `nota-prawna.html`, `regulamin-newslettera.html` + `assets/js/dokumenty.js` | Dokumenty prawne (spis treści z podświetleniem) |
 | `pliki/fundusz-index-oferta-wspolpracy.pdf` + `zrodla/oferta/` | Oferta dla partnerów (4 strony A4). Treść w `zrodla/oferta/oferta.html`, PDF buduje `python3 zrodla/oferta/zbuduj.py` (Playwright). Liczby: 26 członków funduszu, 13 analityków, ok. 185 członków koła. Nie wymieniamy Wall Street Prep ani partnerów koła bez zgody |
 | `assets/img/og/*.png` + `zrodla/og/` | Obrazki podglądu linków (1200×630): `fundusz-index.png` dla stron ogólnych, `analiza-<ticker>.png` dla analiz. Buduje `python3 zrodla/og/zbuduj.py` (Playwright) z `data/analizy.json`; uruchom po dodaniu analizy. Każda strona ma w `<head>` blok `og:*` z adresami bezwzględnymi `https://fundusz.knrkindex.pl/…`. Nowa strona musi go dostać. Hasło na obrazku to slogan z LinkedIna |
+| `en/*.html`, `assets/js/en.js` | Wersja angielska, generowana. Źródło: polskie strony + `i18n/en.json` |
+| `i18n/en.json` | Słownik: `teksty` (polski → angielski, klucz to dokładny tekst ze strony, skryptu albo danych) i `bez_zmian` (nazwiska, tickery, nazwy własne). Angielski brytyjski, bez długich myślników. Nazwa po angielsku: „Index Fund”, portfel: „virtual portfolio” |
 | `data/transakcje.csv` | Każde kupno i sprzedaż: `data,typ,ticker,kwota_pln,liczba_akcji,uzasadnienie` |
 | `data/spolki.json` | Opis spółek; nowa spółka w transakcjach musi mieć tu wpis |
 
@@ -62,11 +66,12 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 ## Jak pracować
 
 1. Przed zmianą: `git fetch origin main` i pracuj na aktualnym `main`.
-2. Po zmianie w `assets/css` lub `assets/js`: `python3 scripts/wersje.py`. Skrypt dopisuje do odwołań w HTML znacznik `?v=<skrót pliku>`, żeby przeglądarki nie pokazywały starych stylów z pamięci podręcznej. Test `tests/test_wersje.py` nie przejdzie, jeśli o tym zapomnisz.
-3. Potem: `python3 -m unittest discover tests` i `python3 scripts/sprawdz_dane.py`. Oba muszą przejść.
-4. Commit jako `Claude <noreply@anthropic.com>` (ustaw `git config user.name/user.email`), opis po polsku, krótko, co i gdzie. Push na `main`, chyba że Szymon poprosi o gałąź i pull request.
-5. Pokaż zmianę: zrzut ekranu (Playwright, szerokość 1280 i 390) albo odśwież podgląd. Podgląd dla zarządu to artefakt https://claude.ai/artifact/Hviuj95cNrNmjTeJo8jCsW: kopia plików strony, w której `index.html` jest bez `<head>`/`<body>` i z meta `claude:viewport-fit-sides`. Nie wrzucaj tej meta do plików w repozytorium.
-6. Większe zmiany wyglądu: najpierw krótka propozycja, potem wdrożenie.
+2. Po zmianie tekstu na stronie, w skryptach albo w danych (`spolki.json`, `analizy.json`, `kalendarz.json`, `ogloszenie.json`, uzasadnienia w `transakcje.csv`): dopisz tłumaczenie do `i18n/en.json` i uruchom `python3 scripts/zbuduj_en.py` (lista braków: `--braki`). Testy `tests/test_en.py` nie przejdą, gdy strona angielska jest nieaktualna albo brakuje tłumaczenia tekstu ze strony. Brak tłumaczenia tekstu z danych to ostrzeżenie w `sprawdz_dane.py` (na stronie angielskiej zostaje wtedy polski tekst).
+3. Po zmianie w `assets/css` lub `assets/js`: `python3 scripts/wersje.py` (robi to też `zbuduj_en.py`). Skrypt dopisuje do odwołań w HTML znacznik `?v=<skrót pliku>`, żeby przeglądarki nie pokazywały starych stylów z pamięci podręcznej. Test `tests/test_wersje.py` nie przejdzie, jeśli o tym zapomnisz.
+4. Potem: `python3 -m unittest discover tests` i `python3 scripts/sprawdz_dane.py`. Oba muszą przejść.
+5. Commit jako `Claude <noreply@anthropic.com>` (ustaw `git config user.name/user.email`), opis po polsku, krótko, co i gdzie. Push na `main`, chyba że Szymon poprosi o gałąź i pull request.
+6. Pokaż zmianę: zrzut ekranu (Playwright, szerokość 1280 i 390) albo odśwież podgląd. Podgląd dla zarządu to artefakt https://claude.ai/artifact/Hviuj95cNrNmjTeJo8jCsW: kopia plików strony, w której `index.html` jest bez `<head>`/`<body>` i z meta `claude:viewport-fit-sides`. Nie wrzucaj tej meta do plików w repozytorium.
+7. Większe zmiany wyglądu: najpierw krótka propozycja, potem wdrożenie.
 
 ## Otwarte sprawy
 
@@ -79,5 +84,6 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 - Newsletter: formularz wyłączony („Zapisy ruszą wkrótce”), czeka na Dysk Google funduszu (Michał). Po podpięciu: włączyć pola w `artykuly.html` i wpisać datę w `regulamin-newslettera.html` („Obowiązuje od”).
 - Polityka prywatności: czas przechowywania logów opisany kryterium (zasady hostingu). Po wyborze hostingu wpisać konkretny okres.
 - Opiekun naukowy: do ustalenia, może go nie być (blok usunięty z `o-funduszu.html`). Partnerów na razie brak.
+- Wersja angielska, etap 2: strony analiz, dokumenty prawne, oferta dla partnerów i raporty PDF po angielsku; obrazek podglądu linku (og) z angielskim hasłem. Do potwierdzenia przez zarząd: angielska nazwa „Index Fund” (w finansach „index fund” to fundusz pasywny).
 - Pomysły odłożone: panel do edycji treści (Pages CMS), dywidendy w wynikach, strona jako aplikacja na telefon (PWA).
 - Kontekst prawny: dokument „Strona_funduszu_kontekst_prawny.md” w projekcie Fundusz INDEX.

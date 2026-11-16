@@ -71,6 +71,9 @@ p { margin: 0; }
 .nav a { text-decoration: none; color: var(--ink-2); padding: 12px 0; border-bottom: 3px solid transparent; }
 .nav a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ink); }
 .header-tools { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+/* Przełącznik języka: PL na stronach angielskich, EN na polskich. */
+.lang-switch { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; font-weight: 700; color: var(--ink-2); text-decoration: none; }
+.lang-switch:hover { color: var(--ink); border-color: var(--ink); }
 .lang { text-decoration: none; padding: 12px 4px; color: var(--muted); }
 .lang[aria-current="true"] { color: var(--ink); font-weight: 700; }
 
@@ -347,6 +350,7 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
   .site-header .wrap { gap: 2px 16px; padding-block: 8px; }
   .header-tools { margin-left: auto; }
   .header-tools .btn { min-height: 40px; padding: 0 14px; font-size: 14px; }
+  .lang-switch { min-width: 40px; min-height: 40px; padding: 0 8px; }
   .nav { order: 3; flex: 1 0 100%; flex-wrap: nowrap; gap: 0 18px; font-size: 14px; overflow-x: auto; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
   .nav a { white-space: nowrap; padding: 10px 0 8px; }

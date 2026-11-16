@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio · Index Fund</title>
+<meta name="description" content="The Index Fund portfolio against the S&amp;P 500 in PLN: allocation, companies with investment theses and the decision log.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fundusz Index">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Portfolio · Index Fund">
+<meta property="og:description" content="The Index Fund portfolio against the S&amp;P 500 in PLN: allocation, companies with investment theses and the decision log.">
+<meta property="og:url" content="https://fundusz.knrkindex.pl/en/portfel.html">
+<meta property="og:image" content="https://fundusz.knrkindex.pl/assets/img/og/fundusz-index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/portfel.html">
+<link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/portfel.html">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css?v=34b56a1e">
+<script src="../assets/js/en.js?v=246fb933" defer></script>
+<script src="../assets/js/wspolne.js?v=b4ccd5fc" defer></script>
+<script src="../assets/js/portfel.js?v=1d4e3f50" defer></script>
+</head>
+<body data-base="../" data-pages="">
+<a class="skip-link" href="#tresc">Skip to content</a>
+
+<header class="site-header">
+<div class="wrap">
+<a class="logo" href="index.html" aria-label="Index Fund, home page"><svg viewBox="0 0 1113.91 256" aria-hidden="true"><use href="../assets/img/ikony.svg#logo"></use></svg></a>
+<nav class="nav" aria-label="Main menu">
+<a href="index.html">Home</a>
+<a href="portfel.html" aria-current="page">Portfolio</a>
+<a href="analizy.html">Analyses</a>
+<a href="artykuly.html">Articles</a>
+<a href="o-funduszu.html">About</a>
+</nav>
+<div class="header-tools"><a class="lang-switch" href="../portfel.html" hreflang="pl" lang="pl" aria-label="Polska wersja strony">PL</a><a class="btn btn-primary" href="o-funduszu.html#kontakt">Contact</a></div>
+</div>
+</header>
+
+<main id="tresc" class="wrap">
+
+<p class="note" data-demo-note hidden>Sample data. The allocation and opening decisions are real, but prices and results were generated for preview. Real figures will appear once the daily update is connected.</p>
+<p class="note" id="blad" hidden>The portfolio data could not be loaded. Please refresh the page in a moment.</p>
+
+<section class="section" aria-label="Summary" style="gap:20px">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:860px">
+<h1 class="page-title">Portfolio</h1>
+<p style="font-size:24px;line-height:1.35">Since launch the portfolio has returned <strong id="teza-zwrot">–</strong>. The S&amp;P 500 in PLN over the same period: <span id="teza-bench">–</span>.</p>
+<p class="small muted">Launched <span id="meta-start">–</span> with <span id="meta-kapital">–</span> PLN · as of <span id="meta-stan">–</span> · updated after the US close · USD/PLN rate from the National Bank of Poland</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="section-head"><h2 style="font-size:18px">Allocation</h2>
+<div role="group" aria-label="Show allocation by" style="display:flex;gap:6px"><button type="button" class="pill" data-sklad="spolki" aria-pressed="true">Companies</button><button type="button" class="pill" data-sklad="sektory" aria-pressed="false">Sectors</button></div></div>
+<div class="alloc-bar" id="sklad-pasek" role="img" aria-label="Portfolio allocation"></div>
+<ul class="legend" id="sklad-legenda"></ul>
+</div>
+</section>
+
+<section class="split" aria-label="Results">
+<div class="main" style="display:flex;flex-direction:column;gap:14px">
+<div class="chart-head">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h2 style="font-size:20px">Against the S&amp;P 500</h2>
+<p class="sr-only" aria-live="polite">As of <span id="leg-data">–</span>: fund <span id="leg-fundusz">–</span>, S&amp;P 500 in PLN <span id="leg-bench">–</span>.</p>
+</div>
+<div role="group" aria-label="Chart range" style="display:flex;flex-wrap:wrap;gap:6px">
+<button type="button" class="seg" data-zakres="1M">1M</button>
+<button type="button" class="seg" data-zakres="3M">3M</button>
+<button type="button" class="seg" data-zakres="6M">6M</button>
+<button type="button" class="seg" data-zakres="YTD">YTD</button>
+<button type="button" class="seg" data-zakres="1R">1Y</button>
+<button type="button" class="seg" data-zakres="Od startu">All</button>
+</div>
+</div>
+<div class="chart-wrap"><svg id="wykres" class="chart" viewBox="0 0 1000 340" role="img" aria-label="Chart of the fund&#x27;s return and the S&amp;P 500 in PLN"></svg><div id="wykres-dymek" class="chart-tip" hidden></div></div>
+<p class="tiny muted">Hover over the chart (on a phone, touch and drag) to see the result on any day. A yellow diamond marks the day of a portfolio decision. Both results are measured from the start of the selected range, excluding dividends. Source: closing prices from US exchanges, USD/PLN rate from the National Bank of Poland. Virtual portfolio.</p>
+</div>
+<aside class="side panel" aria-label="Portfolio in numbers">
+<span class="label" style="color:var(--inv-muted)">In numbers</span>
+<div style="display:flex;flex-direction:column;gap:4px"><span class="small muted">Portfolio value</span><strong style="font-size:32px;line-height:1.1" id="k-wartosc">–</strong></div>
+<dl class="kv">
+<dt>Return since launch</dt><dd id="k-zwrot">–</dd>
+<dt>S&amp;P 500 (PLN)</dt><dd id="k-bench">–</dd>
+<dt>Difference</dt><dd id="k-roznica">–</dd>
+<dt>Cash</dt><dd id="k-gotowka">–</dd>
+<dt>Companies</dt><dd id="k-pozycje">–</dd>
+</dl>
+<div style="display:flex;flex-direction:column;gap:6px"><span class="tiny muted">Returns by period · fund / S&amp;P 500</span><dl class="kv" id="okresy"></dl></div>
+</aside>
+</section>
+
+<section class="section" aria-label="Companies in the portfolio">
+<div class="section-head" style="align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:6px"><h2>Why we hold these companies</h2><p class="small" style="color:var(--ink-2)">Click a company to see the thesis, the authors of the analysis and the files.</p></div>
+<div role="group" aria-label="Sort companies" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px"><span class="tiny muted">Sort:</span>
+<button type="button" class="pill" data-sort="waga" aria-pressed="true">Weight</button>
+<button type="button" class="pill" data-sort="zwrot" aria-pressed="false">Return</button>
+<button type="button" class="pill" data-sort="nazwa" aria-pressed="false">A–Z</button></div>
+</div>
+<ul class="holdings" id="spolki"></ul>
+</section>
+
+<section class="section" id="dziennik-decyzji" aria-label="Decision log" style="gap:20px">
+<div style="display:flex;flex-direction:column;gap:6px"><h2 style="font-size:26px">Decision log</h2><p class="small" style="color:var(--ink-2)">Every buy and every sell, dated. Newest first.</p></div>
+<ol class="timeline" id="dziennik"></ol>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<strong>Index Fund · INDEX Capital Markets Student Club, Krakow University of Economics</strong>
+<p>Index Fund is an educational student project run by Fundacja Index (KRS 0001137760). It is not an investment fund within the meaning of the Polish Act of 27 May 2004 on investment funds, it does not raise money for investment and it does not provide brokerage services. The portfolio is virtual. The analyses express the views of their authors and are not investment advice.</p>
+<p>Prices: Yahoo Finance, Nasdaq or Stooq; USD/PLN rate: National Bank of Poland (table A).</p>
+<p class="legal-links"><a href="o-funduszu.html#kontakt">Contact</a><a href="../nota-prawna.html">Legal notice (in Polish)</a><a href="../polityka-prywatnosci.html">Privacy policy (in Polish)</a><a href="../regulamin-newslettera.html">Newsletter terms (in Polish)</a><a href="https://www.linkedin.com/company/index-fund">LinkedIn</a></p>
+</div>
+</footer>
+
+</body>
+</html>

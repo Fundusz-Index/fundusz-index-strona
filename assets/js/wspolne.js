@@ -3,6 +3,17 @@
   'use strict';
   var baseEl = document.querySelector('[data-base]');
   var base = baseEl ? baseEl.getAttribute('data-base') : '';
+  /* Wersja angielska (katalog en/): strony mają lang="en", osobną bazę dla linków do stron
+     i słownik window.FI_EN z assets/js/en.js. Na polskich stronach nic się nie zmienia. */
+  var lang = document.documentElement.lang === 'en' ? 'en' : 'pl';
+  var pages = baseEl && baseEl.hasAttribute('data-pages') ? baseEl.getAttribute('data-pages') : base;
+  var DZIES = lang === 'en' ? '.' : ',';
+  var MIES_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function t(s) {
+    if (lang !== 'en' || s == null) return s;
+    var d = window.FI_EN || {};
+    return Object.prototype.hasOwnProperty.call(d, s) ? d[s] : s;
+  }
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -12,6 +23,9 @@
 
   var FI = window.FI = {
     base: base,
+    pages: pages,
+    lang: lang,
+    t: t,
     esc: esc,
     json: function (nazwa) {
       return fetch(base + 'data/' + nazwa, { cache: 'no-cache' }).then(function (r) {
@@ -22,25 +36,26 @@
     pct: function (v, d) {
       if (v === null || v === undefined || isNaN(v)) return '–';
       d = d === undefined ? 1 : d;
-      return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d).replace('.', ',') + '%';
+      return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d).replace('.', DZIES) + '%';
     },
     pp: function (v) {
       if (v === null || v === undefined || isNaN(v)) return '–';
-      return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1).replace('.', ',') + ' pp';
+      return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1).replace('.', DZIES) + ' pp';
     },
     pln: function (v) {
       var s = Math.round(v).toString();
-      return s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      return s.replace(/\B(?=(\d{3})+(?!\d))/g, lang === 'en' ? ',' : ' ');
     },
     data: function (iso) {
       var p = String(iso).split('-');
-      return p.length === 3 ? p[2] + '.' + p[1] + '.' + p[0] : iso;
+      if (p.length !== 3) return iso;
+      return lang === 'en' ? (+p[2]) + ' ' + MIES_EN[+p[1] - 1] + ' ' + p[0] : p[2] + '.' + p[1] + '.' + p[0];
     },
     lossClass: function (v) { return v < 0 ? 'loss' : ''; },
     num: function (v, d) {
       var s = Math.abs(v).toFixed(d === undefined ? 2 : d).split('.');
-      s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-      return (v < 0 ? '−' : '') + s.join(',');
+      s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, lang === 'en' ? ',' : ' ');
+      return (v < 0 ? '−' : '') + s.join(DZIES);
     }
   };
 
@@ -53,14 +68,14 @@
   function ticker(p) {
     var box = document.getElementById('ticker');
     if (!box) return;
-    var items = [{ sym: 'Portfel', name: 'Fundusz Index', chg: p.podsumowanie.zmiana_dzienna, href: 'portfel.html' }];
+    var items = [{ sym: t('Portfel'), name: t('Fundusz Index'), chg: p.podsumowanie.zmiana_dzienna, href: pages + 'portfel.html' }];
     p.pozycje.forEach(function (x) {
-      items.push({ sym: x.ticker, name: x.nazwa, chg: x.zmiana_dzienna, href: x.analiza || 'portfel.html' });
+      items.push({ sym: x.ticker, name: x.nazwa, chg: x.zmiana_dzienna, href: x.analiza ? base + x.analiza : pages + 'portfel.html' });
     });
-    items.push({ sym: p.benchmark, name: 'w PLN', chg: p.podsumowanie.benchmark_zmiana_dzienna, href: 'portfel.html' });
+    items.push({ sym: p.benchmark, name: t('w PLN'), chg: p.podsumowanie.benchmark_zmiana_dzienna, href: pages + 'portfel.html' });
     function li(i, dup) {
       var arrow = i.chg < 0 ? '▼' : '▲';
-      var link = dup ? '<span style="font-weight:700">' + esc(i.sym) + '</span>' : '<a href="' + esc(base + i.href) + '">' + esc(i.sym) + '</a>';
+      var link = dup ? '<span style="font-weight:700">' + esc(i.sym) + '</span>' : '<a href="' + esc(i.href) + '">' + esc(i.sym) + '</a>';
       return '<li' + (dup ? ' aria-hidden="true"' : '') + '>' + link + '<span class="tiny muted">' + esc(i.name) +
         '</span><span class="chg ' + FI.lossClass(i.chg) + '">' + arrow + ' ' + FI.pct(i.chg) + '</span></li>';
     }
@@ -68,7 +83,7 @@
       /* trzy kopie, żeby pasek nie kończył się na bardzo szerokich ekranach (przesuw o 25% w CSS) */
       [1, 2, 3].map(function () { return items.map(function (i) { return li(i, true); }).join(''); }).join('');
     var d = box.querySelector('[data-ticker-date]');
-    if (d) d.textContent = 'zmiana dzienna · ' + FI.data(p.stan_na) + (p.demo ? ' · przykład' : '');
+    if (d) d.textContent = t('zmiana dzienna') + ' · ' + FI.data(p.stan_na) + (p.demo ? ' · ' + t('przykład') : '');
     box.hidden = false;
   }
 
@@ -81,7 +96,7 @@
     el.querySelector('.alloc-bar').innerHTML = p.pozycje.map(function (x, i) {
       return '<span style="flex:' + x.waga + ' 1 0;background:' + kolory[i % 5] + '"></span>';
     }).join('');
-    el.querySelector('.alloc-bar').setAttribute('aria-label', 'Skład portfela: ' + p.pozycje.map(function (x) {
+    el.querySelector('.alloc-bar').setAttribute('aria-label', t('Skład portfela') + ': ' + p.pozycje.map(function (x) {
       return x.nazwa + ' ' + Math.round(x.waga) + '%';
     }).join(', '));
     el.querySelector('[data-sklad]').textContent = p.pozycje.map(function (x) {
@@ -93,8 +108,8 @@
       var tegoDnia = p.transakcje.filter(function (t) { return t.data === last.data; });
       dec.querySelector('[data-data]').textContent = FI.data(last.data);
       dec.querySelector('[data-opis]').textContent = tegoDnia.length > 1
-        ? (last.typ === 'kupno' ? 'Kupno ' : 'Sprzedaż ') + tegoDnia.length + ' spółek'
-        : (last.typ === 'kupno' ? 'Kupno: ' : 'Sprzedaż: ') + last.nazwa + ' (' + last.ticker + ')';
+        ? t(last.typ === 'kupno' ? 'Kupno {n} spółek' : 'Sprzedaż {n} spółek').replace('{n}', tegoDnia.length)
+        : t(last.typ === 'kupno' ? 'Kupno' : 'Sprzedaż') + ': ' + last.nazwa + ' (' + last.ticker + ')';
     }
   }
 
@@ -103,11 +118,11 @@
     if (!box) return;
     FI.json('ogloszenie.json').then(function (o) {
       if (!o.pokaz) return;
-      box.querySelector('[data-etykieta]').textContent = o.etykieta || 'Ogłoszenie';
-      box.querySelector('[data-tytul]').textContent = o.tytul || '';
-      box.querySelector('[data-tekst]').textContent = o.tekst || '';
+      box.querySelector('[data-etykieta]').textContent = t(o.etykieta || 'Ogłoszenie');
+      box.querySelector('[data-tytul]').textContent = t(o.tytul || '');
+      box.querySelector('[data-tekst]').textContent = t(o.tekst || '');
       var a = box.querySelector('[data-link]');
-      if (o.link) { a.href = o.link; a.textContent = o.link_tekst || 'Szczegóły'; } else { a.hidden = true; }
+      if (o.link) { a.href = o.link; a.textContent = t(o.link_tekst || 'Szczegóły'); } else { a.hidden = true; }
       box.hidden = false;
     }).catch(function () {});
   }
@@ -115,6 +130,8 @@
   /* Strona główna: najbliższe wydarzenia z data/kalendarz.json. Minione znikają same. */
   var MIESIACE = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia',
     'września', 'października', 'listopada', 'grudnia'];
+  if (lang === 'en') MIESIACE = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'];
   function dzien(iso) {
     var p = String(iso).split('-');
     return { r: +p[0], m: +p[1], d: +p[2] };
@@ -126,7 +143,7 @@
     if (b && b.m === a.m && b.r === a.r) s = a.d + '–' + b.d + ' ' + MIESIACE[a.m - 1];
     else if (b) s = a.d + ' ' + MIESIACE[a.m - 1] + ' – ' + b.d + ' ' + MIESIACE[b.m - 1];
     else s = a.d + ' ' + MIESIACE[a.m - 1];
-    return (e.szacunek ? 'ok. ' : '') + s + koniec;
+    return (e.szacunek ? t('ok.') + ' ' : '') + s + koniec;
   }
   function calendar() {
     var box = document.getElementById('kalendarz');
@@ -141,14 +158,14 @@
         .slice(0, limit);
       if (!lista.length) return;
       list.innerHTML = lista.map(function (e) {
-        var tytul = esc(e.tytul);
+        var tytul = esc(t(e.tytul));
         if (e.link && /^https:\/\//.test(e.link)) tytul = '<a href="' + esc(e.link) + '" rel="noopener">' + tytul + '</a>';
         return '<li' + (e.szacunek ? ' class="cal-est"' : '') + '>' +
-          '<span class="tiny muted">' + esc(e.typ) + '</span>' +
+          '<span class="tiny muted">' + esc(t(e.typ)) + '</span>' +
           '<span class="cal-date">' + esc(kiedy(e, now.getFullYear())) + '</span>' +
           '<span class="cal-title">' + tytul + '</span>' +
-          (e.opis ? '<span class="cal-meta">' + esc(e.opis) + '</span>' : '') +
-          (e.szacunek ? '<span class="tiny muted">Termin szacunkowy, spółka go jeszcze nie ogłosiła</span>' : '') +
+          (e.opis ? '<span class="cal-meta">' + esc(t(e.opis)) + '</span>' : '') +
+          (e.szacunek ? '<span class="tiny muted">' + esc(t('Termin szacunkowy, spółka go jeszcze nie ogłosiła')) + '</span>' : '') +
           '</li>';
       }).join('');
       box.hidden = false;

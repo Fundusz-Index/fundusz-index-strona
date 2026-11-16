@@ -197,6 +197,10 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 ### Navigation
 - Pięć pozycji tekstem 15 px. Aktywna jest pogrubiona z czarną kreską 3 px pod spodem. Po najechaniu kreska rysuje się od lewej w 150 ms. Fokus z klawiatury: obrys 3 px w kolorze series-2.
 
+### Przełącznik języka
+- Mały przycisk z obrysem w nagłówku, przed „Kontakt”: „EN” na stronach polskich, „PL” na angielskich. Prowadzi do tej samej strony w drugim języku.
+- Bez flag i bez żółtego. Na telefonie 40×40 px.
+
 ### Pasek kursów
 - Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
 - Spadki na czerni mają jaśniejszą czerwień (#FF8A80), wzrosty są białe.

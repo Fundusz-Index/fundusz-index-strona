@@ -70,7 +70,7 @@
       return '<text class="chart-end" x="' + (R + 14) + '" y="' + (y - 2).toFixed(1) + '" style="fill:' + kolor + '">' + nazwa + '</text>' +
         '<text class="chart-end chart-end-val" x="' + (R + 14) + '" y="' + (y + 14).toFixed(1) + '" style="fill:' + kolor + '">' + FI.pct(wart) + '</text>';
     };
-    svg += podpis(yb, 'S&amp;P 500 (PLN)', b[n - 1], 'var(--bench-text)') + podpis(yf, 'Fundusz', f[n - 1], 'var(--s1)');
+    svg += podpis(yb, 'S&amp;P 500 (PLN)', b[n - 1], 'var(--bench-text)') + podpis(yf, esc(FI.t('Fundusz')), f[n - 1], 'var(--s1)');
     /* znaczniki decyzji: żółty romb na linii funduszu w dniu transakcji (ten sam znak co kurs na wykresie wyceny) */
     var decyzje = {};
     (P.transakcje || []).forEach(function (t) {
@@ -100,14 +100,14 @@
     if (h === null && !WASKI) { dymek.hidden = true; return; }
     var roz = f[li] - b[li];
     var html = '<b>' + FI.data(pkt[li].d) + '</b>' +
-      '<span><i class="k-f"></i>Fundusz<b>' + FI.pct(f[li]) + '</b></span>' +
+      '<span><i class="k-f"></i>' + esc(FI.t('Fundusz')) + '<b>' + FI.pct(f[li]) + '</b></span>' +
       '<span><i class="k-b"></i>S&amp;P 500 (PLN)<b>' + FI.pct(b[li]) + '</b></span>' +
-      '<span class="roz">Różnica<b>' + (roz > 0 ? '+' : roz < 0 ? '−' : '') + FI.num(Math.abs(roz), 1) + ' pp</b></span>';
+      '<span class="roz">' + esc(FI.t('Różnica')) + '<b>' + (roz > 0 ? '+' : roz < 0 ? '−' : '') + FI.num(Math.abs(roz), 1) + ' pp</b></span>';
     if (decyzje[li]) {
       var wg = {};
       decyzje[li].forEach(function (t) { (wg[t.typ] = wg[t.typ] || []).push(t.ticker); });
       html += Object.keys(wg).map(function (typ) {
-        return '<span class="dec"><i class="k-d"></i><em>' + esc(typ.charAt(0).toUpperCase() + typ.slice(1)) + ': ' + esc(wg[typ].join(', ')) + '</em></span>';
+        return '<span class="dec"><i class="k-d"></i><em>' + esc(FI.t(typ.charAt(0).toUpperCase() + typ.slice(1))) + ': ' + esc(wg[typ].join(', ')) + '</em></span>';
       }).join('');
     }
     dymek.innerHTML = html;
@@ -135,14 +135,14 @@
       P.pozycje.forEach(function (p) { m[p.sektor] = (m[p.sektor] || 0) + p.waga; });
       grupy = Object.keys(m).map(function (k) { return [k, m[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
     }
-    if (P.podsumowanie.gotowka_pln > 1) grupy.push(['Gotówka', P.podsumowanie.gotowka_pln / P.podsumowanie.wartosc_pln * 100]);
+    if (P.podsumowanie.gotowka_pln > 1) grupy.push([FI.t('Gotówka'), P.podsumowanie.gotowka_pln / P.podsumowanie.wartosc_pln * 100]);
     var bar = $('sklad-pasek');
     bar.innerHTML = grupy.map(function (g, i) {
       return '<span style="flex:' + g[1] + ' 1 0;background:' + KOLORY[i % 5] + '"></span>';
     }).join('');
-    bar.setAttribute('aria-label', 'Skład portfela: ' + grupy.map(function (g) { return g[0] + ' ' + Math.round(g[1]) + '%'; }).join(', '));
+    bar.setAttribute('aria-label', FI.t('Skład portfela') + ': ' + grupy.map(function (g) { return FI.t(g[0]) + ' ' + Math.round(g[1]) + '%'; }).join(', '));
     $('sklad-legenda').innerHTML = grupy.map(function (g, i) {
-      return '<li><span class="dot" style="background:' + KOLORY[i % 5] + ';outline:1px solid var(--line)"></span>' + esc(g[0]) + ' <b>' + Math.round(g[1]) + '%</b></li>';
+      return '<li><span class="dot" style="background:' + KOLORY[i % 5] + ';outline:1px solid var(--line)"></span>' + esc(FI.t(g[0])) + ' <b>' + Math.round(g[1]) + '%</b></li>';
     }).join('');
     document.querySelectorAll('[data-sklad]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.sklad === stan.sklad); });
   }
@@ -161,17 +161,17 @@
     var maxW = Math.max.apply(null, lista.map(function (p) { return p.waga; }));
     $('spolki').innerHTML = lista.map(function (p) {
       var open = stan.otwarta === p.ticker, t = teza(p.ticker);
-      var link = (p.analiza ? '<a href="' + esc(FI.base + p.analiza) + '"><b>Czytaj analizę ' + esc(p.ticker) + '</b></a>' : '') +
-        (p.raport ? '<a href="' + esc(FI.base + p.raport) + '" download><b>Pobierz raport ' + esc(p.ticker) + ' (PDF)</b></a>' : '');
-      if (!link) link = '<span class="muted">Analiza w przygotowaniu</span>';
+      var link = (p.analiza ? '<a href="' + esc(FI.base + p.analiza) + '"><b>' + esc(FI.t('Czytaj analizę {t}').replace('{t}', p.ticker)) + '</b></a>' : '') +
+        (p.raport ? '<a href="' + esc(FI.base + p.raport) + '" download><b>' + esc(FI.t('Pobierz raport {t} (PDF)').replace('{t}', p.ticker)) + '</b></a>' : '');
+      if (!link) link = '<span class="muted">' + esc(FI.t('Analiza w przygotowaniu')) + '</span>';
       return '<li><button type="button" class="holding-btn" aria-expanded="' + open + '" data-ticker="' + esc(p.ticker) + '">' +
         '<span class="initials" aria-hidden="true">' + esc(p.ticker) + '</span>' +
-        '<span class="holding-name"><strong>' + esc(p.nazwa) + '</strong><span class="tiny muted">' + esc(p.sektor) + ' · ' + esc(p.opis) + '</span></span>' +
+        '<span class="holding-name"><strong>' + esc(p.nazwa) + '</strong><span class="tiny muted">' + esc(FI.t(p.sektor)) + ' · ' + esc(FI.t(p.opis)) + '</span></span>' +
         '<span class="holding-weight"><span class="bar-bg"><span style="width:' + (p.waga / maxW * 100).toFixed(1) + '%"></span></span><b style="width:44px;text-align:right">' + Math.round(p.waga) + '%</b></span>' +
         '<span class="holding-ret"><strong class="' + FI.lossClass(p.zwrot) + '">' + FI.pct(p.zwrot) + '</strong><span class="tiny muted">' + FI.pln(p.wartosc_pln) + ' PLN</span></span>' +
         '<span class="chev" aria-hidden="true">' + (open ? '−' : '+') + '</span></button>' +
-        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">Teza z raportu, zakup' + (t.data ? ' (' + FI.data(t.data) + ')' : '') + '</span><p style="color:var(--ink-2)">' + esc(t.tekst || 'Brak opisu w transakcje.csv.') + '</p></div>' +
-          '<div style="flex:1 1 220px"><span class="label">Analiza</span><span class="small" style="color:var(--ink-2)">' + esc(p.autorzy || '[autorzy analizy]') + '</span>' + link + '</div></div>' : '') +
+        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">' + esc(FI.t('Teza z raportu, zakup')) + (t.data ? ' (' + FI.data(t.data) + ')' : '') + '</span><p style="color:var(--ink-2)">' + esc(FI.t(t.tekst) || 'Brak opisu w transakcje.csv.') + '</p></div>' +
+          '<div style="flex:1 1 220px"><span class="label">' + esc(FI.t('Analiza')) + '</span><span class="small" style="color:var(--ink-2)">' + esc(p.autorzy || '[autorzy analizy]') + '</span>' + link + '</div></div>' : '') +
         '</li>';
     }).join('');
     document.querySelectorAll('[data-sort]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.sort === stan.sort); });
@@ -184,12 +184,12 @@
     var daty = Object.keys(dni).sort().reverse();
     $('dziennik').innerHTML = daty.map(function (d, k) {
       var lista = dni[d], kupna = lista.filter(function (t) { return t.typ === 'kupno'; }).length;
-      var tytul = d === P.data_startu ? 'Start funduszu: kupno ' + lista.length + ' spółek za ' + FI.pln(P.kapital_startowy_pln) + ' PLN'
-        : (kupna === lista.length ? 'Kupno' : kupna === 0 ? 'Sprzedaż' : 'Zmiany w portfelu') + (lista.length > 1 ? ': ' + lista.length + ' spółki' : ': ' + lista[0].nazwa);
+      var tytul = d === P.data_startu ? FI.t('Start funduszu: kupno {n} spółek za {k} PLN').replace('{n}', lista.length).replace('{k}', FI.pln(P.kapital_startowy_pln))
+        : FI.t(kupna === lista.length ? 'Kupno' : kupna === 0 ? 'Sprzedaż' : 'Zmiany w portfelu') + (lista.length > 1 ? ': ' + FI.t('{n} spółki').replace('{n}', lista.length) : ': ' + lista[0].nazwa);
       return '<li><span class="small" style="font-weight:700;padding-top:2px">' + FI.data(d) + '</span>' +
         '<span class="tl-mark" aria-hidden="true"><i></i>' + (k < daty.length - 1 ? '<b></b>' : '') + '</span>' +
         '<div class="tl-body"><strong>' + esc(tytul) + '</strong><ul>' + lista.map(function (t) {
-          return '<li><b style="color:var(--ink)">' + (t.typ === 'kupno' ? 'Kupno' : 'Sprzedaż') + ' · ' + esc(t.nazwa) + ' (' + esc(t.ticker) + ')</b> · ' + FI.pln(t.kwota_pln) + ' PLN</li>';
+          return '<li><b style="color:var(--ink)">' + esc(FI.t(t.typ === 'kupno' ? 'Kupno' : 'Sprzedaż')) + ' · ' + esc(t.nazwa) + ' (' + esc(t.ticker) + ')</b> · ' + FI.pln(t.kwota_pln) + ' PLN</li>';
         }).join('') + '</ul></div></li>';
     }).join('');
   }
@@ -210,7 +210,7 @@
     $('k-pozycje').textContent = s.liczba_pozycji;
     var nazwy = { '1M': '1 miesiąc', '3M': '3 miesiące', '6M': '6 miesięcy', 'YTD': 'Od początku roku', '1R': '1 rok' };
     $('okresy').innerHTML = Object.keys(nazwy).filter(function (k) { return P.okresy[k]; }).map(function (k) {
-      return '<dt>' + nazwy[k] + '</dt><dd>' + FI.pct(P.okresy[k].f) + ' <span style="font-weight:400;color:var(--inv-muted)">/ ' + FI.pct(P.okresy[k].b) + '</span></dd>';
+      return '<dt>' + esc(FI.t(nazwy[k])) + '</dt><dd>' + FI.pct(P.okresy[k].f) + ' <span style="font-weight:400;color:var(--inv-muted)">/ ' + FI.pct(P.okresy[k].b) + '</span></dd>';
     }).join('');
   }
 

@@ -10,6 +10,7 @@ Błędy (zatrzymują aktualizację i publikację):
 
 Ostrzeżenia (nie zatrzymują, chyba że użyjesz --publikacja):
   - pola do uzupełnienia w nawiasach kwadratowych, np. [rok],
+  - tekst z danych bez tłumaczenia w i18n/en.json (na stronie angielskiej zostanie po polsku),
   - ogłoszenie włączone bez tytułu lub linku.
 
 Użycie:
@@ -243,7 +244,7 @@ class Linki(HTMLParser):
 
 
 def sprawdz_strony(r):
-    for plik in sorted(ROOT.glob("*.html")) + sorted((ROOT / "analizy").glob("*.html")):
+    for plik in sorted(ROOT.glob("*.html")) + sorted((ROOT / "analizy").glob("*.html")) + sorted((ROOT / "en").glob("*.html")):
         tekst = plik.read_text(encoding="utf-8")
         wzgl = plik.relative_to(ROOT).as_posix()
         p = Linki()
@@ -303,6 +304,57 @@ def sprawdz_kalendarz(r):
             r.uwaga(gdzie, "pola do uzupełnienia w nawiasach [ ]")
 
 
+def sprawdz_tlumaczenia(r):
+    """Teksty z danych, które strona angielska pokazuje przez słownik i18n/en.json."""
+    sciezka = ROOT / "i18n" / "en.json"
+    if not sciezka.exists():
+        return
+    try:
+        slownik = json.loads(sciezka.read_text(encoding="utf-8"))
+        znane = set(slownik["teksty"]) | set(slownik.get("bez_zmian", []))
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        r.blad("i18n/en.json", f"zła składnia słownika ({e}). Potrzebne pola: 'teksty' i 'bez_zmian'.")
+        return
+    do_sprawdzenia = []
+
+    def dodaj(gdzie, wpis, pola):
+        for pole in pola:
+            tekst = str((wpis or {}).get(pole) or "").strip()
+            if tekst:
+                do_sprawdzenia.append((gdzie, tekst))
+
+    def lista(nazwa):
+        try:
+            return json.loads((DATA / nazwa).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return None  # błąd składni zgłasza już osobne sprawdzenie
+
+    for s in lista("spolki.json") or []:
+        dodaj("data/spolki.json", s, ("sektor", "opis"))
+    for a in lista("analizy.json") or []:
+        dodaj("data/analizy.json", a, ("sektor", "data_tekst", "metoda", "pliki", "teza"))
+    for a in lista("artykuly.json") or []:
+        dodaj("data/artykuly.json", a, ("dzial",))
+    kalendarz = lista("kalendarz.json")
+    for e in (kalendarz or {}).get("wydarzenia", []) if isinstance(kalendarz, dict) else []:
+        dodaj("data/kalendarz.json", e, ("typ", "tytul", "opis"))
+    o = lista("ogloszenie.json")
+    if isinstance(o, dict) and o.get("pokaz"):
+        dodaj("data/ogloszenie.json", o, ("etykieta", "tytul", "tekst", "link_tekst"))
+    csv_plik = DATA / "transakcje.csv"
+    if csv_plik.exists():
+        with csv_plik.open(encoding="utf-8", newline="") as f:
+            for w in csv.DictReader(f):
+                dodaj("data/transakcje.csv", w, ("uzasadnienie",))
+    widziane = set()
+    for gdzie, tekst in do_sprawdzenia:
+        if tekst in znane or tekst in widziane:
+            continue
+        widziane.add(tekst)
+        skrot = tekst if len(tekst) <= 70 else tekst[:67] + "..."
+        r.uwaga(gdzie, f"brak tłumaczenia w i18n/en.json, na stronie angielskiej zostanie po polsku: '{skrot}'")
+
+
 def sprawdz(publikacja=False):
     r = Raport()
     sprawdz_ustawienia(r)
@@ -313,6 +365,7 @@ def sprawdz(publikacja=False):
     sprawdz_ogloszenie(r)
     sprawdz_kalendarz(r)
     sprawdz_strony(r)
+    sprawdz_tlumaczenia(r)
     if publikacja:
         r.bledy += r.ostrzezenia
         r.ostrzezenia = []

@@ -14,7 +14,7 @@ import sprawdz_dane as S  # noqa: E402
 class TestSprawdzanie(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
-        for nazwa in ("data", "analizy", "assets", "pliki"):
+        for nazwa in ("data", "analizy", "assets", "pliki", "en", "i18n"):
             shutil.copytree(ROOT / nazwa, self.tmp / nazwa)
         for plik in ROOT.glob("*.html"):
             shutil.copy(plik, self.tmp / plik.name)
@@ -32,6 +32,21 @@ class TestSprawdzanie(unittest.TestCase):
         r = S.sprawdz()
         self.assertEqual(r.bledy, [])
         self.assertTrue(r.ostrzezenia)  # są jeszcze pola [do uzupełnienia]
+
+    def test_tekst_z_danych_bez_tlumaczenia(self):
+        import json
+        plik = self.tmp / "data" / "spolki.json"
+        spolki = json.loads(plik.read_text(encoding="utf-8"))
+        spolki[0]["opis"] = "zupełnie nowy opis spółki"
+        plik.write_text(json.dumps(spolki, ensure_ascii=False), encoding="utf-8")
+        r = S.sprawdz()
+        self.assertEqual(r.bledy, [])
+        self.assertTrue(any("zupełnie nowy opis spółki" in o and "i18n/en.json" in o for o in r.ostrzezenia))
+
+    def test_strona_angielska_z_brakujacym_linkiem(self):
+        (self.tmp / "polityka-prywatnosci.html").unlink()
+        r = S.sprawdz()
+        self.assertTrue(any(b.startswith("en/") and "polityka-prywatnosci.html" in b for b in r.bledy))
 
     def test_brakujacy_raport_pdf(self):
         (self.tmp / "pliki" / "analizy" / "fundusz-index-cvx-2026-10.pdf").unlink()
