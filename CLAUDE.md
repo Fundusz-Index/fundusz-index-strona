@@ -62,10 +62,11 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 ## Jak pracować
 
 1. Przed zmianą: `git fetch origin main` i pracuj na aktualnym `main`.
-2. Po zmianie: `python3 -m unittest discover tests` i `python3 scripts/sprawdz_dane.py`. Oba muszą przejść.
-3. Commit jako `Claude <noreply@anthropic.com>` (ustaw `git config user.name/user.email`), opis po polsku, krótko, co i gdzie. Push na `main`, chyba że Szymon poprosi o gałąź i pull request.
-4. Pokaż zmianę: zrzut ekranu (Playwright, szerokość 1280 i 390) albo odśwież podgląd. Podgląd dla zarządu to artefakt https://claude.ai/artifact/Hviuj95cNrNmjTeJo8jCsW: kopia plików strony, w której `index.html` jest bez `<head>`/`<body>` i z meta `claude:viewport-fit-sides`. Nie wrzucaj tej meta do plików w repozytorium.
-5. Większe zmiany wyglądu: najpierw krótka propozycja, potem wdrożenie.
+2. Po zmianie w `assets/css` lub `assets/js`: `python3 scripts/wersje.py`. Skrypt dopisuje do odwołań w HTML znacznik `?v=<skrót pliku>`, żeby przeglądarki nie pokazywały starych stylów z pamięci podręcznej. Test `tests/test_wersje.py` nie przejdzie, jeśli o tym zapomnisz.
+3. Potem: `python3 -m unittest discover tests` i `python3 scripts/sprawdz_dane.py`. Oba muszą przejść.
+4. Commit jako `Claude <noreply@anthropic.com>` (ustaw `git config user.name/user.email`), opis po polsku, krótko, co i gdzie. Push na `main`, chyba że Szymon poprosi o gałąź i pull request.
+5. Pokaż zmianę: zrzut ekranu (Playwright, szerokość 1280 i 390) albo odśwież podgląd. Podgląd dla zarządu to artefakt https://claude.ai/artifact/Hviuj95cNrNmjTeJo8jCsW: kopia plików strony, w której `index.html` jest bez `<head>`/`<body>` i z meta `claude:viewport-fit-sides`. Nie wrzucaj tej meta do plików w repozytorium.
+6. Większe zmiany wyglądu: najpierw krótka propozycja, potem wdrożenie.
 
 ## Otwarte sprawy
 
