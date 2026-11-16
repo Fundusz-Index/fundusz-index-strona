@@ -1,5 +1,5 @@
 {
- "zaktualizowano": "2026-11-15T23:59+00:00",
+ "zaktualizowano": "2026-11-16T01:35+00:00",
  "stan_na": "2026-11-13",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-10-25",
@@ -95,7 +95,7 @@
   },
   {
    "ticker": "AMD",
-   "nazwa": "AMD",
+   "nazwa": "Advanced Micro Devices",
    "sektor": "Technologia",
    "opis": "półprzewodniki",
    "analiza": "analizy/amd.html",
@@ -116,7 +116,7 @@
    "rozliczono": "2026-10-26",
    "typ": "kupno",
    "ticker": "AMD",
-   "nazwa": "AMD",
+   "nazwa": "Advanced Micro Devices",
    "kwota_pln": 12000.0,
    "liczba_akcji": 5.7483,
    "uzasadnienie": "Data Center to główny motor wzrostu: przychody segmentu wzrosły z 6,0 mld USD w 2022 r. do 16,6 mld USD w 2025 r. Kurs jest wyraźnie powyżej wyceny DCF, bo rynek zakłada szybszy wzrost niż model, dlatego to najmniejsza pozycja."
