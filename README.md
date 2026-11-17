@@ -29,7 +29,7 @@ Wszystko, co zmienia się regularnie, siedzi w folderze `data/`:
   { "dzial": "Profit Journal", "data": "2026-11-20", "tytul": "Tytuł", "wstep": "Dwa zdania wstępu.", "autor": "Imię Nazwisko", "link": "https://..." }
   ```
 - **`ogloszenie.json`**: pasek z wydarzeniem na stronie głównej, np. Startup Stage. Ustaw `"pokaz": true`, wpisz tytuł, tekst i link. Po wydarzeniu zmień na `false`.
-- **`ustawienia.json`**: kapitał startowy, data startu, benchmark.
+- **`ustawienia.json`**: kapitał startowy, data startu, benchmark. Pole `gotowka` wskazuje fundusz ETF, w którym liczona jest wolna gotówka (teraz IB01, obligacje skarbowe USA do roku). Kupno spółki zmniejsza tę pozycję, sprzedaż ją zwiększa. Bez tego pola gotówka nie zmienia wartości.
 
 Pól w nawiasach kwadratowych, np. `[rok]`, `[adres e-mail funduszu]`, `[osoba 2]`, nie wolno zostawić na stronie publicznej.
 

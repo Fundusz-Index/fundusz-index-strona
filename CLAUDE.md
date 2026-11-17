@@ -6,7 +6,9 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 - Strona Funduszu Index, edukacyjnego projektu Koła Naukowego Rynku Kapitałowego INDEX (KNRK INDEX) na UEK, prowadzonego przez Fundację Index (KRS 0001137760).
 - Adres docelowy: **fundusz.knrkindex.pl**. Strona koła (knrkindex.pl, WordPress z Elementorem) to osobna sprawa, tu jej nie ruszamy.
-- Portfel jest **wirtualny** (zawsze piszemy „portfel wirtualny”, nigdy „modelowy”; decyzja Szymona z 16.11.2026): 100 000 zł umownego kapitału od 25.10.2026, porównanie z S&P 500 w złotych.
+- Portfel jest **wirtualny** (zawsze piszemy „portfel wirtualny”, nigdy „modelowy”; decyzja Szymona z 16.11.2026): 100 000 zł umownego kapitału od 13.01.2026, porównanie z S&P 500 w złotych.
+- Zakupy mają daty pierwszych analiz spółek: EMCOR 13.01.2026, Alphabet 15.01.2026, Williams 24.02.2026, Chevron 02.06.2026 (decyzja Szymona z 17.11.2026). AMD nie ma w portfelu, analiza zostaje w bibliotece jako „poza portfelem”. Stronę z portfelem uruchomiono w listopadzie 2026, więc wyniki za wcześniejsze miesiące są policzone wstecz. **Strona musi to mówić wprost** (notka pod podsumowaniem w `portfel.html` i akapit w nocie prawnej). Nie dobieramy dat zakupu pod wynik.
+- Wolna gotówka jest liczona według kursu ETF-u IB01 (iShares $ Treasury Bond 0-1yr UCITS ETF, USD, akumulujący). Ustawienie: pole `gotowka` w `data/ustawienia.json`.
 - Opiekun techniczny po stronie zarządu: Szymon Jakubowski. Strona w zarządzie: Mikołaj Bujacz i Paweł Osiński.
 
 ## Źródła zasad
@@ -20,7 +22,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 - Statyczne HTML, CSS i JavaScript, bez bibliotek, bez frameworków, bez bazy danych. Nie dodawaj zależności bez wyraźnej prośby.
 - Dane w `data/` (JSON i CSV), wczytywane przez JS w przeglądarce. `data/portfolio.json` generuje skrypt, nie edytuj go ręcznie.
-- `scripts/aktualizuj_dane.py`: kursy z Yahoo Finance, potem Nasdaq, potem Stooq (przez `curl_cffi`), USD/PLN z NBP. Liczy `data/portfolio.json`.
+- `scripts/aktualizuj_dane.py`: kursy z Yahoo Finance, potem Nasdaq, potem Stooq (przez `curl_cffi`), USD/PLN z NBP. Liczy `data/portfolio.json`. Kursy pobiera też dla ETF-u gotówki i dla spółek z `spolki.json`, których nie ma w portfelu (pole `obserwowane`, potrzebne stronom analiz). W tym środowisku serwisy z kursami są zablokowane: prawdziwe dane liczy tylko GitHub Actions (`gh workflow run aktualizacja-danych.yml --ref <gałąź>`).
 - `scripts/sprawdz_dane.py`: walidacja danych i linków. `--publikacja` zamienia ostrzeżenia (pola w `[nawiasach]`) w błędy.
 - GitHub Actions: `aktualizacja-danych.yml` w dni robocze o 22:30 UTC (testy, walidacja, pobranie kursów, commit „Dane portfela: …” jako „Fundusz Index (automat)”); `sprawdzenie-danych.yml` przy każdym pushu.
 - Style: `assets/css/style.css`, tokeny kolorów w `:root`, tryb jasny i ciemny. Kolory i logo z identyfikacji v1 (czerń, biel, żółty akcent #FFD60A, granaty serii #14213D…#D5DEEC). Logo i symbol w `assets/img/ikony.svg`.
@@ -36,7 +38,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 | Plik | Co jest w środku |
 | --- | --- |
 | `index.html` | Start: pasek kursów spółek (czarny, jako dół nagłówka; nie zatrzymuje się po najechaniu kursorem), ogłoszenie (`data/ogloszenie.json`), portfel w skrócie, ostatnia decyzja, statystyki koła, najnowsze analizy, kalendarz (`data/kalendarz.json`, cztery najbliższe, minione znikają same), dla partnerów |
-| `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji. Wykres w stylu księgi znaku (wzór: `04_Wykresy/Wykres_raport_kurs_52_tygodnie`): gruba granatowa linia funduszu z kropką i podpisem na końcu, ciągła jaśniejsza linia S&P 500, bez legendy i bez wypełnienia. Żółty romb na linii funduszu = dzień transakcji z `transakcje.csv` (jedyny żółty element wykresu). Dymek `#wykres-dymek`: data, oba wyniki, różnica w pp, decyzja; na telefonie stała ramka pod wykresem |
+| `portfel.html` + `assets/js/portfel.js` | Wykres funduszu vs S&P 500 z zakresami, skład, „W liczbach”, spółki z tezami, dziennik decyzji z tezą przy każdym zakupie. Tezy pochodzą z aktualnych raportów, więc mają podpis „Teza na dziś (raport z października 2026)” (`TEZA_PODPIS` w `portfel.js`; zmień po nowych raportach albo gdy znajdą się pierwsze analizy). Wykres w stylu księgi znaku (wzór: `04_Wykresy/Wykres_raport_kurs_52_tygodnie`): gruba granatowa linia funduszu z kropką i podpisem na końcu, ciągła jaśniejsza linia S&P 500, bez legendy i bez wypełnienia. Żółty romb na linii funduszu = dzień transakcji z `transakcje.csv` (jedyny żółty element wykresu). Dymek `#wykres-dymek`: data, oba wyniki, różnica w pp, decyzja; na telefonie stała ramka pod wykresem |
 | `analizy.html` + `assets/js/analizy.js` | Biblioteka analiz z filtrami (sektor, w portfelu / poza) z `data/analizy.json` |
 | `analizy/wmb.html`, `googl.html`, `cvx.html`, `eme.html`, `amd.html` | Strony analiz (kopia jednego szablonu); raporty PDF w `pliki/analizy/fundusz-index-<ticker>-RRRR-MM.pdf`. Blok `.quote[data-kurs]` pokazuje aktualny kurs z `portfolio.json` (kod w `wspolne.js`). Wykres wyceny pokazuje tylko kurs z dnia raportu |
 | `data/kalendarz.json` | Wydarzenia na stronie głównej: data, do, typ, tytul, opis, szacunek (termin niepotwierdzony przez spółkę), link. Sprawdza go `sprawdz_dane.py` |

@@ -148,6 +148,9 @@
   }
 
   /* ---------- spółki ---------- */
+  /* Tezy w transakcje.csv pochodzą z aktualnych raportów, a zakupy mają daty pierwszych analiz.
+     Dlatego podpisujemy je jako tezę na dziś. Zmień podpis, gdy wyjdą nowsze raporty. */
+  var TEZA_PODPIS = 'Teza na dziś (raport z października 2026)';
   function teza(ticker) {
     var t = P.transakcje.filter(function (x) { return x.ticker === ticker && x.typ === 'kupno'; })[0];
     return t ? { tekst: t.uzasadnienie, data: t.data } : { tekst: '', data: '' };
@@ -170,7 +173,8 @@
         '<span class="holding-weight"><span class="bar-bg"><span style="width:' + (p.waga / maxW * 100).toFixed(1) + '%"></span></span><b style="width:44px;text-align:right">' + Math.round(p.waga) + '%</b></span>' +
         '<span class="holding-ret"><strong class="' + FI.lossClass(p.zwrot) + '">' + FI.pct(p.zwrot) + '</strong><span class="tiny muted">' + FI.pln(p.wartosc_pln) + ' PLN</span></span>' +
         '<span class="chev" aria-hidden="true">' + (open ? '−' : '+') + '</span></button>' +
-        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">' + esc(FI.t('Teza z raportu, zakup')) + (t.data ? ' (' + FI.data(t.data) + ')' : '') + '</span><p style="color:var(--ink-2)">' + esc(FI.t(t.tekst) || 'Brak opisu w transakcje.csv.') + '</p></div>' +
+        (open ? '<div class="holding-detail"><div style="flex:999 1 420px"><span class="label">' + esc(FI.t(TEZA_PODPIS)) + '</span><p style="color:var(--ink-2)">' + esc(FI.t(t.tekst) || 'Brak opisu w transakcje.csv.') + '</p>' +
+          (t.data ? '<span class="small muted">' + esc(FI.t('W portfelu od {d}').replace('{d}', FI.data(t.data))) + '</span>' : '') + '</div>' +
           '<div style="flex:1 1 220px"><span class="label">' + esc(FI.t('Analiza')) + '</span><span class="small" style="color:var(--ink-2)">' + esc(p.autorzy || '[autorzy analizy]') + '</span>' + link + '</div></div>' : '') +
         '</li>';
     }).join('');
@@ -184,12 +188,12 @@
     var daty = Object.keys(dni).sort().reverse();
     $('dziennik').innerHTML = daty.map(function (d, k) {
       var lista = dni[d], kupna = lista.filter(function (t) { return t.typ === 'kupno'; }).length;
-      var tytul = d === P.data_startu ? FI.t('Start funduszu: kupno {n} spółek za {k} PLN').replace('{n}', lista.length).replace('{k}', FI.pln(P.kapital_startowy_pln))
-        : FI.t(kupna === lista.length ? 'Kupno' : kupna === 0 ? 'Sprzedaż' : 'Zmiany w portfelu') + (lista.length > 1 ? ': ' + FI.t('{n} spółki').replace('{n}', lista.length) : ': ' + lista[0].nazwa);
+      var tytul = FI.t(kupna === lista.length ? 'Kupno' : kupna === 0 ? 'Sprzedaż' : 'Zmiany w portfelu') + (lista.length > 1 ? ': ' + FI.t('{n} spółki').replace('{n}', lista.length) : ': ' + lista[0].nazwa);
       return '<li><span class="small" style="font-weight:700;padding-top:2px">' + FI.data(d) + '</span>' +
         '<span class="tl-mark" aria-hidden="true"><i></i>' + (k < daty.length - 1 ? '<b></b>' : '') + '</span>' +
         '<div class="tl-body"><strong>' + esc(tytul) + '</strong><ul>' + lista.map(function (t) {
-          return '<li><b style="color:var(--ink)">' + esc(FI.t(t.typ === 'kupno' ? 'Kupno' : 'Sprzedaż')) + ' · ' + esc(t.nazwa) + ' (' + esc(t.ticker) + ')</b> · ' + FI.pln(t.kwota_pln) + ' PLN</li>';
+          return '<li><b style="color:var(--ink)">' + esc(FI.t(t.typ === 'kupno' ? 'Kupno' : 'Sprzedaż')) + ' · ' + esc(t.nazwa) + ' (' + esc(t.ticker) + ')</b> · ' + FI.pln(t.kwota_pln) + ' PLN' +
+            (t.uzasadnienie ? '<span class="tl-teza"><span class="label">' + esc(FI.t(TEZA_PODPIS)) + '</span>' + esc(FI.t(t.uzasadnienie)) + '</span>' : '') + '</li>';
         }).join('') + '</ul></div></li>';
     }).join('');
   }

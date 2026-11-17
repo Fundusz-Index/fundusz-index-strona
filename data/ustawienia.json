@@ -1,6 +1,7 @@
 {
   "kapital_startowy_pln": 100000,
-  "data_startu": "2026-10-25",
+  "data_startu": "2026-01-13",
   "benchmark": { "nazwa": "S&P 500", "stooq": "^spx" },
+  "gotowka": { "ticker": "IB01", "nazwa": "iShares $ Treasury Bond 0-1yr UCITS ETF", "opis": "obligacje skarbowe USA do roku", "yahoo": "IB01.L", "stooq": "ib01.uk" },
   "waluta_spolek": "USD"
 }

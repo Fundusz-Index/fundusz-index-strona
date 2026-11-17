@@ -71,6 +71,8 @@ p { margin: 0; }
 .nav a { text-decoration: none; color: var(--ink-2); padding: 12px 0; border-bottom: 3px solid transparent; }
 .nav a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ink); }
 .header-tools { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.tl-teza { display: block; margin: 6px 0 4px; max-width: 70ch; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.tl-teza .label { display: block; margin-bottom: 2px; }
 /* Przełącznik języka: PL na stronach angielskich, EN na polskich. */
 .lang-switch { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; font-weight: 700; color: var(--ink-2); text-decoration: none; }
 .lang-switch:hover { color: var(--ink); border-color: var(--ink); }

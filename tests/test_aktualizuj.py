@@ -65,6 +65,49 @@ class TestPortfel(unittest.TestCase):
         with self.assertRaises(ValueError):
             A.policz(USTAWIENIA, SPOLKI, t, kursy, fx, "^spx")
 
+    def test_gotowka_w_etf(self):
+        # ETF rośnie o 1% dziennie, dolar stały. Połowa kapitału w spółce o stałym kursie.
+        etf = {SESJE[1]: 100.0, SESJE[2]: 101.0, SESJE[3]: 102.01}
+        kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "bbb.us": {d: 20.0 for d in SESJE},
+                 "^spx": {d: 5000.0 for d in SESJE}, "etf.uk": etf}
+        fx = {d: 4.0 for d in SESJE}
+        u = dict(USTAWIENIA, gotowka={"ticker": "ETF", "nazwa": "Fundusz obligacji", "stooq": "etf.uk"})
+        t = [tr(D(2026, 10, 26), "kupno", "AAA", 50000)]
+        w = A.policz(u, SPOLKI, t, kursy, fx, "^spx")
+        # 50 000 w akcjach bez zmian, 50 000 gotówki * 1,01 * 1,01 = 51 005
+        self.assertAlmostEqual(w["podsumowanie"]["gotowka_pln"], 51005, places=2)
+        self.assertAlmostEqual(w["podsumowanie"]["wartosc_pln"], 101005, places=2)
+        self.assertAlmostEqual(w["podsumowanie"]["gotowka_waga"], 50.5, places=1)
+        self.assertEqual(w["gotowka"]["ticker"], "ETF")
+        self.assertAlmostEqual(w["gotowka"]["zmiana_dzienna"], 1.0)
+        # drugi zakup dzień później zabiera gotówkę po jej wzroście
+        t.append(tr(D(2026, 10, 27), "kupno", "BBB", 50500))
+        w = A.policz(u, SPOLKI, t, kursy, fx, "^spx")
+        self.assertAlmostEqual(w["seria"][1]["f"], 100500, places=2)
+        self.assertAlmostEqual(w["podsumowanie"]["gotowka_pln"], 0, places=2)
+        self.assertAlmostEqual(w["podsumowanie"]["wartosc_pln"], 100500, places=2)
+
+    def test_gotowka_w_etf_bez_kursow(self):
+        kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "^spx": {d: 5000.0 for d in SESJE}}
+        u = dict(USTAWIENIA, gotowka={"ticker": "ETF", "nazwa": "Fundusz obligacji", "stooq": "etf.uk"})
+        with self.assertRaises(RuntimeError):
+            A.policz(u, SPOLKI, [tr(D(2026, 10, 26), "kupno", "AAA", 1000)], kursy, {d: 4.0 for d in SESJE}, "^spx")
+
+    def test_za_malo_gotowki(self):
+        kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "bbb.us": {d: 20.0 for d in SESJE}, "^spx": {d: 5000.0 for d in SESJE}}
+        t = [tr(D(2026, 10, 26), "kupno", "AAA", 70000), tr(D(2026, 10, 27), "kupno", "BBB", 40000)]
+        with self.assertRaises(ValueError):
+            A.policz(USTAWIENIA, SPOLKI, t, kursy, {d: 4.0 for d in SESJE}, "^spx")
+
+    def test_spolka_spoza_portfela_ma_kurs(self):
+        kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "bbb.us": {SESJE[1]: 20.0, SESJE[2]: 20.0, SESJE[3]: 21.0},
+                 "^spx": {d: 5000.0 for d in SESJE}}
+        w = A.policz(USTAWIENIA, SPOLKI, [tr(D(2026, 10, 26), "kupno", "AAA", 1000)], kursy, {d: 4.0 for d in SESJE}, "^spx")
+        self.assertEqual([p["ticker"] for p in w["pozycje"]], ["AAA"])
+        self.assertEqual(w["obserwowane"][0]["ticker"], "BBB")
+        self.assertAlmostEqual(w["obserwowane"][0]["kurs_usd"], 21.0)
+        self.assertAlmostEqual(w["obserwowane"][0]["zmiana_dzienna"], 5.0)
+
     def test_parsowanie_yahoo(self):
         import json
         t = json.dumps({"chart": {"result": [{"meta": {"gmtoffset": -18000},
@@ -93,8 +136,9 @@ class TestPortfel(unittest.TestCase):
 
     def test_plik_transakcji(self):
         t = A.wczytaj_transakcje()
-        self.assertEqual(len(t), 5)
-        self.assertAlmostEqual(sum(x["kwota_pln"] for x in t), 100000)
+        self.assertEqual(len(t), 4)
+        self.assertEqual([x["data"] for x in t], sorted(x["data"] for x in t))
+        self.assertLessEqual(sum(x["kwota_pln"] for x in t), 100000)
 
 
 if __name__ == "__main__":

@@ -30,7 +30,7 @@ Fundusz publikuje każdą decyzję razem z analizą, datą i nazwiskami autorów
 ## Operating Context
 
 - Projekt edukacyjny Koła Naukowego Rynku Kapitałowego INDEX na Uniwersytecie Ekonomicznym w Krakowie. Prowadzi go Fundacja Index (KRS 0001137760).
-- Portfel jest wirtualny: 100 000 zł umownego kapitału od 25.10.2026.
+- Portfel jest wirtualny: 100 000 zł umownego kapitału od 13.01.2026. Zakupy mają daty pierwszych analiz spółek, a stronę z portfelem uruchomiono w listopadzie 2026 (wyniki za wcześniejsze miesiące policzone wstecz, co strona mówi wprost).
 - Decyzje zapadają większością głosów członków funduszu po prezentacji analizy.
 - Dane odświeżają się automatycznie w dni robocze po sesji w USA.
 - Treść wprowadza zarząd przez repozytorium. Nie ma panelu do edycji.
@@ -78,7 +78,7 @@ Fundusz publikuje każdą decyzję razem z analizą, datą i nazwiskami autorów
 - Transakcje z tezami: `data/transakcje.csv`.
 - Liczby koła: 25+ lat działalności, 300+ prezentacji, 60+ opracowań, ok. 185 członków koła, 26 członków funduszu, 13 analityków.
 - Oferta współpracy: `pliki/fundusz-index-oferta-wspolpracy.pdf`.
-- Brak: opinii partnerów, logotypów firm, zdjęć członków, historii wyników sprzed 25.10.2026. Nie wolno ich wymyślać.
+- Brak: opinii partnerów, logotypów firm, zdjęć członków, historii wyników sprzed 13.01.2026. Nie wolno ich wymyślać.
 
 ## Product Principles
 

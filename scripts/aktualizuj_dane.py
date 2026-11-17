@@ -7,6 +7,9 @@ Uruchamiane raz dziennie po zamknięciu sesji w USA (GitHub Actions albo cron na
   - kursy zamknięcia akcji i S&P 500: Yahoo Finance, a gdy nie odpowie, Nasdaq, potem Stooq,
   - kurs USD/PLN: NBP, tabela A (średni kurs).
 
+Wolna gotówka: gdy ustawienia.json ma pole "gotowka" (ETF na obligacje), cała gotówka portfela
+jest liczona w jednostkach tego funduszu. Kupno spółki zmniejsza liczbę jednostek, sprzedaż zwiększa.
+
 Użycie:
   python3 scripts/aktualizuj_dane.py          # prawdziwe dane
   python3 scripts/aktualizuj_dane.py --demo   # dane przykładowe, bez internetu
@@ -210,7 +213,7 @@ def kursy_nbp_usd(od, do):
 
 # ---------- dane przykładowe ----------
 
-def dane_demo(spolki, benchmark_symbol, od, do):
+def dane_demo(spolki, benchmark_symbol, od, do, etf_symbol=None):
     """Generuje powtarzalne kursy przykładowe (bez internetu)."""
     rnd = random.Random(20261025)
     dni = [od + dt.timedelta(days=i) for i in range((do - od).days + 1)]
@@ -235,6 +238,8 @@ def dane_demo(spolki, benchmark_symbol, od, do):
             cena *= math.exp(0.0003 + rynek[i])
         ser[d] = round(cena, 2)
     kursy[benchmark_symbol] = ser
+    if etf_symbol:
+        kursy[etf_symbol] = {d: round(118.0 * math.exp(0.00016 * i), 2) for i, d in enumerate(dni_sesji)}
     fx, kurs = {}, 3.70
     for d in dni_sesji:
         kurs *= math.exp(rnd.gauss(0, 0.004))
@@ -283,6 +288,17 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
             raise RuntimeError(f"Brak kursu USD/PLN na {dzien}")
         return k
 
+    # Wolna gotówka w ETF-ie na obligacje (opcjonalnie). Bez tego pola gotówka nie zmienia wartości.
+    etf = ustawienia.get("gotowka")
+    if etf and etf["stooq"] not in kursy:
+        raise RuntimeError(f"Brak kursów funduszu {etf['ticker']}, w którym liczona jest gotówka")
+
+    def cena_etf(dzien):
+        c = ostatni_do(kursy[etf["stooq"]], dzien)
+        if c is None:
+            raise RuntimeError(f"Brak kursu {etf['ticker']} na {dzien}")
+        return c
+
     # Każda transakcja rozliczana po kursie zamknięcia pierwszej sesji w dniu transakcji lub po nim.
     rozliczone = []
     for t in transakcje:
@@ -294,9 +310,15 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         rozliczone.append(dict(t, dzien_rozliczenia=dzien, akcje=akcje, cena_usd=c, usdpln=k, wartosc_pln=akcje * c * k))
 
     seria, gotowka, pozycje, koszt = [], kapital, {}, {}
+    jednostki = None  # jednostki ETF-u, w których liczona jest gotówka
     b0 = None
     idx = 0
     for d in sesje:
+        if etf:
+            wartosc_jednostki = cena_etf(d) * usd(d)
+            if jednostki is None:
+                jednostki = kapital / wartosc_jednostki
+            gotowka = jednostki * wartosc_jednostki
         while idx < len(rozliczone) and rozliczone[idx]["dzien_rozliczenia"] == d:
             t = rozliczone[idx]
             if t["typ"] == "kupno":
@@ -315,6 +337,10 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
                     pozycje.pop(t["ticker"])
                     koszt.pop(t["ticker"], None)
             idx += 1
+        if gotowka < -0.005:
+            raise ValueError(f"Transakcje z {d}: za mało gotówki w portfelu (brakuje {-gotowka:.2f} PLN)")
+        if etf:
+            jednostki = gotowka / wartosc_jednostki
         k = usd(d)
         wartosc = gotowka + sum(a * cena(tk, d) * k for tk, a in pozycje.items())
         b = bench[d] * k
@@ -340,6 +366,24 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
             "zmiana_dzienna": zaokr((c / cp - 1) * 100, 2) if poprzedni != ostatni else 0.0,
         })
     lista.sort(key=lambda p: -p["wartosc_pln"])
+
+    # Spółki z analizą, których nie ma w portfelu: sam kurs, do stron analiz.
+    obserwowane = []
+    for s in spolki:
+        if s["ticker"] in pozycje or s["stooq"] not in kursy:
+            continue
+        c, cp = ostatni_do(kursy[s["stooq"]], ostatni), ostatni_do(kursy[s["stooq"]], poprzedni)
+        if c is None:
+            continue
+        obserwowane.append({"ticker": s["ticker"], "nazwa": s["nazwa"], "kurs_usd": zaokr(c),
+                            "zmiana_dzienna": zaokr((c / cp - 1) * 100, 2) if cp and poprzedni != ostatni else 0.0})
+
+    gotowka_opis = None
+    if etf:
+        c, cp = cena_etf(ostatni), cena_etf(poprzedni)
+        gotowka_opis = {"ticker": etf["ticker"], "nazwa": etf["nazwa"], "opis": etf.get("opis", ""),
+                        "jednostki": round(jednostki, 4), "kurs_usd": zaokr(c),
+                        "zmiana_dzienna": zaokr((c / cp - 1) * 100, 2) if poprzedni != ostatni else 0.0}
 
     def zwrot_od(dni_wstecz=None, od_daty=None):
         if od_daty is not None:
@@ -371,6 +415,7 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         "podsumowanie": {
             "wartosc_pln": razem,
             "gotowka_pln": zaokr(gotowka),
+            "gotowka_waga": zaokr(gotowka / razem * 100, 2),
             "zwrot_od_startu": okresy["start"]["f"],
             "benchmark_od_startu": okresy["start"]["b"],
             "zmiana_dzienna": zaokr((seria[-1]["f"] / seria[-2]["f"] - 1) * 100) if len(seria) > 1 else 0.0,
@@ -379,6 +424,8 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         },
         "okresy": okresy,
         "pozycje": lista,
+        "gotowka": gotowka_opis,
+        "obserwowane": obserwowane,
         "transakcje": [{
             "data": t["data"].isoformat(), "rozliczono": t["dzien_rozliczenia"].isoformat(), "typ": t["typ"],
             "ticker": t["ticker"], "nazwa": po_tickerze[t["ticker"]]["nazwa"],
@@ -401,23 +448,33 @@ def main(argv=None):
     spolki = wczytaj_json("spolki.json")
     transakcje = wczytaj_transakcje()
     bsym = ustawienia["benchmark"]["stooq"]
+    etf = ustawienia.get("gotowka")
     dzis = dt.date.today()
 
     if a.demo:
         od = dzis - dt.timedelta(days=372)
-        kursy, fx = dane_demo(spolki, bsym, od, dzis)
+        kursy, fx = dane_demo(spolki, bsym, od, dzis, etf["stooq"] if etf else None)
         start_demo = min(kursy[bsym])
         ustawienia = dict(ustawienia, data_startu=start_demo.isoformat())
-        transakcje = [dict(t, data=start_demo) if t["data"] == min(x["data"] for x in transakcje) else t for t in transakcje]
+        przesuniecie = start_demo - min(x["data"] for x in transakcje)
+        transakcje = [dict(t, data=t["data"] + przesuniecie) for t in transakcje]
     else:
         od = min([t["data"] for t in transakcje] + [dt.date.fromisoformat(ustawienia["data_startu"])]) - dt.timedelta(days=10)
         tickery = {t["ticker"] for t in transakcje}
         kursy = {}
         for s in spolki:
-            if s["ticker"] in tickery:
+            try:
                 kursy[s["stooq"]] = kursy_akcji(s.get("yahoo") or s["ticker"], s["stooq"], od, dzis,
                                                 s.get("nasdaq") or s["ticker"].replace("-", "."))
-                time.sleep(1)  # odstęp między spółkami, żeby nie wywołać limitu zapytań
+            except RuntimeError:
+                if s["ticker"] in tickery:
+                    raise
+                # spółka spoza portfelu: brak kursu nie zatrzymuje aktualizacji
+                print(f"Uwaga: brak kursu {s['ticker']} (spółka spoza portfela).", file=sys.stderr)
+            time.sleep(1)  # odstęp między spółkami, żeby nie wywołać limitu zapytań
+        if etf:
+            kursy[etf["stooq"]] = kursy_akcji(etf.get("yahoo") or etf["ticker"], etf["stooq"], od, dzis)
+            time.sleep(1)
         bn, bk = NASDAQ_BENCHMARK.get(bsym, (None, "index"))
         kursy[bsym] = kursy_akcji(ustawienia["benchmark"].get("yahoo") or YAHOO_BENCHMARK.get(bsym, bsym),
                                   bsym, od, dzis, bn, bk)

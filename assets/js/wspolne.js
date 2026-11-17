@@ -93,14 +93,16 @@
     el.querySelector('[data-zwrot]').textContent = FI.pct(p.podsumowanie.zwrot_od_startu);
     el.querySelector('[data-bench]').textContent = FI.pct(p.podsumowanie.benchmark_od_startu);
     var kolory = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)'];
-    el.querySelector('.alloc-bar').innerHTML = p.pozycje.map(function (x, i) {
-      return '<span style="flex:' + x.waga + ' 1 0;background:' + kolory[i % 5] + '"></span>';
+    var czesci = p.pozycje.map(function (x) { return [x.nazwa, x.waga]; });
+    if (p.podsumowanie.gotowka_pln > 1) czesci.push([t('Gotówka'), p.podsumowanie.gotowka_pln / p.podsumowanie.wartosc_pln * 100]);
+    el.querySelector('.alloc-bar').innerHTML = czesci.map(function (x, i) {
+      return '<span style="flex:' + x[1] + ' 1 0;background:' + kolory[i % 5] + '"></span>';
     }).join('');
-    el.querySelector('.alloc-bar').setAttribute('aria-label', t('Skład portfela') + ': ' + p.pozycje.map(function (x) {
-      return x.nazwa + ' ' + Math.round(x.waga) + '%';
+    el.querySelector('.alloc-bar').setAttribute('aria-label', t('Skład portfela') + ': ' + czesci.map(function (x) {
+      return x[0] + ' ' + Math.round(x[1]) + '%';
     }).join(', '));
-    el.querySelector('[data-sklad]').textContent = p.pozycje.map(function (x) {
-      return x.nazwa + ' ' + Math.round(x.waga) + '%';
+    el.querySelector('[data-sklad]').textContent = czesci.map(function (x) {
+      return x[0] + ' ' + Math.round(x[1]) + '%';
     }).join(' · ');
     var last = p.transakcje[0];
     var dec = document.getElementById('ostatnia-decyzja');
@@ -177,7 +179,7 @@
     var box = document.querySelector('[data-kurs]');
     if (!box) return;
     var t = box.getAttribute('data-kurs');
-    var x = p.pozycje.filter(function (y) { return y.ticker === t; })[0];
+    var x = p.pozycje.concat(p.obserwowane || []).filter(function (y) { return y.ticker === t; })[0];
     if (!x || !x.kurs_usd) return;
     var w = parseFloat(box.getAttribute('data-wycena'));
     var wData = box.getAttribute('data-wycena-data');
