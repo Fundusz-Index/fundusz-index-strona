@@ -203,7 +203,7 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 
 ### Przełącznik motywu
 - Ostatni element nagłówka, w prawym górnym rogu: kwadratowy przycisk z obrysem jak przełącznik języka (44×44 px, na telefonie 40×40 px). Ikona słońca w trybie ciemnym, księżyca w jasnym, opis dla czytników „Włącz jasny motyw” / „Włącz ciemny motyw”.
-- Domyślnie strona idzie za ustawieniem systemu. Wybór zapisuje `assets/js/motyw.js` w localStorage (klucz `fi-motyw`), ładowany w `<head>` bez `defer`, żeby nie mignął zły motyw. To jedyna rzecz zapisywana w przeglądarce (polityka prywatności, pkt 7).
+- Domyślnie strona idzie za ustawieniem systemu. Przycisk dokłada `assets/js/motyw.js`. Wybór działa tylko na bieżącej stronie: niczego nie zapisujemy w przeglądarce (polityka prywatności, pkt 7), więc na następnej stronie wraca motyw systemu.
 
 ### Pasek kursów
 - Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
