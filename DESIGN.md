@@ -99,7 +99,7 @@ components:
 
 Fundusz Index robi to, co fundusze zarządzane przez studentów na uczelniach w USA: prowadzi portfel, pisze analizy i pokazuje wyniki. W naszej części Europy takich projektów jest niewiele. Strona ma więc wyglądać jak strona poważnego funduszu studenckiego: rzeczowa jak raport analityczny, ale wyraźnie uczelniana i ludzka. Nie jak reklama produktu finansowego i nie jak strona koła naukowego z ogłoszeniami. Dużo bieli, czarny tekst, granatowe dane i jeden żółty znak tam, gdzie czytelnik ma spojrzeć najpierw. Źródłem jest identyfikacja v1 funduszu (logo, paleta, wykresy, księga znaku). Strona ją stosuje, nie interpretuje na nowo.
 
-Gęstość jest umiarkowana. Liczby stoją blisko opisów, sekcje oddziela światło, a nie ozdobniki. Czarne bloki (nagłówek strony głównej, panel „W liczbach”, stopka) dają rytm i niosą najważniejsze liczby.
+Gęstość jest umiarkowana. Liczby stoją blisko opisów, sekcje oddziela światło, a nie ozdobniki. Wyróżnione bloki (nagłówek strony głównej, pasek kursów, panele „W liczbach” i „Ostatnia decyzja”, stopka) dają rytm i niosą najważniejsze liczby. Idą za motywem: w jasnym są jasnoszare z czarnym tekstem, w ciemnym czarne (decyzja z 19.11.2026).
 
 Układ nie może przypominać strony funduszu Hossa ProCapital.
 
@@ -115,7 +115,7 @@ Układ nie może przypominać strony funduszu Hossa ProCapital.
 Paleta jest prawie achromatyczna. Kolor pojawia się tylko tam, gdzie niesie informację.
 
 ### Primary
-- **Czerń marki** (black): tekst, przyciski główne, czarne bloki. W blokach zostaje czarna także w trybie ciemnym.
+- **Czerń marki** (black): tekst, przyciski główne, obrys rombów na wykresach. Wyróżnione bloki są czarne tylko w ciemnym motywie: pasy (nagłówek strony głównej, pasek kursów, stopka) biorą kolory z tokenów `--band-*`, panele i nagłówki tabel z `--inv-*`.
 - **Biel** (white): tło strony i tekst na czerni.
 
 ### Secondary
@@ -160,7 +160,7 @@ Paleta jest prawie achromatyczna. Kolor pojawia się tylko tam, gdzie niesie inf
 
 ## Layout
 
-Kontener do 1200 px, marginesy boczne 16 px. Treść strony układa się w kolumnie z odstępem 48 px między sekcjami. Karty stoją w siatce, która sama zmienia liczbę kolumn. Od 960 px Portfel ma układ dwóch kolumn: wykres i czarny panel z liczbami.
+Kontener do 1200 px, marginesy boczne 16 px. Treść strony układa się w kolumnie z odstępem 48 px między sekcjami. Karty stoją w siatce, która sama zmienia liczbę kolumn. Od 960 px Portfel ma układ dwóch kolumn: wykres i panel z liczbami.
 
 Do 640 px: logo i przycisk „Kontakt” w jednej linii, menu w jednym wierszu z przewijaniem w bok, symbol X w nagłówku ukryty, wykres portfela w proporcjach 440×300, dymek wykresu jako stała ramka pod wykresem. Cele dotykowe mają co najmniej 24 px, przyciski 44 px.
 
@@ -183,7 +183,7 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 
 ### Buttons
 - **Kształt:** lekko zaokrąglony prostokąt (6 px), wysokość 44 px, tekst 15 px pogrubiony.
-- **Główny:** czarne tło, biały tekst. Na czarnym bloku: biały z czarnym tekstem albo obrys.
+- **Główny:** czarne tło, biały tekst. W nagłówku strony głównej: odwrócony kolor pasa (`.btn-light`) albo obrys (`.btn-outline-light`), w jasnym motywie czarny, w ciemnym biały.
 - **Najechanie i klik:** unosi się o 1 px w 150 ms, przy kliknięciu opada o 1 px. Wyłączony ma 40% krycia.
 
 ### Chips
@@ -192,7 +192,7 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 
 ### Cards / Containers
 - **Karta:** białe tło, ramka 1 px, narożnik 8 px, wnętrze 20 px. Karta-link po najechaniu unosi się o 2 px i dostaje ciemniejszą ramkę. Tak samo zachowują się karty w bibliotece analiz: cała karta prowadzi do strony analizy, a link do PDF działa osobno.
-- **Panel:** czarny blok z białym tekstem, wnętrze 24 px. Niesie najważniejsze liczby.
+- **Panel:** blok wyróżniony (jasny motyw: jasnoszary z czarnym tekstem, ciemny: grafitowy z białym), wnętrze 24 px. Niesie najważniejsze liczby.
 
 ### Navigation
 - Pięć pozycji tekstem 15 px. Aktywna jest pogrubiona z czarną kreską 3 px pod spodem. Po najechaniu kreska rysuje się od lewej w 150 ms. Fokus z klawiatury: obrys 3 px w kolorze series-2.
@@ -206,8 +206,8 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 - Domyślnie strona idzie za ustawieniem systemu. Przycisk dokłada `assets/js/motyw.js`. Wybór działa tylko na bieżącej stronie: niczego nie zapisujemy w przeglądarce (polityka prywatności, pkt 7), więc na następnej stronie wraca motyw systemu.
 
 ### Pasek kursów
-- Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
-- Spadki na czerni mają jaśniejszą czerwień (#FF8A80), wzrosty są białe.
+- Dolna część nagłówka strony głównej (to samo tło pasa), oddzielona cienką linią. Etykieta „Nasze spółki” z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
+- Spadki: czerwień straty (`--band-loss`, na czerni jaśniejsza #FF8A80), wzrosty w kolorze tekstu pasa.
 - Na telefonie etykieta bez daty.
 
 ### Wykres portfela
