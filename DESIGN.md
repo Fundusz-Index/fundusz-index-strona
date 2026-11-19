@@ -201,6 +201,10 @@ Narożniki lekko zaokrąglone: 6 px dla przycisków i przełączników, 8 px dla
 - Mały przycisk z obrysem w nagłówku, przed „Kontakt”: „EN” na stronach polskich, „PL” na angielskich. Prowadzi do tej samej strony w drugim języku.
 - Bez flag i bez żółtego. Na telefonie 40×40 px.
 
+### Przełącznik motywu
+- Ostatni element nagłówka, w prawym górnym rogu: kwadratowy przycisk z obrysem jak przełącznik języka (44×44 px, na telefonie 40×40 px). Ikona słońca w trybie ciemnym, księżyca w jasnym, opis dla czytników „Włącz jasny motyw” / „Włącz ciemny motyw”.
+- Domyślnie strona idzie za ustawieniem systemu. Wybór zapisuje `assets/js/motyw.js` w localStorage (klucz `fi-motyw`), ładowany w `<head>` bez `defer`, żeby nie mignął zły motyw. To jedyna rzecz zapisywana w przeglądarce (polityka prywatności, pkt 7).
+
 ### Pasek kursów
 - Dolna część czarnego nagłówka strony głównej, oddzielona cienką linią. Etykieta „Nasze spółki” to biały tekst z żółtym kwadratem przy lewej krawędzi ekranu. Pasek zajmuje całą szerokość. Bez osobnego tła.
 - Spadki na czerni mają jaśniejszą czerwień (#FF8A80), wzrosty są białe.

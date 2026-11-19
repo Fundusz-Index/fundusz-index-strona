@@ -225,6 +225,8 @@ window.FI_EN = {
 "Wyniki": "Results",
 "Wyniki kwartalne": "Quarterly results",
 "Wyniki za IV kwartał i cały 2026 rok": "Results for Q4 and full-year 2026",
+"Włącz ciemny motyw": "Switch to dark theme",
+"Włącz jasny motyw": "Switch to light theme",
 "Z życia funduszu": "Fund news",
 "Zajęcia praktyczne prowadzone przez Waszych ekspertów dla członków funduszu.": "Hands-on sessions run by your experts for fund members.",
 "Zakres wykresu": "Chart range",
