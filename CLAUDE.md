@@ -80,7 +80,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 - **Hosting**: Zenbox przez FTP (`wdrozenie/zenbox-ftp.yml.przyklad`, sekrety FTP_SERWER, FTP_LOGIN, FTP_HASLO) albo Cloudflare Pages (budowanie: `python3 scripts/sprawdz_dane.py`, katalog `/`, CNAME `fundusz` w DNS Zenbox). Decyzja czeka na wgląd w panel Zenbox. Hasła wpisuje Szymon w sekretach GitHuba, nigdy w czacie ani w plikach.
 - **Do uzupełnienia** (lista: `python3 scripts/sprawdz_dane.py --publikacja`): daty i godziny publikacji analiz. Analizy nie były wcześniej udostępniane na zewnątrz, więc „Pierwsza publikacja” to dzień i godzina startu strony (decyzja Szymona z 20.11.2026). Wpisać w dniu startu, nie wcześniej. Po wpisaniu uruchom `python3 zrodla/ujawnienia/zbuduj.py`, żeby data trafiła też do PDF-ów. Daty poprzednich analiz są wpisane (20.11.2026). Na bieżąco prowadzimy je w dokumencie Google „Strona Funduszu Index: pola do uzupełnienia” na Dysku Szymona.
-- Zgody na zdjęcia członków.
+- Zgody na zdjęcia członków. Zgody na imiona i nazwiska zarządu i analityków na stronie są potwierdzone (20.11.2026).
 - Analizy z 16.10.2026 to gruntowne aktualizacje wcześniejszych analiz z okresu przyjęcia spółek do portfela. Pierwsza publikacja = start strony. Poprzednie analizy: EMCOR 13.01.2026, Alphabet 15.01.2026, Williams 24.02.2026, Chevron i AMD 02.06.2026.
 - Do rozważenia przy ujawnieniach (dla „ekspertów” w rozumieniu rozp. 2016/958): horyzont inwestycyjny, znaczenie oceny (np. co oznacza „TRZYMAJ”), planowana częstotliwość aktualizacji.
 - Kalendarz: terminy wyników na początek 2027 r. są szacunkowe (`"szacunek": true`). Zmień na potwierdzone, gdy spółki je ogłoszą. Dodać walne zgromadzenia 2027, gdy spółki podadzą daty. Dodawać spotkania funduszu.
