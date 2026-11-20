@@ -39,7 +39,7 @@ Ta sama strona ustawień → zakładka **Variables** → New repository variable
 
 ## 5. Pierwsze wgranie
 
-1. Wgrywanie przerywa się, jeśli na stronie są pola w `[nawiasach]` (`sprawdz_dane.py --publikacja`). Przed startem trzeba więc wpisać datę i godzinę pierwszej publikacji analiz (robi to Claude w dniu startu, razem z przebudową PDF-ów).
+1. Wgrywanie przerywa się, jeśli na stronie są pola w `[nawiasach]` (`sprawdz_dane.py --publikacja`). Przed startem trzeba więc wpisać datę i godzinę pierwszej publikacji analiz: `python3 scripts/start.py "DD.MM.RRRR, GG:MM"`, potem commit i push (robi to Claude w dniu startu).
 2. GitHub → Actions → **Wdrożenie na Zenbox** → Run workflow.
 3. Pierwsze wgranie trwa kilka minut (cała strona). Kolejne wysyłają tylko zmienione pliki.
 

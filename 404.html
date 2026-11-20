@@ -53,6 +53,10 @@
 </ul>
 <p class="small muted" lang="en">Page not found. <a href="en/index.html">Go to the English version</a>.</p>
 </main>
+<script>
+/* Strona ma <base href="/">, więc link „Przejdź do treści” trzeba skierować na bieżący adres. */
+document.querySelector('.skip-link').href = location.pathname + location.search + '#tresc';
+</script>
 
 <footer class="site-footer">
 <div class="wrap">

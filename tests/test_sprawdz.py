@@ -28,10 +28,20 @@ class TestSprawdzanie(unittest.TestCase):
     def zapisz(self, nazwa, tekst):
         (self.tmp / "data" / nazwa).write_text(tekst, encoding="utf-8")
 
+    def dopisz_pole(self):
+        # Testy nie mogą zależeć od tego, czy na stronie są jeszcze pola do uzupełnienia (po starcie ich nie ma).
+        plik = self.tmp / "o-funduszu.html"
+        plik.write_text(plik.read_text(encoding="utf-8").replace("</main>", "<p>[pole testowe]</p></main>"), encoding="utf-8")
+
     def test_obecne_pliki_bez_bledow(self):
         r = S.sprawdz()
         self.assertEqual(r.bledy, [])
-        self.assertTrue(r.ostrzezenia)  # są jeszcze pola [do uzupełnienia]
+
+    def test_pole_w_nawiasach_to_ostrzezenie(self):
+        self.dopisz_pole()
+        r = S.sprawdz()
+        self.assertEqual(r.bledy, [])
+        self.assertTrue(any("[pole testowe]" in o for o in r.ostrzezenia))
 
     def test_tekst_z_danych_bez_tlumaczenia(self):
         import json
@@ -54,8 +64,9 @@ class TestSprawdzanie(unittest.TestCase):
         self.assertTrue(any("fundusz-index-cvx-2026-10.pdf" in b for b in r.bledy))
 
     def test_tryb_publikacji_zamienia_ostrzezenia_w_bledy(self):
+        self.dopisz_pole()
         r = S.sprawdz(publikacja=True)
-        self.assertTrue(any("do uzupełnienia" in b for b in r.bledy))
+        self.assertTrue(any("[pole testowe]" in b for b in r.bledy))
 
     def test_zly_json(self):
         self.zapisz("spolki.json", '[{"ticker": "AAA",}]')
