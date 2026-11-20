@@ -1,2 +1,54 @@
-# Zenbox (Apache): własna strona błędu 404. Cloudflare Pages i GitHub Pages używają 404.html same.
+# Ustawienia serwera dla Zenbox (Apache/LiteSpeed). Każdy blok działa tylko, gdy serwer ma dany moduł.
+
+# Własna strona błędu 404
 ErrorDocument 404 /404.html
+
+Options -Indexes
+
+# Zawsze HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Plik stanu programu wgrywającego (FTP-Deploy-Action) i inne pliki z kropką nie są publiczne
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>
+
+# Kompresja tekstu
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Pamięć podręczna przeglądarki
+<IfModule mod_headers.c>
+  # Strony i dane portfela: zawsze sprawdzaj, czy jest nowsza wersja (dane zmieniają się codziennie)
+  <FilesMatch "\.(html|json|csv|xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # CSS i JS mają w adresie znacznik ?v=<skrót>, więc można je trzymać długo
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Obrazy i ikony: tydzień
+  <FilesMatch "\.(svg|png|jpg|jpeg|webp|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  # Raporty PDF mogą zostać podmienione pod tym samym adresem (np. ujawnienia w dniu startu): dzień
+  <FilesMatch "\.pdf$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+
+  # Nagłówki bezpieczeństwa
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  # HSTS włączyć dopiero, gdy certyfikat SSL subdomeny działa poprawnie od kilku dni:
+  # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>

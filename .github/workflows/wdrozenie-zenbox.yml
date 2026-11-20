@@ -1,0 +1,56 @@
+# Wgrywa stronę na Zenbox (subdomena fundusz.knrkindex.pl) przez FTPS.
+# Instrukcja włączenia: wdrozenie/README.md.
+#
+# Do czasu ustawienia zmiennej repozytorium ZENBOX_WLACZONE = tak wszystkie przebiegi są pomijane.
+# Wgrywa po każdym pushu na main, po nocnej aktualizacji danych i na żądanie (Actions → Run workflow).
+
+name: Wdrożenie na Zenbox
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    # Commit automatu z danymi nie uruchamia zdarzenia push, więc wgrywamy po jego zakończeniu.
+    workflows: ["Aktualizacja danych portfela"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: wdrozenie-zenbox
+  cancel-in-progress: false
+
+jobs:
+  wdrozenie:
+    if: vars.ZENBOX_WLACZONE == 'tak' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Testy
+        run: python3 -m unittest discover tests
+      - name: Sprawdzenie przed publikacją (pola w nawiasach blokują wgranie)
+        run: python3 scripts/sprawdz_dane.py --publikacja
+      - name: Wgranie plików przez FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERWER }}
+          username: ${{ secrets.FTP_LOGIN }}
+          password: ${{ secrets.FTP_HASLO }}
+          protocol: ftps
+          server-dir: ${{ vars.ZENBOX_KATALOG || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            **/__pycache__/**
+            tests/**
+            scripts/**
+            zrodla/**
+            i18n/**
+            wdrozenie/**
+            *.md
