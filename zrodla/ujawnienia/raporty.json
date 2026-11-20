@@ -1,0 +1,35 @@
+{
+  "_opis": "Dane do strony „Ujawnienia i zastrzeżenia” doklejanej na końcu raportów PDF. Ujawnienia skrypt bierze z sekcji #ujawnienia na stronie analizy. Tutaj tylko to, czego na stronie nie ma: styl raportu, podpis i ocena w skali funduszu (tylko gdy raport ją podaje).",
+  "wmb": {
+    "plik": "pliki/analizy/fundusz-index-wmb-2026-10.pdf",
+    "styl": "szary",
+    "spolka": "The Williams Companies, Inc. (NYSE: WMB)",
+    "raport": "Raport analityczny, październik 2026",
+    "logo_spolki": "logo-wmb.png",
+    "ocena": "TRZYMAJ. Cena docelowa 63,68 USD, kurs 71,28 USD (zamknięcie 16.10.2026), potencjał −10,7%"
+  },
+  "cvx": {
+    "plik": "pliki/analizy/fundusz-index-cvx-2026-10.pdf",
+    "styl": "jasny",
+    "spolka": "Chevron Corporation (NYSE: CVX)",
+    "raport": "Raport analityczny, październik 2026"
+  },
+  "eme": {
+    "plik": "pliki/analizy/fundusz-index-eme-2026-10.pdf",
+    "styl": "jasny",
+    "spolka": "EMCOR Group, Inc. (NYSE: EME)",
+    "raport": "Raport analityczny, październik 2026"
+  },
+  "googl": {
+    "plik": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
+    "styl": "jasny",
+    "spolka": "Alphabet (NASDAQ: GOOGL)",
+    "raport": "Raport analityczny, październik 2026"
+  },
+  "amd": {
+    "plik": "pliki/analizy/fundusz-index-amd-2026-10.pdf",
+    "styl": "jasny",
+    "spolka": "AMD (NASDAQ: AMD)",
+    "raport": "Raport analityczny, październik 2026"
+  }
+}
