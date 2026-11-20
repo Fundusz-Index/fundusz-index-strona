@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /zrodla/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /i18n/
+Disallow: /wdrozenie/
+
+Sitemap: https://fundusz.knrkindex.pl/sitemap.xml

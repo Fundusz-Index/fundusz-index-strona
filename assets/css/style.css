@@ -414,3 +414,15 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
 @media (max-width: 640px) {
   .chart-tip { position: static; max-width: none; min-height: 112px; margin-top: 8px; box-shadow: none; border-color: var(--line); }
 }
+
+/* Strona 404: lista zakładek */
+.link-list-404 { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.link-list-404 a { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); text-decoration: none; min-height: 44px; }
+.link-list-404 a span { font-size: 14px; color: var(--ink-2); }
+.link-list-404 a:hover { border-color: var(--ink); }
+
+/* Telefon: sześć przycisków zakresu wykresu w jednym wierszu */
+@media (max-width: 640px) {
+  .zakresy { width: 100%; flex-wrap: nowrap !important; gap: 4px !important; }
+  .zakresy .seg { flex: 1 1 auto; min-width: 0; padding: 0 6px; font-size: 13px; }
+}

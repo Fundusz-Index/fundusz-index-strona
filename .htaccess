@@ -1,0 +1,2 @@
+# Zenbox (Apache): własna strona błędu 404. Cloudflare Pages i GitHub Pages używają 404.html same.
+ErrorDocument 404 /404.html

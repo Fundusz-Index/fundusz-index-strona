@@ -132,6 +132,9 @@ if __name__ == "__main__":
         sys.exit(0)
     sprawdz = "--sprawdz" in sys.argv
     rozne, braki = zbuduj(zapisz=not sprawdz)
+    if not sprawdz:
+        import zbuduj_sitemap
+        zbuduj_sitemap.main()
     if braki:
         print("Teksty bez tłumaczenia w i18n/en.json (%d). Lista: python3 scripts/zbuduj_en.py --braki" % len(braki))
     if sprawdz and rozne:
