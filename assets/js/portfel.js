@@ -148,9 +148,8 @@
   }
 
   /* ---------- spółki ---------- */
-  /* Tezy w transakcje.csv pochodzą z aktualnych raportów, a zakupy mają daty pierwszych analiz.
-     Dlatego podpisujemy je jako tezę na dziś. Zmień podpis, gdy wyjdą nowsze raporty. */
-  var TEZA_PODPIS = 'Teza na dziś (raport z października 2026)';
+  /* Tezy w transakcje.csv pochodzą z raportów, na podstawie których kupiliśmy spółkę (stan na dzień zakupu). */
+  var TEZA_PODPIS = 'Teza w dniu zakupu';
   function teza(ticker) {
     var t = P.transakcje.filter(function (x) { return x.ticker === ticker && x.typ === 'kupno'; })[0];
     return t ? { tekst: t.uzasadnienie, data: t.data } : { tekst: '', data: '' };
