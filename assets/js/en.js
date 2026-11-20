@@ -163,7 +163,6 @@ window.FI_EN = {
 "Przemysł": "Industrials",
 "Przemysł · październik 2026 · w portfelu": "Industrials · October 2026 · in the portfolio",
 "Przemysł, instalacje": "Industrials, building systems",
-"Przy każdej osobie sektor, który analizuje.": "Each person is listed with the sector they cover.",
 "Publikacja": "Publication",
 "Regulamin newslettera": "Newsletter terms (in Polish)",
 "Reklama w wyszukiwarce i YouTube jako źródło gotówki, inwestycje w sztuczną inteligencję i Google Cloud, opcja na Waymo. Model DCF na lata 2026-2034.": "Search and YouTube advertising as the cash engine, investment in artificial intelligence and Google Cloud, and an option on Waymo. A DCF model for 2026-2034.",
