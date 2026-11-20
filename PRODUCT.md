@@ -76,7 +76,7 @@ Fundusz publikuje każdą decyzję razem z analizą, datą i nazwiskami autorów
 - Pięć analiz z października 2026: WMB, GOOGL, CVX, EME, AMD. Raporty w `pliki/analizy/`.
 - Wynik portfela i seria dzienna: `data/portfolio.json` (generowany).
 - Transakcje z tezami: `data/transakcje.csv`.
-- Liczby koła: 25+ lat działalności, 300+ prezentacji, 60+ opracowań, ok. 185 członków koła, 26 członków funduszu, 13 analityków.
+- Liczby koła: 25+ lat działalności, 300+ prezentacji, 60+ opracowań, 185 członków koła, 26 członków funduszu, 13 analityków.
 - Oferta współpracy: `pliki/fundusz-index-oferta-wspolpracy.pdf`.
 - Brak: opinii partnerów, logotypów firm, zdjęć członków, historii wyników sprzed 13.01.2026. Nie wolno ich wymyślać.
 
