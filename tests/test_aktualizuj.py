@@ -87,6 +87,14 @@ class TestPortfel(unittest.TestCase):
         self.assertAlmostEqual(w["podsumowanie"]["gotowka_pln"], 0, places=2)
         self.assertAlmostEqual(w["podsumowanie"]["wartosc_pln"], 100500, places=2)
 
+    def test_wagi_w_serii(self):
+        kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "bbb.us": {d: 20.0 for d in SESJE}, "^spx": {d: 5000.0 for d in SESJE}}
+        fx = {d: 1.0 for d in SESJE}
+        t = [tr(D(2026, 10, 26), "kupno", "AAA", 25000), tr(D(2026, 10, 27), "kupno", "BBB", 50000)]
+        w = A.policz(USTAWIENIA, SPOLKI, t, kursy, fx, "^spx")
+        self.assertEqual(w["seria"][0]["w"], {"AAA": 25.0})
+        self.assertEqual(w["seria"][1]["w"], {"AAA": 25.0, "BBB": 50.0})
+
     def test_gotowka_w_etf_bez_kursow(self):
         kursy = {"aaa.us": {d: 10.0 for d in SESJE}, "^spx": {d: 5000.0 for d in SESJE}}
         u = dict(USTAWIENIA, gotowka={"ticker": "ETF", "nazwa": "Fundusz obligacji", "stooq": "etf.uk"})

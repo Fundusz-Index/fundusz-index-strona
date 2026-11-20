@@ -96,6 +96,7 @@
     $('leg-data').textContent = FI.data(pkt[li].d);
     $('leg-fundusz').textContent = FI.pct(f[li]);
     $('leg-bench').textContent = FI.pct(b[li]);
+    rysujSklad(h === null ? null : pkt[li]);
     var dymek = $('wykres-dymek');
     if (h === null && !WASKI) { dymek.hidden = true; return; }
     var roz = f[li] - b[li];
@@ -126,24 +127,58 @@
   }
 
   /* ---------- skład ---------- */
-  function rysujSklad() {
+  /* Kolory są przypisane na stałe: spółka ma ten sam kolor w każdym dniu, gotówka zawsze najjaśniejszy. */
+  var SKLAD = null;
+  function przygotujSklad() {
+    var tickery = P.pozycje.map(function (p) { return p.ticker; });
+    var nazwa = {}, sektor = {};
+    P.transakcje.forEach(function (t) { nazwa[t.ticker] = t.nazwa; if (t.sektor) sektor[t.ticker] = t.sektor; });
+    P.pozycje.forEach(function (p) { nazwa[p.ticker] = p.nazwa; sektor[p.ticker] = p.sektor; });
+    P.seria.forEach(function (p) {
+      Object.keys(p.w || {}).forEach(function (t) { if (tickery.indexOf(t) < 0) tickery.push(t); });
+    });
+    var sektory = [], wagaSek = {};
+    P.pozycje.forEach(function (p) { wagaSek[p.sektor] = (wagaSek[p.sektor] || 0) + p.waga; });
+    tickery.forEach(function (t) { var k = sektor[t] || 'Inne'; if (sektory.indexOf(k) < 0) sektory.push(k); });
+    sektory.sort(function (a, b) { return (wagaSek[b] || 0) - (wagaSek[a] || 0); });
+    SKLAD = { tickery: tickery, nazwa: nazwa, sektor: sektor, sektory: sektory };
+  }
+
+  /* dzien: punkt z P.seria (skład z tego dnia) albo null (skład na dziś). */
+  function rysujSklad(dzien) {
+    if (!SKLAD) przygotujSklad();
+    var wagi = {}, suma = 0;
+    if (dzien) {
+      Object.keys(dzien.w || {}).forEach(function (t) { wagi[t] = dzien.w[t]; });
+    } else {
+      P.pozycje.forEach(function (p) { wagi[p.ticker] = p.waga; });
+    }
+    Object.keys(wagi).forEach(function (t) { suma += wagi[t]; });
     var grupy;
     if (stan.sklad === 'spolki') {
-      grupy = P.pozycje.map(function (p) { return [p.nazwa, p.waga]; });
+      grupy = SKLAD.tickery.map(function (t, i) { return [SKLAD.nazwa[t] || t, wagi[t] || 0, KOLORY[i % 4]]; });
     } else {
       var m = {};
-      P.pozycje.forEach(function (p) { m[p.sektor] = (m[p.sektor] || 0) + p.waga; });
-      grupy = Object.keys(m).map(function (k) { return [k, m[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+      Object.keys(wagi).forEach(function (t) { var k = SKLAD.sektor[t] || 'Inne'; m[k] = (m[k] || 0) + wagi[t]; });
+      grupy = SKLAD.sektory.map(function (k, i) { return [k, m[k] || 0, KOLORY[i % 4]]; });
     }
-    if (P.podsumowanie.gotowka_pln > 1) grupy.push([FI.t('Gotówka'), P.podsumowanie.gotowka_pln / P.podsumowanie.wartosc_pln * 100]);
+    grupy = grupy.filter(function (g) { return g[1] > 0.05; });
+    var gotowka = dzien ? 100 - suma : P.podsumowanie.gotowka_pln / P.podsumowanie.wartosc_pln * 100;
+    if (gotowka > 0.05) grupy.push([FI.t('Gotówka'), gotowka, KOLORY[4]]);
     var bar = $('sklad-pasek');
-    bar.innerHTML = grupy.map(function (g, i) {
-      return '<span style="flex:' + g[1] + ' 1 0;background:' + KOLORY[i % 5] + '"></span>';
+    bar.innerHTML = grupy.map(function (g) {
+      return '<span style="flex:' + g[1] + ' 1 0;background:' + g[2] + '"></span>';
     }).join('');
-    bar.setAttribute('aria-label', FI.t('Skład portfela') + ': ' + grupy.map(function (g) { return FI.t(g[0]) + ' ' + Math.round(g[1]) + '%'; }).join(', '));
-    $('sklad-legenda').innerHTML = grupy.map(function (g, i) {
-      return '<li><span class="dot" style="background:' + KOLORY[i % 5] + ';outline:1px solid var(--line)"></span>' + esc(FI.t(g[0])) + ' <b>' + Math.round(g[1]) + '%</b></li>';
+    bar.setAttribute('aria-label', FI.t('Skład portfela') + (dzien ? ' ' + FI.data(dzien.d) : '') + ': ' + grupy.map(function (g) { return FI.t(g[0]) + ' ' + Math.round(g[1]) + '%'; }).join(', '));
+    var leg = $('sklad-legenda');
+    leg.innerHTML = grupy.map(function (g) {
+      return '<li><span class="dot" style="background:' + g[2] + ';outline:1px solid var(--line)"></span>' + esc(FI.t(g[0])) + ' <b>' + Math.round(g[1]) + '%</b></li>';
     }).join('');
+    /* Legenda nie może się kurczyć pod kursorem, bo wykres pod nią by podskakiwał. */
+    if (!dzien) leg.style.minHeight = '';
+    else if (!leg.style.minHeight) leg.style.minHeight = leg.dataset.h + 'px';
+    if (!dzien) leg.dataset.h = leg.offsetHeight;
+    $('sklad-data').textContent = dzien ? ' · ' + FI.data(dzien.d) : '';
     document.querySelectorAll('[data-sklad]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.sklad === stan.sklad); });
   }
 
@@ -223,12 +258,12 @@
 
   FI.portfolio.then(function (p) {
     P = p;
-    rysujLiczby(); rysujSklad(); rysujSpolki(); rysujDziennik(); zakresy(); rysujWykres();
+    rysujLiczby(); rysujSklad(null); rysujSpolki(); rysujDziennik(); zakresy(); rysujWykres();
     document.querySelectorAll('[data-zakres]').forEach(function (b) {
       b.addEventListener('click', function () { stan.zakres = b.dataset.zakres; stan.hover = null; zakresy(); rysujWykres(); });
     });
     document.querySelectorAll('[data-sklad]').forEach(function (b) {
-      b.addEventListener('click', function () { stan.sklad = b.dataset.sklad; rysujSklad(); });
+      b.addEventListener('click', function () { stan.sklad = b.dataset.sklad; stan.hover = null; rysujSklad(null); });
     });
     document.querySelectorAll('[data-sort]').forEach(function (b) {
       b.addEventListener('click', function () { stan.sort = b.dataset.sort; rysujSpolki(); });

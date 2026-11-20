@@ -346,7 +346,11 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         b = bench[d] * k
         if b0 is None:
             b0 = b
-        seria.append({"d": d.isoformat(), "f": round(wartosc, 2), "b": round(kapital * b / b0, 2)})
+        punkt = {"d": d.isoformat(), "f": round(wartosc, 2), "b": round(kapital * b / b0, 2)}
+        if pozycje and wartosc > 0:
+            # Wagi pozycji w % tego dnia (gotówka to reszta do 100). Strona rysuje z nich skład z dnia na wykresie.
+            punkt["w"] = {tk: round(a * cena(tk, d) * k / wartosc * 100, 1) for tk, a in pozycje.items()}
+        seria.append(punkt)
 
     ostatni, poprzedni = sesje[-1], (sesje[-2] if len(sesje) > 1 else sesje[-1])
     k = usd(ostatni)
@@ -428,7 +432,7 @@ def policz(ustawienia, spolki, transakcje, kursy, fx, benchmark_symbol, teraz=No
         "obserwowane": obserwowane,
         "transakcje": [{
             "data": t["data"].isoformat(), "rozliczono": t["dzien_rozliczenia"].isoformat(), "typ": t["typ"],
-            "ticker": t["ticker"], "nazwa": po_tickerze[t["ticker"]]["nazwa"],
+            "ticker": t["ticker"], "nazwa": po_tickerze[t["ticker"]]["nazwa"], "sektor": po_tickerze[t["ticker"]]["sektor"],
             "kwota_pln": zaokr(t["wartosc_pln"]), "liczba_akcji": round(t["akcje"], 4),
             "uzasadnienie": t["uzasadnienie"],
         } for t in reversed(rozliczone)],
