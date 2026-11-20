@@ -1,40 +1,40 @@
 {
- "zaktualizowano": "2026-11-19T23:13+00:00",
+ "zaktualizowano": "2026-11-20T00:55+00:00",
  "stan_na": "2026-11-19",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-01-13",
  "benchmark": "S&P 500",
  "kurs_usdpln": 4.0176,
  "podsumowanie": {
-  "wartosc_pln": 110089.33,
-  "gotowka_pln": 52019.36,
-  "gotowka_waga": 47.25,
-  "zwrot_od_startu": 10.09,
+  "wartosc_pln": 110063.89,
+  "gotowka_pln": 51993.92,
+  "gotowka_waga": 47.24,
+  "zwrot_od_startu": 10.06,
   "benchmark_od_startu": 14.73,
-  "zmiana_dzienna": -0.69,
+  "zmiana_dzienna": -0.71,
   "benchmark_zmiana_dzienna": -2.02,
   "liczba_pozycji": 4
  },
  "okresy": {
   "1M": {
-   "f": -2.82,
+   "f": -2.84,
    "b": -4.05
   },
   "3M": {
-   "f": 2.87,
+   "f": 2.84,
    "b": 2.26
   },
   "6M": {
-   "f": 1.89,
+   "f": 1.86,
    "b": 6.0
   },
   "YTD": {
-   "f": 10.09,
+   "f": 10.06,
    "b": 14.73
   },
   "1R": null,
   "start": {
-   "f": 10.09,
+   "f": 10.06,
    "b": 14.73
   }
  },
@@ -51,7 +51,7 @@
    "kurs_usd": 206.5,
    "wartosc_pln": 19466.58,
    "koszt_pln": 16000.0,
-   "waga": 17.68,
+   "waga": 17.69,
    "zwrot": 21.67,
    "zmiana_dzienna": 0.3
   },
@@ -99,7 +99,7 @@
    "kurs_usd": 636.08,
    "wartosc_pln": 11618.16,
    "koszt_pln": 11000.0,
-   "waga": 10.55,
+   "waga": 10.56,
    "zwrot": 5.62,
    "zmiana_dzienna": -1.57
   }
@@ -109,8 +109,8 @@
   "nazwa": "iShares $ Treasury Bond 0-1yr UCITS ETF",
   "opis": "obligacje skarbowe USA do roku",
   "jednostki": 105.5418,
-  "kurs_usd": 122.68,
-  "zmiana_dzienna": 0.05
+  "kurs_usd": 122.62,
+  "zmiana_dzienna": 0.0
  },
  "obserwowane": [
   {
@@ -129,7 +129,7 @@
    "nazwa": "Chevron",
    "kwota_pln": 16000.0,
    "liczba_akcji": 23.464,
-   "uzasadnienie": "Przejęcie Hess ze złożami w Gujanie i silna pozycja w basenie permskim (ok. 1 mln baryłek ekwiwalentu ropy dziennie). Do tego dyscyplina kapitałowa: 3 mld USD oszczędności, malejący dług i dywidenda 1,78 USD kwartalnie."
+   "uzasadnienie": "Integracja Hess (30% w gujańskim bloku Stabroek) i skala w basenie permskim napędziły w Q1 2026 wzrost wydobycia o 15% globalnie i 24% w USA. Spółka trzyma dyscyplinę kapitałową: realizuje plan 3 mld USD cięć kosztów do końca roku i zwróciła akcjonariuszom 6 mld USD w samym Q1 (dywidenda 1,78 USD kwartalnie)."
   },
   {
    "data": "2026-02-24",
@@ -139,7 +139,7 @@
    "nazwa": "Williams Companies",
    "kwota_pln": 15000.0,
    "liczba_akcji": 57.0172,
-   "uzasadnienie": "Transco to największy gazociąg przesyłowy w USA, a infrastruktura Williams obsługuje ok. 1/3 gazu ziemnego w kraju. Przepływy chronią kontrakty take-or-pay i stawki regulowane, a popyt rośnie dzięki eksportowi LNG i centrom danych."
+   "uzasadnienie": "Transco to największy gazociąg przesyłowy w USA (ok. 1/3 gazu ziemnego w kraju) z przepływami chronionymi kontraktami take-or-pay i regulowanymi stawkami. Po rekordowym 2025 r. (7,75 mld USD skorygowanej EBITDA) spółka podniosła dywidendę o 5% (2,10 USD rocznie), prognozuje 8,05–8,35 mld USD EBITDA w 2026 r. i rozbudowuje projekty pod LNG oraz centra danych."
   },
   {
    "data": "2026-01-15",
@@ -149,7 +149,7 @@
    "nazwa": "Alphabet",
    "kwota_pln": 13000.0,
    "liczba_akcji": 10.8054,
-   "uzasadnienie": "Lider wyszukiwania z ok. 90% udziału w rynku i jednym ekosystemem: Search, YouTube, Android, Chrome i Google Cloud. Mocne finanse (marża netto 32,8%, ROIC 24,9%, minimalny dług), a chmura i sztuczna inteligencja napędzają wzrost."
+   "uzasadnienie": "Po wrześniowym wyroku sądu w USA (brak przymusowego podziału Chrome i Androida) zniknęło główne ryzyko regulacyjne nad ekosystemem Search i YouTube. Pierwszy kwartał powyżej 100 mld USD przychodu (Q3 2025: 102,3 mld USD, marża operacyjna 30,5%) oraz rozpędzający się Google Cloud (+34% r/r, 155 mld USD backlogu) potwierdzają monetyzację AI."
   },
   {
    "data": "2026-01-13",
@@ -159,7 +159,7 @@
    "nazwa": "EMCOR",
    "kwota_pln": 11000.0,
    "liczba_akcji": 4.5463,
-   "uzasadnienie": "Instalacje elektryczne i chłodzenie to ok. 77% budżetu centrum danych, czyli dwa główne segmenty EMCOR. Brak wykonawców sprzyja dużym firmom, a spółka ma 924 mln USD gotówki przy prawie zerowym długu."
+   "uzasadnienie": "Instalacje elektryczne i chłodzenie to ok. 77% budżetu centrum danych, czyli dwa główne segmenty EMCOR wzmocnione przejęciem Miller Electric. Na wejściu w 2026 r. spółka ma rekordowy portfel zamówień (12,61 mld USD RPO po Q3 2025, +2,8 mld USD r/r), marżę operacyjną 9,4% oraz 655 mln USD gotówki przy minimalnym długu."
   }
  ],
  "seria": [
@@ -1240,7 +1240,7 @@
   },
   {
    "d": "2026-11-19",
-   "f": 110089.33,
+   "f": 110063.89,
    "b": 114734.4
   }
  ],
