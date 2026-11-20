@@ -182,7 +182,7 @@ tbody tr { border-top: 1px solid var(--line); }
 /* portfel */
 .alloc-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; gap: 2px; }
 .alloc-bar span { display: block; height: 100%; }
-.legend { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; }
+.legend { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px 22px; font-size: 14px; }
 .legend li { display: flex; align-items: center; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 .chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px; }
