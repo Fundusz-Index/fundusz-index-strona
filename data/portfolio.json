@@ -1,41 +1,41 @@
 {
- "zaktualizowano": "2026-11-20T01:39+00:00",
- "stan_na": "2026-11-19",
+ "zaktualizowano": "2026-11-23T23:19+00:00",
+ "stan_na": "2026-11-23",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-01-13",
  "benchmark": "S&P 500",
- "kurs_usdpln": 4.0176,
+ "kurs_usdpln": 4.0601,
  "podsumowanie": {
-  "wartosc_pln": 110867.38,
-  "gotowka_pln": 51993.92,
-  "gotowka_waga": 46.9,
-  "zwrot_od_startu": 10.87,
-  "benchmark_od_startu": 14.73,
-  "zmiana_dzienna": 0.01,
-  "benchmark_zmiana_dzienna": -2.02,
+  "wartosc_pln": 111730.66,
+  "gotowka_pln": 52578.22,
+  "gotowka_waga": 47.06,
+  "zwrot_od_startu": 11.73,
+  "benchmark_od_startu": 16.94,
+  "zmiana_dzienna": 1.47,
+  "benchmark_zmiana_dzienna": 4.73,
   "liczba_pozycji": 4
  },
  "okresy": {
   "1M": {
-   "f": -2.13,
-   "b": -4.05
+   "f": -1.41,
+   "b": -1.79
   },
   "3M": {
-   "f": 3.6,
-   "b": 2.26
+   "f": 4.62,
+   "b": 3.85
   },
   "6M": {
-   "f": 2.61,
-   "b": 6.0
+   "f": 3.28,
+   "b": 7.51
   },
   "YTD": {
-   "f": 10.87,
-   "b": 14.73
+   "f": 11.73,
+   "b": 16.94
   },
   "1R": null,
   "start": {
-   "f": 10.87,
-   "b": 14.73
+   "f": 11.73,
+   "b": 16.94
   }
  },
  "pozycje": [
@@ -48,12 +48,12 @@
    "raport": "pliki/analizy/fundusz-index-cvx-2026-10.pdf",
    "autorzy": "Mikołaj Bujacz, Hubert Kamiński, Kacper Ziętek",
    "liczba_akcji": 23.464,
-   "kurs_usd": 205.88,
-   "wartosc_pln": 19408.13,
+   "kurs_usd": 206.17,
+   "wartosc_pln": 19641.07,
    "koszt_pln": 16000.0,
-   "waga": 17.51,
-   "zwrot": 21.3,
-   "zmiana_dzienna": 0.0
+   "waga": 17.58,
+   "zwrot": 22.76,
+   "zmiana_dzienna": -1.06
   },
   {
    "ticker": "WMB",
@@ -64,12 +64,12 @@
    "raport": "pliki/analizy/fundusz-index-wmb-2026-10.pdf",
    "autorzy": "Szymon Jakubowski, Wojciech Łopatecki, Mikołaj Małek",
    "liczba_akcji": 57.0172,
-   "kurs_usd": 67.23,
-   "wartosc_pln": 15400.53,
+   "kurs_usd": 65.43,
+   "wartosc_pln": 15146.75,
    "koszt_pln": 15000.0,
-   "waga": 13.89,
-   "zwrot": 2.67,
-   "zmiana_dzienna": 0.0
+   "waga": 13.56,
+   "zwrot": 0.98,
+   "zmiana_dzienna": 1.74
   },
   {
    "ticker": "GOOGL",
@@ -80,12 +80,12 @@
    "raport": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
    "autorzy": "Filip Timofiejczuk, Paweł Osiński, Jakub Kochański",
    "liczba_akcji": 10.8054,
-   "kurs_usd": 282.44,
-   "wartosc_pln": 12261.25,
+   "kurs_usd": 282.1,
+   "wartosc_pln": 12376.04,
    "koszt_pln": 13000.0,
-   "waga": 11.06,
-   "zwrot": -5.68,
-   "zmiana_dzienna": 0.0
+   "waga": 11.08,
+   "zwrot": -4.8,
+   "zmiana_dzienna": 6.34
   },
   {
    "ticker": "EME",
@@ -96,12 +96,12 @@
    "raport": "pliki/analizy/fundusz-index-eme-2026-10.pdf",
    "autorzy": "Michał Bożek, Krzysztof Paś",
    "liczba_akcji": 4.5463,
-   "kurs_usd": 646.23,
-   "wartosc_pln": 11803.55,
+   "kurs_usd": 649.49,
+   "wartosc_pln": 11988.59,
    "koszt_pln": 11000.0,
-   "waga": 10.65,
-   "zwrot": 7.31,
-   "zmiana_dzienna": 0.0
+   "waga": 10.73,
+   "zwrot": 8.99,
+   "zmiana_dzienna": 7.65
   }
  ],
  "gotowka": {
@@ -109,15 +109,15 @@
   "nazwa": "iShares $ Treasury Bond 0-1yr UCITS ETF",
   "opis": "obligacje skarbowe USA do roku",
   "jednostki": 105.5418,
-  "kurs_usd": 122.62,
-  "zmiana_dzienna": 0.0
+  "kurs_usd": 122.7,
+  "zmiana_dzienna": 0.02
  },
  "obserwowane": [
   {
    "ticker": "AMD",
    "nazwa": "Advanced Micro Devices",
-   "kurs_usd": 530.14,
-   "zmiana_dzienna": 0.0
+   "kurs_usd": 453.46,
+   "zmiana_dzienna": 6.85
   }
  ],
  "transakcje": [
@@ -2408,13 +2408,35 @@
   },
   {
    "d": "2026-11-19",
-   "f": 110867.38,
+   "f": 110089.33,
    "b": 114734.4,
    "w": {
     "EME": 10.6,
+    "GOOGL": 10.8,
+    "WMB": 13.8,
+    "CVX": 17.7
+   }
+  },
+  {
+   "d": "2026-11-20",
+   "f": 110115.24,
+   "b": 111692.09,
+   "w": {
+    "EME": 10.1,
+    "GOOGL": 10.6,
+    "WMB": 13.5,
+    "CVX": 18.0
+   }
+  },
+  {
+   "d": "2026-11-23",
+   "f": 111730.66,
+   "b": 116939.25,
+   "w": {
+    "EME": 10.7,
     "GOOGL": 11.1,
-    "WMB": 13.9,
-    "CVX": 17.5
+    "WMB": 13.6,
+    "CVX": 17.6
    }
   }
  ],
