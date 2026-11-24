@@ -1,41 +1,41 @@
 {
- "zaktualizowano": "2026-11-23T23:19+00:00",
- "stan_na": "2026-11-23",
+ "zaktualizowano": "2026-11-24T23:18+00:00",
+ "stan_na": "2026-11-24",
  "kapital_startowy_pln": 100000.0,
  "data_startu": "2026-01-13",
  "benchmark": "S&P 500",
- "kurs_usdpln": 4.0601,
+ "kurs_usdpln": 4.0819,
  "podsumowanie": {
-  "wartosc_pln": 111730.66,
-  "gotowka_pln": 52578.22,
-  "gotowka_waga": 47.06,
-  "zwrot_od_startu": 11.73,
-  "benchmark_od_startu": 16.94,
-  "zmiana_dzienna": 1.47,
-  "benchmark_zmiana_dzienna": 4.73,
+  "wartosc_pln": 112266.2,
+  "gotowka_pln": 52877.76,
+  "gotowka_waga": 47.1,
+  "zwrot_od_startu": 12.27,
+  "benchmark_od_startu": 16.98,
+  "zmiana_dzienna": 0.48,
+  "benchmark_zmiana_dzienna": -0.5,
   "liczba_pozycji": 4
  },
  "okresy": {
   "1M": {
-   "f": -1.41,
-   "b": -1.79
+   "f": -0.93,
+   "b": -1.76
   },
   "3M": {
-   "f": 4.62,
-   "b": 3.85
+   "f": 6.05,
+   "b": 3.78
   },
   "6M": {
-   "f": 3.28,
-   "b": 7.51
+   "f": 4.25,
+   "b": 7.41
   },
   "YTD": {
-   "f": 11.73,
-   "b": 16.94
+   "f": 12.27,
+   "b": 16.98
   },
   "1R": null,
   "start": {
-   "f": 11.73,
-   "b": 16.94
+   "f": 12.27,
+   "b": 16.98
   }
  },
  "pozycje": [
@@ -48,12 +48,12 @@
    "raport": "pliki/analizy/fundusz-index-cvx-2026-10.pdf",
    "autorzy": "Mikołaj Bujacz, Hubert Kamiński, Kacper Ziętek",
    "liczba_akcji": 23.464,
-   "kurs_usd": 206.17,
-   "wartosc_pln": 19641.07,
+   "kurs_usd": 208.73,
+   "wartosc_pln": 19991.72,
    "koszt_pln": 16000.0,
-   "waga": 17.58,
-   "zwrot": 22.76,
-   "zmiana_dzienna": -1.06
+   "waga": 17.81,
+   "zwrot": 24.95,
+   "zmiana_dzienna": 1.24
   },
   {
    "ticker": "WMB",
@@ -64,12 +64,12 @@
    "raport": "pliki/analizy/fundusz-index-wmb-2026-10.pdf",
    "autorzy": "Szymon Jakubowski, Wojciech Łopatecki, Mikołaj Małek",
    "liczba_akcji": 57.0172,
-   "kurs_usd": 65.43,
-   "wartosc_pln": 15146.75,
+   "kurs_usd": 66.0,
+   "wartosc_pln": 15360.74,
    "koszt_pln": 15000.0,
-   "waga": 13.56,
-   "zwrot": 0.98,
-   "zmiana_dzienna": 1.74
+   "waga": 13.68,
+   "zwrot": 2.4,
+   "zmiana_dzienna": 0.87
   },
   {
    "ticker": "GOOGL",
@@ -80,12 +80,12 @@
    "raport": "pliki/analizy/fundusz-index-googl-2026-10.pdf",
    "autorzy": "Filip Timofiejczuk, Paweł Osiński, Jakub Kochański",
    "liczba_akcji": 10.8054,
-   "kurs_usd": 282.1,
-   "wartosc_pln": 12376.04,
+   "kurs_usd": 279.05,
+   "wartosc_pln": 12307.96,
    "koszt_pln": 13000.0,
-   "waga": 11.08,
-   "zwrot": -4.8,
-   "zmiana_dzienna": 6.34
+   "waga": 10.96,
+   "zwrot": -5.32,
+   "zmiana_dzienna": -1.08
   },
   {
    "ticker": "EME",
@@ -96,12 +96,12 @@
    "raport": "pliki/analizy/fundusz-index-eme-2026-10.pdf",
    "autorzy": "Michał Bożek, Krzysztof Paś",
    "liczba_akcji": 4.5463,
-   "kurs_usd": 649.49,
-   "wartosc_pln": 11988.59,
+   "kurs_usd": 631.98,
+   "wartosc_pln": 11728.02,
    "koszt_pln": 11000.0,
-   "waga": 10.73,
-   "zwrot": 8.99,
-   "zmiana_dzienna": 7.65
+   "waga": 10.45,
+   "zwrot": 6.62,
+   "zmiana_dzienna": -2.7
   }
  ],
  "gotowka": {
@@ -109,15 +109,15 @@
   "nazwa": "iShares $ Treasury Bond 0-1yr UCITS ETF",
   "opis": "obligacje skarbowe USA do roku",
   "jednostki": 105.5418,
-  "kurs_usd": 122.7,
-  "zmiana_dzienna": 0.02
+  "kurs_usd": 122.74,
+  "zmiana_dzienna": 0.03
  },
  "obserwowane": [
   {
    "ticker": "AMD",
    "nazwa": "Advanced Micro Devices",
-   "kurs_usd": 453.46,
-   "zmiana_dzienna": 6.85
+   "kurs_usd": 413.27,
+   "zmiana_dzienna": -8.86
   }
  ],
  "transakcje": [
@@ -2437,6 +2437,17 @@
     "GOOGL": 11.1,
     "WMB": 13.6,
     "CVX": 17.6
+   }
+  },
+  {
+   "d": "2026-11-24",
+   "f": 112266.2,
+   "b": 116981.02,
+   "w": {
+    "EME": 10.4,
+    "GOOGL": 11.0,
+    "WMB": 13.7,
+    "CVX": 17.8
    }
   }
  ],
