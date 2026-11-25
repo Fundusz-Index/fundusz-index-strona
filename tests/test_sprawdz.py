@@ -96,6 +96,11 @@ class TestSprawdzanie(unittest.TestCase):
         r = S.sprawdz()
         self.assertTrue(any("nie ma tytułu" in b for b in r.bledy))
 
+    def test_ogloszenie_zle_pole_do(self):
+        self.zapisz("ogloszenie.json", '{"pokaz": true, "tytul": "X", "link": "https://example.com", "do": "10.12.2026"}')
+        r = S.sprawdz()
+        self.assertTrue(any("pole 'do'" in b for b in r.bledy))
+
     def test_kalendarz_zla_data_i_typ(self):
         self.zapisz("kalendarz.json", '{"wydarzenia": [{"data": "2026-13-01", "typ": "Impreza", "tytul": "X"}]}')
         r = S.sprawdz()

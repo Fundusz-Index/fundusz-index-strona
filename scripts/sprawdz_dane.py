@@ -230,6 +230,8 @@ def sprawdz_ogloszenie(r):
             r.uwaga(g, "ogłoszenie jest włączone, a ma pola do uzupełnienia w nawiasach [ ]")
         if not o.get("link"):
             r.uwaga(g, "ogłoszenie nie ma linku do szczegółów")
+        if o.get("do") is not None and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(o["do"])):
+            r.blad(g, "pole 'do' musi być datą RRRR-MM-DD (dzień, po którym ogłoszenie znika)")
 
 
 class Linki(HTMLParser):

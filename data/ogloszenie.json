@@ -1,8 +1,9 @@
 {
-  "pokaz": false,
-  "etykieta": "Wydarzenie",
-  "tytul": "Startup Stage",
-  "tekst": "[data, godzina, miejsce]. Serdecznie zapraszamy wszystkich zainteresowanych.",
-  "link": "",
-  "link_tekst": "Szczegóły i zapisy"
+  "pokaz": true,
+  "do": "2026-12-10",
+  "etykieta": "Wydarzenie koła",
+  "tytul": "Startup Stage #17, 10 grudnia, Teatr Barakah",
+  "tekst": "Pitch contest, panel inwestorów i networking na Kazimierzu. Projekt Koła Naukowego INDEX. Wstęp bezpłatny, zapisy ruszyły.",
+  "link": "https://luma.com/1o1wc81d",
+  "link_tekst": "Odbierz darmowy bilet"
 }

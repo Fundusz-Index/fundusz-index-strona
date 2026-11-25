@@ -120,11 +120,16 @@
     if (!box) return;
     FI.json('ogloszenie.json').then(function (o) {
       if (!o.pokaz) return;
+      /* Pole "do" (RRRR-MM-DD): po tym dniu pasek znika sam, nie trzeba pamiętać o wyłączeniu. */
+      if (o.do && new Date(o.do + 'T23:59:59') < new Date()) return;
       box.querySelector('[data-etykieta]').textContent = t(o.etykieta || 'Ogłoszenie');
       box.querySelector('[data-tytul]').textContent = t(o.tytul || '');
       box.querySelector('[data-tekst]').textContent = t(o.tekst || '');
       var a = box.querySelector('[data-link]');
-      if (o.link) { a.href = o.link; a.textContent = t(o.link_tekst || 'Szczegóły'); } else { a.hidden = true; }
+      if (o.link) {
+        a.href = o.link; a.textContent = t(o.link_tekst || 'Szczegóły');
+        if (/^https?:\/\//.test(o.link)) { a.target = '_blank'; a.rel = 'noopener'; }
+      } else { a.hidden = true; }
       box.hidden = false;
     }).catch(function () {});
   }
