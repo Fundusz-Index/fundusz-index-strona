@@ -81,7 +81,7 @@ Podgląd przed pushem: `python3 -m http.server 8000` w folderze strony i otwórz
 | Kupno lub sprzedaż spółki | Wiersz w `data/transakcje.csv` | Nowa spółka musi mieć wpis w `data/spolki.json`. Wyniki przeliczą się w nocy; żeby od razu: Actions → „Aktualizacja danych portfela” → Run workflow. Uzasadnienie trafia do dziennika decyzji, więc napisz je porządnie |
 | Nowa analiza | Strona w `analizy/` (kopia innej, np. `analizy/wmb.html`), PDF w `pliki/analizy/`, karta w `data/analizy.json`, obrazek podglądu linku (`zrodla/og/zbuduj.py`), tłumaczenia w `i18n/en.json` | Sekcja ujawnień musi mieć autorów i datę pierwszej publikacji. Na stronach HTML bez ocen „kupuj/trzymaj” i cen docelowych; w PDF-ie zostają. Najprościej z Claude |
 | Artykuł | Wpis w `data/artykuly.json` | Działy: Przegląd tygodnia, Profit Journal, Edukacja, Z życia funduszu. Autor zawsze podany |
-| Ogłoszenie na stronie głównej | `data/ogloszenie.json` | `"pokaz": true` włącza pasek, `false` wyłącza. Po wydarzeniu wyłącz |
+| Ogłoszenie na stronie głównej | `data/ogloszenie.json` | `"pokaz": true` włącza pasek, `false` wyłącza. Pole `"do": "RRRR-MM-DD"` to ostatni dzień wyświetlania: po nim pasek znika sam. Link zewnętrzny otwiera się w nowej karcie |
 | Kalendarz | `data/kalendarz.json` | Wyniki spółek z portfela, walne, spotkania funduszu. Minione wydarzenia znikają same. `"szacunek": true` dla terminów, których spółka jeszcze nie potwierdziła |
 | Zarząd, analitycy, kontakt | `o-funduszu.html` + `i18n/en.json` | Nazwiska i zdjęcia tylko za zgodą osoby |
 | Zmiana kapitału, benchmarku, ETF-u gotówki | `data/ustawienia.json` | Rzadko. Każda zmiana przelicza całą historię |
