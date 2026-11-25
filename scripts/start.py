@@ -1,6 +1,7 @@
 """Dzień startu: wpisuje datę i godzinę pierwszej publikacji we wszystkich analizach i w raportach PDF.
 
 Uruchom raz, w dniu startu:  python3 scripts/start.py "21.11.2026, 18:00"
+Sama data też przechodzi:   python3 scripts/start.py "21.11.2026"
 Skrypt wpisuje datę w sekcjach ujawnień (analizy/*.html), dokleja zaktualizowaną stronę
 ujawnień do raportów PDF i sprawdza, czy strona przechodzi kontrolę przed publikacją.
 Potem zostaje commit i push; wgranie na Zenbox ruszy samo.
@@ -15,9 +16,9 @@ POLE = "[data i godzina publikacji]"
 
 
 def main(argv):
-    if len(argv) != 2 or not re.fullmatch(r"\d{2}\.\d{2}\.\d{4}, \d{2}:\d{2}", argv[1]):
-        sys.exit('Podaj datę i godzinę startu, np.: python3 scripts/start.py "21.11.2026, 18:00"')
-    wpis = argv[1] + " (czas polski)"
+    if len(argv) != 2 or not re.fullmatch(r"\d{2}\.\d{2}\.\d{4}(, \d{2}:\d{2})?", argv[1]):
+        sys.exit('Podaj datę startu (z godziną albo bez), np.: python3 scripts/start.py "21.11.2026, 18:00"')
+    wpis = argv[1] + (" (czas polski)" if "," in argv[1] else "")
     zmienione = []
     for plik in sorted((ROOT / "analizy").glob("*.html")):
         s = plik.read_text(encoding="utf-8")
