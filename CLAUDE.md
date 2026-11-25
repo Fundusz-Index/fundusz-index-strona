@@ -13,6 +13,7 @@ Ten plik czyta każdy czat, który pracuje nad stroną. Aktualizuj go, gdy zmien
 
 ## Źródła zasad
 
+- `README.md`: przewodnik dla ludzi (zarząd funduszu, kolejne roczniki): jak działa automat, kto ma dostęp, trzy drogi zmiany strony (z Claude, w przeglądarce na GitHubie, na komputerze), typowe zadania, co robić, gdy coś nie działa. Gdy zmieni się proces albo hosting, zaktualizuj też jego.
 - `PRODUCT.md`: dla kogo i po co jest strona, ograniczenia, zobowiązania marki (format Impeccable, nagłówki po angielsku, nie zmieniaj ich nazw).
 - `DESIGN.md`: kolory, typografia, układ, komponenty, wykresy, ruch. Przy zmianie wyglądu najpierw sprawdź ten plik, a po zmianie go zaktualizuj.
 - W sporze narzędzi wygrywa Impeccable i `DESIGN.md`. Taste to tylko druga opinia.
