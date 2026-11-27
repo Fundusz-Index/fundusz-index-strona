@@ -5,6 +5,8 @@
   var DZIALY = ['Wszystkie', 'Przegląd tygodnia', 'Profit Journal', 'Edukacja', 'Z życia funduszu'];
   var stan = 'Wszystkie', wszystkie = [];
 
+  function adres(a) { return !a.link ? '#' : (/^https?:/.test(a.link) ? a.link : FI.base + a.link); }
+
   function rysuj() {
     document.getElementById('dzialy').innerHTML = DZIALY.map(function (d) {
       return '<button type="button" class="tab" role="tab" aria-selected="' + (d === stan) + '" data-dzial="' + esc(d) + '">' + esc(FI.t(d)) + '</button>';
@@ -20,12 +22,14 @@
     var a = lista[0];
     wyr.hidden = false;
     wyr.innerHTML = '<span class="label" style="color:var(--inv-muted)">' + esc(FI.t(a.dzial)) + ' · ' + FI.data(a.data) + '</span>' +
-      '<h2 style="font-size:30px;line-height:1.2"><a href="' + esc(a.link || '#') + '" style="text-decoration:none">' + esc(a.tytul) + '</a></h2>' +
-      '<p style="color:var(--inv-muted)">' + esc(a.wstep || '') + '</p><span class="small muted">' + esc(a.autor || '') + '</span>';
+      '<h2 style="font-size:30px;line-height:1.2"><a href="' + esc(adres(a)) + '" style="text-decoration:none">' + esc(FI.t(a.tytul)) + '</a></h2>' +
+      '<p style="color:var(--inv-muted)">' + esc(FI.t(a.wstep || '')) + '</p>' +
+      '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px"><span class="small muted">' + esc(a.autor || '') + '</span>' +
+      (a.link ? '<a href="' + esc(adres(a)) + '" style="font-weight:700;padding:10px 0">' + esc(FI.t('Czytaj artykuł')) + '</a>' : '') + '</div>';
     box.innerHTML = lista.slice(1).map(function (x) {
       return '<li><div><span class="label">' + esc(FI.t(x.dzial)) + '</span><br><span class="tiny muted">' + FI.data(x.data) + '</span></div>' +
-        '<div style="display:flex;flex-direction:column;gap:6px;min-width:0"><a href="' + esc(x.link || '#') + '">' + esc(x.tytul) + '</a>' +
-        '<span class="small" style="color:var(--ink-2)">' + esc(x.wstep || '') + '</span><span class="tiny muted">' + esc(x.autor || '') + '</span></div></li>';
+        '<div style="display:flex;flex-direction:column;gap:6px;min-width:0"><a href="' + esc(adres(x)) + '">' + esc(FI.t(x.tytul)) + '</a>' +
+        '<span class="small" style="color:var(--ink-2)">' + esc(FI.t(x.wstep || '')) + '</span><span class="tiny muted">' + esc(x.autor || '') + '</span></div></li>';
     }).join('');
   }
 

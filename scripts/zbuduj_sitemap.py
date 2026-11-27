@@ -10,6 +10,7 @@ def strony():
     pl = [p.name for p in sorted(ROOT.glob("*.html")) if p.name not in POMIN]
     pl = sorted(pl, key=lambda n: (n != "index.html", n))
     analizy = ["analizy/" + p.name for p in sorted((ROOT / "analizy").glob("*.html"))]
+    analizy += ["artykuly/" + p.name for p in sorted((ROOT / "artykuly").glob("*.html"))]
     en = ["en/" + p.name for p in sorted((ROOT / "en").glob("*.html")) if p.name not in POMIN]
     en = sorted(en, key=lambda n: (n != "en/index.html", n))
     return pl, analizy, en

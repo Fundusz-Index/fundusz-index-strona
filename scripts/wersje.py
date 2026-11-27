@@ -30,7 +30,7 @@ def przepisz(html, katalog):
 
 def nieaktualne(repo=REPO, zapisz=False):
     zle = []
-    for f in sorted(list(repo.glob("*.html")) + list(repo.glob("analizy/*.html")) + list(repo.glob("en/*.html"))):
+    for f in sorted(list(repo.glob("*.html")) + list(repo.glob("analizy/*.html")) + list(repo.glob("artykuly/*.html")) + list(repo.glob("en/*.html"))):
         stary = f.read_text(encoding="utf-8")
         nowy = przepisz(stary, f.parent)
         if nowy != stary:

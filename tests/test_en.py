@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import zbuduj_en  # noqa: E402
 
-POLSKIE = sorted(list(ROOT.glob("*.html")) + list(ROOT.glob("analizy/*.html")))
+POLSKIE = sorted(list(ROOT.glob("*.html")) + list(ROOT.glob("analizy/*.html")) + list(ROOT.glob("artykuly/*.html")))
 
 
 class TestWersjaAngielska(unittest.TestCase):

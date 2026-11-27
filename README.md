@@ -92,7 +92,7 @@ Podgląd przed pushem: `python3 -m http.server 8000` w folderze strony i otwórz
 - **`transakcje.csv`**: kolumny `data` (RRRR-MM-DD), `typ` (`kupno` albo `sprzedaz`), `ticker`, `kwota_pln` albo `liczba_akcji`, `uzasadnienie`. Jeśli podasz tylko kwotę, skrypt sam policzy liczbę akcji po kursie zamknięcia z dnia transakcji. Uzasadnienie z przecinkami w cudzysłowie.
 - **`spolki.json`**: nazwa, symbol w Stooq (np. `googl.us`), sektor, link do analizy, raport PDF, autorzy.
 - **`analizy.json`**: karty na stronie Analizy. `link` prowadzi do strony analizy, `raport` daje przycisk „Pobierz raport (PDF)”. Nazwa PDF-a: `fundusz-index-<ticker>-RRRR-MM.pdf`.
-- **`artykuly.json`**: `{ "dzial": "Profit Journal", "data": "2026-11-20", "tytul": "…", "wstep": "Dwa zdania.", "autor": "Imię Nazwisko", "link": "https://…" }`.
+- **`artykuly.json`**: `{ "dzial": "Profit Journal", "data": "2026-11-20", "tytul": "…", "wstep": "Dwa zdania.", "autor": "Imię Nazwisko", "link": "https://…" }`. Pole `link` to adres zewnętrzny albo nasza strona artykułu, np. `artykuly/2026-11-ropa-ormuz-gaz.html`. Pełny artykuł na stronie najłatwiej dodać z Claude: wyślij plik Word autora, a Claude zbuduje stronę według wzoru, przerysuje wykresy i pokaże podgląd.
 - **`ogloszenie.json`**, **`kalendarz.json`**, **`ustawienia.json`**: jak w tabeli wyżej.
 - **`portfolio.json`**: liczony automatycznie, nie edytuj ręcznie.
 

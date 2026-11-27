@@ -222,6 +222,7 @@ tbody tr { border-top: 1px solid var(--line); }
 .article-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
 .article-list li { border-bottom: 1px solid var(--line); padding: 18px 0; display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 6px 20px; }
 .article-list a { text-decoration: none; font-size: 19px; font-weight: 700; line-height: 1.3; }
+.article-list:empty { display: none; }
 .empty { padding: 32px; border: 1px dashed var(--line-strong); border-radius: var(--radius); color: var(--ink-2); }
 
 /* filary */
@@ -347,6 +348,42 @@ dl.kv-disclosure dd { text-align: left; font-weight: 400; }
 .quote-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
 .quote-price { font-size: 30px; line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; }
 .quote .chg { font-weight: 700; }
+
+/* Strona artykułu (artykuly/*.html): nagłówek, kolumna tekstu, wykresy w SVG */
+.art-head { display: flex; flex-direction: column; gap: 14px; }
+.art-head h1 { font-size: clamp(28px, 4.4vw, 42px); line-height: 1.12; max-width: 900px; }
+.art-body { display: flex; flex-direction: column; gap: 20px; min-width: 0; font-size: 17px; }
+.art-body p { margin: 0; line-height: 1.65; }
+.art-body h2 { font-size: 24px; margin-top: 16px; padding-top: 18px; border-top: 2px solid var(--ink); scroll-margin-top: 24px; }
+.art-body .note { font-size: 14px; line-height: 1.5; margin-top: 16px; }
+.fig { margin: 8px 0; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; gap: 14px; font-size: 14px; }
+.fig figcaption { display: flex; flex-direction: column; gap: 4px; }
+.fig figcaption b { font-size: 17px; line-height: 1.3; }
+.fig-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 28px; align-items: end; }
+.fig-grid > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.art-body .fig-t { font-size: 14px; font-weight: 700; line-height: 1.35; }
+.art-body .fig-note { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.art-body .chart-legend { font-size: 13px; line-height: 1.4; }
+.wyk { display: block; width: 100%; height: auto; overflow: visible; }
+.wyk text { fill: var(--muted); font-size: 14px; font-family: var(--font); }
+.wyk .wv { fill: var(--ink); font-size: 15px; font-weight: 700; }
+.wyk .w-grid { stroke: var(--line); stroke-width: 1; }
+.wyk .w-base { stroke: var(--line-strong); stroke-width: 1; }
+.wyk .w-band { fill: var(--surface); }
+.wyk .w-s1 { fill: var(--s1); } .wyk .w-s2 { fill: var(--s2); } .wyk .w-s4 { fill: var(--s4); }
+.wyk .w-l1 { fill: none; stroke: var(--s1); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.wyk .w-l2 { fill: none; stroke: var(--s2); stroke-width: 2.5; stroke-dasharray: 7 5; }
+.wyk .w-dot { fill: var(--s1); }
+.wyk-k { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.wyk-k.w-s1 { background: var(--s1); } .wyk-k.w-s2 { background: var(--s2); } .wyk-k.w-s4 { background: var(--s4); }
+.wyk-k.wyk-linia, .wyk-k.wyk-przer { width: 22px; height: 0; border-radius: 0; vertical-align: middle; border-top: 3px solid var(--s1); }
+.wyk-k.wyk-przer { border-top: 3px dashed var(--s2); }
+@media (max-width: 640px) {
+  .art-body { font-size: 16px; }
+  .art-body h2 { font-size: 21px; }
+  .fig { padding: 16px 12px; }
+  .fig-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* atrybut hidden ma pierwszeństwo przed display z klas (.panel, .section, .quote) */
 [hidden] { display: none !important; }

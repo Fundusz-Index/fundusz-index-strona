@@ -246,7 +246,7 @@ class Linki(HTMLParser):
 
 
 def sprawdz_strony(r):
-    for plik in sorted(ROOT.glob("*.html")) + sorted((ROOT / "analizy").glob("*.html")) + sorted((ROOT / "en").glob("*.html")):
+    for plik in sorted(ROOT.glob("*.html")) + sorted((ROOT / "analizy").glob("*.html")) + sorted((ROOT / "artykuly").glob("*.html")) + sorted((ROOT / "en").glob("*.html")):
         tekst = plik.read_text(encoding="utf-8")
         wzgl = plik.relative_to(ROOT).as_posix()
         p = Linki()
@@ -336,7 +336,7 @@ def sprawdz_tlumaczenia(r):
     for a in lista("analizy.json") or []:
         dodaj("data/analizy.json", a, ("sektor", "data_tekst", "metoda", "pliki", "teza"))
     for a in lista("artykuly.json") or []:
-        dodaj("data/artykuly.json", a, ("dzial",))
+        dodaj("data/artykuly.json", a, ("dzial", "tytul", "wstep"))
     kalendarz = lista("kalendarz.json")
     for e in (kalendarz or {}).get("wydarzenia", []) if isinstance(kalendarz, dict) else []:
         dodaj("data/kalendarz.json", e, ("typ", "tytul", "opis"))

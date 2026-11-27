@@ -31,6 +31,17 @@ def obrazki():
             "ticker": a["ticker"] + " · " + a["sektor"],
             "dol": "Autorzy: <b>%s</b>" % a["autorzy"],
         }
+    for a in json.loads((REPO / "data" / "artykuly.json").read_text(encoding="utf-8")):
+        link = a.get("link") or ""
+        if not link.startswith("artykuly/"):
+            continue  # artykuły z linkiem na zewnątrz nie mają u nas strony
+        rok, mies, dzien = a["data"].split("-")
+        yield "artykul-" + Path(link).stem, {
+            "gora": "KNRK INDEX · UEK w Krakowie",
+            "etykieta": "%s · %s.%s.%s" % (a["dzial"], dzien, mies, rok),
+            "tytul": a["tytul"],
+            "dol": "Autor: <b>%s</b>" % a["autor"],
+        }
 
 
 async def main():
