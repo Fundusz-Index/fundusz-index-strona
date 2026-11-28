@@ -3,17 +3,20 @@
   <url>
     <loc>https://fundusz.knrkindex.pl/</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/analizy.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/analizy.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/analizy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/analizy.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/artykuly.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/artykuly.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/artykuly.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/artykuly.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/nota-prawna.html</loc>
@@ -22,6 +25,7 @@
     <loc>https://fundusz.knrkindex.pl/o-funduszu.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/o-funduszu.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/o-funduszu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/o-funduszu.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/polityka-prywatnosci.html</loc>
@@ -30,6 +34,7 @@
     <loc>https://fundusz.knrkindex.pl/portfel.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/portfel.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/portfel.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/portfel.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/regulamin-newslettera.html</loc>
@@ -53,28 +58,33 @@
     <loc>https://fundusz.knrkindex.pl/artykuly/2026-11-ropa-ormuz-gaz.html</loc>
   </url>
   <url>
-    <loc>https://fundusz.knrkindex.pl/en/index.html</loc>
+    <loc>https://fundusz.knrkindex.pl/en/</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/en/analizy.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/analizy.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/analizy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/analizy.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/en/artykuly.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/artykuly.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/artykuly.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/artykuly.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/en/o-funduszu.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/o-funduszu.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/o-funduszu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/o-funduszu.html"/>
   </url>
   <url>
     <loc>https://fundusz.knrkindex.pl/en/portfel.html</loc>
     <xhtml:link rel="alternate" hreflang="pl" href="https://fundusz.knrkindex.pl/portfel.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fundusz.knrkindex.pl/en/portfel.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fundusz.knrkindex.pl/portfel.html"/>
   </url>
 </urlset>

@@ -67,6 +67,8 @@ def znacznik(tag, teksty, bez_zmian, braki, nazwa):
         return tag.replace("pl_PL", "en_GB")
     if tag.startswith("<meta") and 'property="og:url"' in tag:
         return tag.replace("https://fundusz.knrkindex.pl/", "https://fundusz.knrkindex.pl/en/")
+    if tag.startswith("<link") and 'rel="canonical"' in tag:
+        return tag.replace("https://fundusz.knrkindex.pl/", "https://fundusz.knrkindex.pl/en/")
     if tag.startswith("<meta") and any(m in tag for m in META):
         return re.sub(r'content="([^"]*)"', lambda m: 'content="' + tlumacz(m.group(1), teksty, bez_zmian, braki, True) + '"', tag)
     if tag.startswith("<body"):

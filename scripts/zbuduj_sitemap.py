@@ -17,7 +17,12 @@ def strony():
 
 
 def adres(sciezka):
-    return ADRES if sciezka == "index.html" else ADRES + sciezka
+    """Adres kanoniczny: strona główna bez index.html (tak samo jak rel="canonical" na stronach)."""
+    if sciezka == "index.html":
+        return ADRES
+    if sciezka == "en/index.html":
+        return ADRES + "en/"
+    return ADRES + sciezka
 
 
 def tresc():
@@ -32,7 +37,9 @@ def tresc():
         linki = ""
         if para:
             linki = ("\n    <xhtml:link rel=\"alternate\" hreflang=\"pl\" href=\"%s\"/>"
-                     "\n    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"%s\"/>") % (adres(para[0]), adres(para[1]))
+                     "\n    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"%s\"/>"
+                     "\n    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"%s\"/>") % (
+                adres(para[0]), adres(para[1]), adres(para[0]))
         wpisy.append("  <url>\n    <loc>%s</loc>%s\n  </url>" % (adres(s), linki))
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'

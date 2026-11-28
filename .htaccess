@@ -13,6 +13,10 @@ Options -Indexes
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Jeden adres strony głównej dla wyszukiwarek: /index.html → /, /en/index.html → /en/
+  # (THE_REQUEST to adres wpisany przez odwiedzającego, więc nie ma pętli z DirectoryIndex)
+  RewriteCond %{THE_REQUEST} \s/+((?:en/)?)index\.html[\s?]
+  RewriteRule ^((?:en/)?)index\.html$ https://%{HTTP_HOST}/$1 [L,R=301]
 </IfModule>
 
 # Plik stanu programu wgrywającego (FTP-Deploy-Action) i inne pliki z kropką nie są publiczne
